@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "yUHU0V6wuYw=",
+  "dgSpecHash": "uvgJPtkxFd0=",
   "success": true,
-  "projectFilePath": "C:\\Users\\alla\\Desktop\\LabProject\\LabProject\\LabProject.csproj",
+  "projectFilePath": "C:\\Users\\alla\\Documents\\GitHub\\LabProject\\LabProject\\LabProject.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\alla\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.4\\microsoft.aspnetcore.openapi.9.0.4.nupkg.sha512",
     "C:\\Users\\alla\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
