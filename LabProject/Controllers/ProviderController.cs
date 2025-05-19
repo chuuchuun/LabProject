@@ -1,6 +1,8 @@
 ﻿using LabProject.Enums;
 using LabProject.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace LabProject.Controllers
 {
@@ -17,7 +19,9 @@ namespace LabProject.Controllers
         /// <summary>
         /// Gets all providers in the system.
         /// </summary>
-        /// <returns>A list of providers.</returns>
+        /// <returns>
+        /// 200 OK – A list of all providers.
+        /// </returns>
         [HttpGet]
         public ActionResult<IEnumerable<Provider>> GetProviders()
         {
@@ -27,13 +31,16 @@ namespace LabProject.Controllers
         /// <summary>
         /// Gets a specific provider by ID.
         /// </summary>
-        /// <param name="id">Provider's unique identifier.</param>
-        /// <returns>The requested provider, or 404 if not found.</returns>
+        /// <param name="id">The unique identifier of the provider.</param>
+        /// <returns>
+        /// 200 OK – The provider matching the ID.<br/>
+        /// 404 Not Found – No provider found with the given ID.
+        /// </returns>
         [HttpGet("{id}")]
-        public ActionResult<Provider> GetProviderById(int id)
+        public ActionResult<Provider> GetProviderById([FromRoute] int id)
         {
             var provider = Providers.FirstOrDefault(p => p.Id == id);
-            if (provider == null)
+            if (provider is null)
             {
                 return NotFound();
             }
@@ -43,10 +50,12 @@ namespace LabProject.Controllers
         /// <summary>
         /// Creates a new provider.
         /// </summary>
-        /// <param name="provider">The provider to create.</param>
-        /// <returns>The created provider with a generated ID.</returns>
+        /// <param name="provider">The provider data to create.</param>
+        /// <returns>
+        /// 201 Created – The created provider with its assigned ID.
+        /// </returns>
         [HttpPost]
-        public ActionResult<Provider> CreateProvider(Provider provider)
+        public ActionResult<Provider> CreateProvider([FromBody] Provider provider)
         {
             provider.Id = Providers.Any() ? Providers.Max(p => p.Id) + 1 : 1;
             Providers.Add(provider);
@@ -58,12 +67,15 @@ namespace LabProject.Controllers
         /// </summary>
         /// <param name="id">The ID of the provider to update.</param>
         /// <param name="updatedProvider">The updated provider data.</param>
-        /// <returns>The updated provider object, or 404 if not found.</returns>
+        /// <returns>
+        /// 200 OK – The updated provider.<br/>
+        /// 404 Not Found – No provider found with the given ID.
+        /// </returns>
         [HttpPut("{id}")]
-        public ActionResult UpdateProvider(int id, Provider updatedProvider)
+        public ActionResult UpdateProvider([FromRoute] int id, [FromBody] Provider updatedProvider)
         {
             var provider = Providers.FirstOrDefault(p => p.Id == id);
-            if (provider == null)
+            if (provider is null)
             {
                 return NotFound();
             }
@@ -79,19 +91,22 @@ namespace LabProject.Controllers
         /// <summary>
         /// Deletes a provider by ID.
         /// </summary>
-        /// <param name="id">Provider's unique identifier.</param>
-        /// <returns>No content if deletion is successful, or 404 if not found.</returns>
+        /// <param name="id">The unique identifier of the provider to delete.</param>
+        /// <returns>
+        /// 200 OK – Deletion successful.<br/>
+        /// 404 Not Found – No provider found with the given ID.
+        /// </returns>
         [HttpDelete("{id}")]
-        public ActionResult DeleteProvider(int id)
+        public ActionResult DeleteProvider([FromRoute] int id)
         {
             var provider = Providers.FirstOrDefault(p => p.Id == id);
-            if (provider == null)
+            if (provider is null)
             {
                 return NotFound();
             }
 
             Providers.Remove(provider);
-            return NoContent();
+            return Ok();
         }
     }
 }

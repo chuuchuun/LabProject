@@ -11,6 +11,5 @@ namespace LabProject.Models
         [Range(1, 180)]
         public int DurationMinutes { get; set; }
         public decimal Price { get; set; }
-        //public ICollection<Appointment> Appointments { get; set; }
     }
 }

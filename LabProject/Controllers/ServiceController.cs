@@ -16,7 +16,9 @@ namespace LabProject.Controllers
         /// <summary>
         /// Gets all services in the system.
         /// </summary>
-        /// <returns>A list of services.</returns>
+        /// <returns>
+        /// 200 OK – A list of all services.
+        /// </returns>
         [HttpGet]
         public ActionResult<IEnumerable<Service>> GetServices()
         {
@@ -26,13 +28,16 @@ namespace LabProject.Controllers
         /// <summary>
         /// Gets a specific service by ID.
         /// </summary>
-        /// <param name="id">Service's unique identifier.</param>
-        /// <returns>The requested service, or 404 if not found.</returns>
+        /// <param name="id">The unique identifier of the service.</param>
+        /// <returns>
+        /// 200 OK – The service matching the ID.<br/>
+        /// 404 Not Found – No service found with the given ID.
+        /// </returns>
         [HttpGet("{id}")]
-        public ActionResult<Service> GetServiceById(int id)
+        public ActionResult<Service> GetServiceById([FromRoute] int id)
         {
             var service = Services.FirstOrDefault(s => s.Id == id);
-            if (service == null)
+            if (service is null)
             {
                 return NotFound();
             }
@@ -42,10 +47,12 @@ namespace LabProject.Controllers
         /// <summary>
         /// Creates a new service.
         /// </summary>
-        /// <param name="service">The service to create.</param>
-        /// <returns>The created service with a generated ID.</returns>
+        /// <param name="service">The service data to create.</param>
+        /// <returns>
+        /// 201 Created – The created service with assigned ID.
+        /// </returns>
         [HttpPost]
-        public ActionResult<Service> CreateService(Service service)
+        public ActionResult<Service> CreateService([FromBody] Service service)
         {
             service.Id = Services.Any() ? Services.Max(s => s.Id) + 1 : 1;
             Services.Add(service);
@@ -57,12 +64,15 @@ namespace LabProject.Controllers
         /// </summary>
         /// <param name="id">The ID of the service to update.</param>
         /// <param name="updatedService">The updated service data.</param>
-        /// <returns>The updated service object, or 404 if not found.</returns>
+        /// <returns>
+        /// 200 OK – The updated service.<br/>
+        /// 404 Not Found – No service found with the given ID.
+        /// </returns>
         [HttpPut("{id}")]
-        public ActionResult UpdateService(int id, Service updatedService)
+        public ActionResult UpdateService([FromRoute] int id, [FromBody] Service updatedService)
         {
             var service = Services.FirstOrDefault(s => s.Id == id);
-            if (service == null)
+            if (service is null)
             {
                 return NotFound();
             }
@@ -78,19 +88,22 @@ namespace LabProject.Controllers
         /// <summary>
         /// Deletes a service by ID.
         /// </summary>
-        /// <param name="id">Service's unique identifier.</param>
-        /// <returns>No content if deletion is successful, or 404 if not found.</returns>
+        /// <param name="id">The unique identifier of the service to delete.</param>
+        /// <returns>
+        /// 200 OK – Deletion successful.<br/>
+        /// 404 Not Found – No service found with the given ID.
+        /// </returns>
         [HttpDelete("{id}")]
-        public ActionResult DeleteService(int id)
+        public ActionResult DeleteService([FromRoute] int id)
         {
             var service = Services.FirstOrDefault(s => s.Id == id);
-            if (service == null)
+            if (service is null)
             {
                 return NotFound();
             }
 
             Services.Remove(service);
-            return NoContent();
+            return Ok();
         }
     }
 }

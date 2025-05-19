@@ -11,7 +11,5 @@ namespace LabProject.Models
         public string EmailAddress { get; set; }
         [Phone]
         public string Phone { get; set; }
-        //public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
-        //public ICollection<Review> Reviews { get; set; } = new List<Review>();
     }
 }

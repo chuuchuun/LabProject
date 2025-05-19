@@ -18,9 +18,5 @@ namespace LabProject.Models
         public DateTime DateTime { get; set; }
         public AppointmentStatus Status { get; set; } = AppointmentStatus.Scheduled;
 
-        //public Client Client { get; set; }
-        //public Provider Provider { get; set; }
-        //public Service Service { get; set; }
-        //public Location Location { get; set; }
     }
 }

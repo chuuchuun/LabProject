@@ -28,55 +28,69 @@ namespace LabProject.Controllers
                 DatePosted = DateTime.UtcNow.AddDays(-1)
             }
         };
+
         /// <summary>
         /// Gets all reviews in the system.
         /// </summary>
-        /// <returns>A list of reviews.</returns>
+        /// <returns>
+        /// 200 OK – A list of all reviews.
+        /// </returns>
         [HttpGet]
         public ActionResult<IEnumerable<Review>> GetReviews()
         {
             return Ok(Reviews);
         }
+
         /// <summary>
         /// Gets a specific review by ID.
         /// </summary>
-        /// <param name="id">Review's unique identifier.</param>
-        /// <returns>The requested review object, or 404 if not found.</returns>
+        /// <param name="id">The unique identifier of the review.</param>
+        /// <returns>
+        /// 200 OK – The review matching the ID.<br/>
+        /// 404 Not Found – No review found with the given ID.
+        /// </returns>
         [HttpGet("{id}")]
-        public ActionResult<Review> GetReviewById(int id)
+        public ActionResult<Review> GetReviewById([FromRoute] int id)
         {
             var review = Reviews.FirstOrDefault(r => r.Id == id);
-            if (review == null)
+            if (review is null)
             {
                 return NotFound();
             }
 
             return Ok(review);
         }
+
         /// <summary>
         /// Creates a new review.
         /// </summary>
-        /// <param name="review">The review object to create.</param>
-        /// <returns>The created review with generated ID.</returns>
+        /// <param name="review">The review data to create.</param>
+        /// <returns>
+        /// 201 Created – The created review with its assigned ID.
+        /// </returns>
         [HttpPost]
-        public ActionResult<Review> CreateReview(Review review)
+        public ActionResult<Review> CreateReview([FromBody] Review review)
         {
             review.Id = Reviews.Any() ? Reviews.Max(r => r.Id) + 1 : 1;
             review.DatePosted = DateTime.UtcNow;
             Reviews.Add(review);
             return CreatedAtAction(nameof(GetReviewById), new { id = review.Id }, review);
         }
+
         /// <summary>
         /// Updates a specific review by ID.
         /// </summary>
-        /// <param name="id">Review's unique identifier.</param>
-        /// <param name="review">The review object to use for update.</param>
-        /// <returns>The updated review object.</returns>
+        /// <param name="id">The ID of the review to update.</param>
+        /// <param name="review">The updated review data.</param>
+        /// <returns>
+        /// 200 OK – The updated review.<br/>
+        /// 404 Not Found – No review found with the given ID.
+        /// </returns>
         [HttpPut("{id}")]
-        public ActionResult UpdateReview(int id, Review review)
+        public ActionResult UpdateReview([FromRoute] int id, [FromBody] Review review)
         {
             var reviewToUpdate = Reviews.FirstOrDefault(r => r.Id == id);
-            if (reviewToUpdate == null)
+            if (reviewToUpdate is null)
             {
                 return NotFound();
             }
@@ -88,22 +102,26 @@ namespace LabProject.Controllers
 
             return Ok(reviewToUpdate);
         }
+
         /// <summary>
         /// Deletes a review by ID.
         /// </summary>
-        /// <param name="id">Review's unique identifier.</param>
-        /// <returns>No content if deletion is successful.</returns>
+        /// <param name="id">The unique identifier of the review to delete.</param>
+        /// <returns>
+        /// 200 OK – Deletion successful.<br/>
+        /// 404 Not Found – No review found with the given ID.
+        /// </returns>
         [HttpDelete("{id}")]
-        public ActionResult DeleteReview(int id)
+        public ActionResult DeleteReview([FromRoute] int id)
         {
             var review = Reviews.FirstOrDefault(r => r.Id == id);
-            if (review == null)
+            if (review is null)
             {
                 return NotFound();
             }
 
             Reviews.Remove(review);
-            return NoContent();
+            return Ok();
         }
     }
 }

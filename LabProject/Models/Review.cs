@@ -19,7 +19,5 @@ namespace LabProject.Models
 
         public DateTime DatePosted { get; set; } = DateTime.UtcNow;
 
-        //public Client Client { get; set; }
-        //public Provider Provider { get; set; }
     }
 }
