@@ -17,9 +17,8 @@ namespace LabProject.Controllers
         /// <summary>
         /// Gets all appointments in the system.
         /// </summary>
-        /// <returns>
-        /// 200 OK – A list of all appointments.
-        /// </returns>
+        /// <returns>A list of all appointments.</returns>
+        /// <response code="200">Returns the list of all appointments.</response>
         [HttpGet]
         public ActionResult<IEnumerable<Appointment>> GetAppointments()
         {
@@ -29,11 +28,10 @@ namespace LabProject.Controllers
         /// <summary>
         /// Gets a specific appointment by ID.
         /// </summary>
-        /// <param name="id">Appointment's unique identifier.</param>
-        ///<returns>
-        /// 200 OK – The appointment matching the ID.<br/>
-        /// 404 Not Found – No appointment found with the given ID.
-        /// </returns>        
+        /// <param name="id">The unique identifier of the appointment.</param>
+        /// <returns>The requested appointment.</returns>
+        /// <response code="200">Returns the appointment with the given ID.</response>
+        /// <response code="404">No appointment found with the specified ID.</response>
         [HttpGet("{id}")]
         public ActionResult<Appointment> GetAppointmentById([FromRoute] int id)
         {
@@ -49,9 +47,8 @@ namespace LabProject.Controllers
         /// Creates a new appointment.
         /// </summary>
         /// <param name="appointment">The appointment object to create.</param>
-        /// <returns>
-        /// 201 Created – The created appointment with its assigned ID.
-        /// </returns>
+        /// <returns>The created appointment.</returns>
+        /// <response code="201">The appointment was created successfully.</response>
         [HttpPost]
         public ActionResult<Appointment> CreateAppointment([FromBody] Appointment appointment)
         {
@@ -65,12 +62,11 @@ namespace LabProject.Controllers
         /// </summary>
         /// <param name="id">The ID of the appointment to update.</param>
         /// <param name="updatedAppointment">The updated appointment data.</param>
-        /// <returns>
-        ///  200 OK – The updated appointment.<br/>
-        /// 404 Not Found – No appointment found with the given ID.
-        /// </returns>
+        /// <returns>The updated appointment.</returns>
+        /// <response code="200">The appointment was updated successfully.</response>
+        /// <response code="404">No appointment found with the specified ID.</response>
         [HttpPut("{id}")]
-        public ActionResult UpdateAppointment([FromRoute] int id,[FromBody] Appointment updatedAppointment)
+        public ActionResult UpdateAppointment([FromRoute] int id, [FromBody] Appointment updatedAppointment)
         {
             var appointment = Appointments.FirstOrDefault(a => a.Id == id);
             if (appointment is null)
@@ -91,11 +87,10 @@ namespace LabProject.Controllers
         /// <summary>
         /// Deletes an appointment by ID.
         /// </summary>
-        /// <param name="id">Appointment's unique identifier.</param>
-        /// <returns>
-        /// 200 Ok – Deletion successful.<br/>
-        /// 404 Not Found – No appointment found with the given ID.
-        /// </returns>
+        /// <param name="id">The unique identifier of the appointment to delete.</param>
+        /// <returns>Status of the deletion.</returns>
+        /// <response code="200">The appointment was deleted successfully.</response>
+        /// <response code="404">No appointment found with the specified ID.</response>
         [HttpDelete("{id}")]
         public ActionResult DeleteAppointment([FromRoute] int id)
         {

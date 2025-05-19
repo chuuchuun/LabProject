@@ -1,5 +1,7 @@
 ﻿using LabProject.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace LabProject.Controllers
 {
@@ -16,9 +18,8 @@ namespace LabProject.Controllers
         /// <summary>
         /// Gets all services in the system.
         /// </summary>
-        /// <returns>
-        /// 200 OK – A list of all services.
-        /// </returns>
+        /// <returns>List of all services.</returns>
+        /// <response code="200">OK – A list of all services.</response>
         [HttpGet]
         public ActionResult<IEnumerable<Service>> GetServices()
         {
@@ -29,10 +30,9 @@ namespace LabProject.Controllers
         /// Gets a specific service by ID.
         /// </summary>
         /// <param name="id">The unique identifier of the service.</param>
-        /// <returns>
-        /// 200 OK – The service matching the ID.<br/>
-        /// 404 Not Found – No service found with the given ID.
-        /// </returns>
+        /// <returns>The service matching the ID.</returns>
+        /// <response code="200">OK – The service matching the ID.</response>
+        /// <response code="404">Not Found – No service found with the given ID.</response>
         [HttpGet("{id}")]
         public ActionResult<Service> GetServiceById([FromRoute] int id)
         {
@@ -48,9 +48,8 @@ namespace LabProject.Controllers
         /// Creates a new service.
         /// </summary>
         /// <param name="service">The service data to create.</param>
-        /// <returns>
-        /// 201 Created – The created service with assigned ID.
-        /// </returns>
+        /// <returns>The created service with assigned ID.</returns>
+        /// <response code="201">Created – The created service with assigned ID.</response>
         [HttpPost]
         public ActionResult<Service> CreateService([FromBody] Service service)
         {
@@ -64,10 +63,9 @@ namespace LabProject.Controllers
         /// </summary>
         /// <param name="id">The ID of the service to update.</param>
         /// <param name="updatedService">The updated service data.</param>
-        /// <returns>
-        /// 200 OK – The updated service.<br/>
-        /// 404 Not Found – No service found with the given ID.
-        /// </returns>
+        /// <returns>The updated service.</returns>
+        /// <response code="200">OK – The updated service.</response>
+        /// <response code="404">Not Found – No service found with the given ID.</response>
         [HttpPut("{id}")]
         public ActionResult UpdateService([FromRoute] int id, [FromBody] Service updatedService)
         {
@@ -89,10 +87,9 @@ namespace LabProject.Controllers
         /// Deletes a service by ID.
         /// </summary>
         /// <param name="id">The unique identifier of the service to delete.</param>
-        /// <returns>
-        /// 200 OK – Deletion successful.<br/>
-        /// 404 Not Found – No service found with the given ID.
-        /// </returns>
+        /// <returns>Status of the deletion.</returns>
+        /// <response code="200">OK – Deletion successful.</response>
+        /// <response code="404">Not Found – No service found with the given ID.</response>
         [HttpDelete("{id}")]
         public ActionResult DeleteService([FromRoute] int id)
         {
@@ -101,7 +98,6 @@ namespace LabProject.Controllers
             {
                 return NotFound();
             }
-
             Services.Remove(service);
             return Ok();
         }

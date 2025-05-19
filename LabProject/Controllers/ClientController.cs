@@ -16,9 +16,8 @@ namespace LabProject.Controllers
         /// <summary>
         /// Gets all clients in the system.
         /// </summary>
-        /// <returns>
-        /// 200 OK – A list of all clients.
-        /// </returns>
+        /// <returns>A list of all clients.</returns>
+        /// <response code="200">Returns the list of all clients.</response>
         [HttpGet]
         public ActionResult<IEnumerable<Client>> GetClients()
         {
@@ -29,10 +28,9 @@ namespace LabProject.Controllers
         /// Gets a specific client by ID.
         /// </summary>
         /// <param name="id">The unique identifier of the client.</param>
-        /// <returns>
-        /// 200 OK – The client matching the ID.<br/>
-        /// 404 Not Found – No client found with the given ID.
-        /// </returns>
+        /// <returns>The requested client.</returns>
+        /// <response code="200">Returns the client with the given ID.</response>
+        /// <response code="404">No client found with the specified ID.</response>
         [HttpGet("{id}")]
         public ActionResult<Client> GetClientById([FromRoute] int id)
         {
@@ -48,9 +46,8 @@ namespace LabProject.Controllers
         /// Creates a new client.
         /// </summary>
         /// <param name="client">The client data to create.</param>
-        /// <returns>
-        /// 201 Created – The created client with its assigned ID.
-        /// </returns>
+        /// <returns>The created client.</returns>
+        /// <response code="201">The client was created successfully.</response>
         [HttpPost]
         public ActionResult<Client> CreateClient([FromBody] Client client)
         {
@@ -64,10 +61,9 @@ namespace LabProject.Controllers
         /// </summary>
         /// <param name="id">The ID of the client to update.</param>
         /// <param name="client">The updated client data.</param>
-        /// <returns>
-        /// 200 OK – The updated client.<br/>
-        /// 404 Not Found – No client found with the given ID.
-        /// </returns>
+        /// <returns>The updated client.</returns>
+        /// <response code="200">The client was updated successfully.</response>
+        /// <response code="404">No client found with the specified ID.</response>
         [HttpPut("{id}")]
         public ActionResult UpdateClient([FromRoute] int id, [FromBody] Client client)
         {
@@ -86,10 +82,9 @@ namespace LabProject.Controllers
         /// Deletes a client by its ID.
         /// </summary>
         /// <param name="id">The unique identifier of the client to delete.</param>
-        /// <returns>
-        /// 200 OK – Deletion successful.<br/>
-        /// 404 Not Found – No client found with the given ID.
-        /// </returns>
+        /// <returns>Status of the deletion.</returns>
+        /// <response code="200">The client was deleted successfully.</response>
+        /// <response code="404">No client found with the specified ID.</response>
         [HttpDelete("{id}")]
         public ActionResult DeleteClient([FromRoute] int id)
         {

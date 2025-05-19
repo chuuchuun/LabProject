@@ -1,5 +1,8 @@
 ﻿using LabProject.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace LabProject.Controllers
 {
@@ -32,9 +35,8 @@ namespace LabProject.Controllers
         /// <summary>
         /// Gets all reviews in the system.
         /// </summary>
-        /// <returns>
-        /// 200 OK – A list of all reviews.
-        /// </returns>
+        /// <returns>A list of all reviews.</returns>
+        /// <response code="200">Returns all reviews.</response>
         [HttpGet]
         public ActionResult<IEnumerable<Review>> GetReviews()
         {
@@ -45,10 +47,9 @@ namespace LabProject.Controllers
         /// Gets a specific review by ID.
         /// </summary>
         /// <param name="id">The unique identifier of the review.</param>
-        /// <returns>
-        /// 200 OK – The review matching the ID.<br/>
-        /// 404 Not Found – No review found with the given ID.
-        /// </returns>
+        /// <returns>The review matching the ID.</returns>
+        /// <response code="200">Returns the review with the specified ID.</response>
+        /// <response code="404">No review found with the specified ID.</response>
         [HttpGet("{id}")]
         public ActionResult<Review> GetReviewById([FromRoute] int id)
         {
@@ -65,9 +66,8 @@ namespace LabProject.Controllers
         /// Creates a new review.
         /// </summary>
         /// <param name="review">The review data to create.</param>
-        /// <returns>
-        /// 201 Created – The created review with its assigned ID.
-        /// </returns>
+        /// <returns>The created review with its assigned ID.</returns>
+        /// <response code="201">The review was created successfully.</response>
         [HttpPost]
         public ActionResult<Review> CreateReview([FromBody] Review review)
         {
@@ -82,10 +82,9 @@ namespace LabProject.Controllers
         /// </summary>
         /// <param name="id">The ID of the review to update.</param>
         /// <param name="review">The updated review data.</param>
-        /// <returns>
-        /// 200 OK – The updated review.<br/>
-        /// 404 Not Found – No review found with the given ID.
-        /// </returns>
+        /// <returns>The updated review.</returns>
+        /// <response code="200">The review was updated successfully.</response>
+        /// <response code="404">No review found with the specified ID.</response>
         [HttpPut("{id}")]
         public ActionResult UpdateReview([FromRoute] int id, [FromBody] Review review)
         {
@@ -99,7 +98,6 @@ namespace LabProject.Controllers
             reviewToUpdate.ProviderId = review.ProviderId;
             reviewToUpdate.Rating = review.Rating;
             reviewToUpdate.Comment = review.Comment;
-
             return Ok(reviewToUpdate);
         }
 
@@ -107,10 +105,9 @@ namespace LabProject.Controllers
         /// Deletes a review by ID.
         /// </summary>
         /// <param name="id">The unique identifier of the review to delete.</param>
-        /// <returns>
-        /// 200 OK – Deletion successful.<br/>
-        /// 404 Not Found – No review found with the given ID.
-        /// </returns>
+        /// <returns>Status of the deletion.</returns>
+        /// <response code="200">The review was deleted successfully.</response>
+        /// <response code="404">No review found with the specified ID.</response>
         [HttpDelete("{id}")]
         public ActionResult DeleteReview([FromRoute] int id)
         {

@@ -19,9 +19,8 @@ namespace LabProject.Controllers
         /// <summary>
         /// Gets all providers in the system.
         /// </summary>
-        /// <returns>
-        /// 200 OK – A list of all providers.
-        /// </returns>
+        /// <returns>A list of all providers.</returns>
+        /// <response code="200">Returns the list of providers.</response>
         [HttpGet]
         public ActionResult<IEnumerable<Provider>> GetProviders()
         {
@@ -32,10 +31,9 @@ namespace LabProject.Controllers
         /// Gets a specific provider by ID.
         /// </summary>
         /// <param name="id">The unique identifier of the provider.</param>
-        /// <returns>
-        /// 200 OK – The provider matching the ID.<br/>
-        /// 404 Not Found – No provider found with the given ID.
-        /// </returns>
+        /// <returns>The provider matching the ID.</returns>
+        /// <response code="200">Returns the provider with the specified ID.</response>
+        /// <response code="404">No provider found with the specified ID.</response>
         [HttpGet("{id}")]
         public ActionResult<Provider> GetProviderById([FromRoute] int id)
         {
@@ -51,9 +49,8 @@ namespace LabProject.Controllers
         /// Creates a new provider.
         /// </summary>
         /// <param name="provider">The provider data to create.</param>
-        /// <returns>
-        /// 201 Created – The created provider with its assigned ID.
-        /// </returns>
+        /// <returns>The created provider with its assigned ID.</returns>
+        /// <response code="201">The provider was created successfully.</response>
         [HttpPost]
         public ActionResult<Provider> CreateProvider([FromBody] Provider provider)
         {
@@ -67,10 +64,9 @@ namespace LabProject.Controllers
         /// </summary>
         /// <param name="id">The ID of the provider to update.</param>
         /// <param name="updatedProvider">The updated provider data.</param>
-        /// <returns>
-        /// 200 OK – The updated provider.<br/>
-        /// 404 Not Found – No provider found with the given ID.
-        /// </returns>
+        /// <returns>The updated provider.</returns>
+        /// <response code="200">The provider was updated successfully.</response>
+        /// <response code="404">No provider found with the specified ID.</response>
         [HttpPut("{id}")]
         public ActionResult UpdateProvider([FromRoute] int id, [FromBody] Provider updatedProvider)
         {
@@ -92,10 +88,9 @@ namespace LabProject.Controllers
         /// Deletes a provider by ID.
         /// </summary>
         /// <param name="id">The unique identifier of the provider to delete.</param>
-        /// <returns>
-        /// 200 OK – Deletion successful.<br/>
-        /// 404 Not Found – No provider found with the given ID.
-        /// </returns>
+        /// <returns>Status of the deletion.</returns>
+        /// <response code="200">The provider was deleted successfully.</response>
+        /// <response code="404">No provider found with the specified ID.</response>
         [HttpDelete("{id}")]
         public ActionResult DeleteProvider([FromRoute] int id)
         {
