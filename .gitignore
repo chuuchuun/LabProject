@@ -1,0 +1,48 @@
+## Ignore Visual Studio user-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Ignore Visual Studio 2015+ cache directory
+.vs/
+
+## Ignore build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Dd]ebug*/
+[Rr]elease*/
+
+## Ignore test results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+## Ignore NuGet packages
+*.nupkg
+/packages/
+*.nuget.props
+*.nuget.targets
+
+## Ignore Click-Once publish directory
+publish/
+
+## Ignore Azure publish settings
+*.publishproj
+*.azurePubxml
+#*.pubxml
+PublishScripts/
+
+## Ignore temporary files
+*.tmp
+*.log
+
+## Ignore database files
+*.mdf
+*.ldf
+
+## Ignore VSCode settings (optional, if you're using VSCode too)
+.vscode/
+
+## OS-specific files
+.DS_Store

@@ -1,0 +1,296 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LabProject</name>
+    </assembly>
+    <members>
+        <member name="M:LabProject.Controllers.AppointmentController.GetAppointments">
+            <summary>
+            Gets all appointments in the system.
+            </summary>
+            <returns>
+            200 OK – A list of all appointments.
+            </returns>
+        </member>
+        <member name="M:LabProject.Controllers.AppointmentController.GetAppointmentById(System.Int32)">
+             <summary>
+             Gets a specific appointment by ID.
+             </summary>
+             <param name="id">Appointment's unique identifier.</param>
+            <returns>
+             200 OK – The appointment matching the ID.<br/>
+             404 Not Found – No appointment found with the given ID.
+             </returns>        
+        </member>
+        <member name="M:LabProject.Controllers.AppointmentController.CreateAppointment(LabProject.Models.Appointment)">
+            <summary>
+            Creates a new appointment.
+            </summary>
+            <param name="appointment">The appointment object to create.</param>
+            <returns>
+            201 Created – The created appointment with its assigned ID.
+            </returns>
+        </member>
+        <member name="M:LabProject.Controllers.AppointmentController.UpdateAppointment(System.Int32,LabProject.Models.Appointment)">
+            <summary>
+            Updates an existing appointment.
+            </summary>
+            <param name="id">The ID of the appointment to update.</param>
+            <param name="updatedAppointment">The updated appointment data.</param>
+            <returns>
+             200 OK – The updated appointment.<br/>
+            404 Not Found – No appointment found with the given ID.
+            </returns>
+        </member>
+        <member name="M:LabProject.Controllers.AppointmentController.DeleteAppointment(System.Int32)">
+            <summary>
+            Deletes an appointment by ID.
+            </summary>
+            <param name="id">Appointment's unique identifier.</param>
+            <returns>
+            200 Ok – Deletion successful.<br/>
+            404 Not Found – No appointment found with the given ID.
+            </returns>
+        </member>
+        <member name="M:LabProject.Controllers.ClientController.GetClients">
+            <summary>
+            Gets all clients in the system.
+            </summary>
+            <returns>
+            200 OK – A list of all clients.
+            </returns>
+        </member>
+        <member name="M:LabProject.Controllers.ClientController.GetClientById(System.Int32)">
+            <summary>
+            Gets a specific client by ID.
+            </summary>
+            <param name="id">The unique identifier of the client.</param>
+            <returns>
+            200 OK – The client matching the ID.<br/>
+            404 Not Found – No client found with the given ID.
+            </returns>
+        </member>
+        <member name="M:LabProject.Controllers.ClientController.CreateClient(LabProject.Models.Client)">
+            <summary>
+            Creates a new client.
+            </summary>
+            <param name="client">The client data to create.</param>
+            <returns>
+            201 Created – The created client with its assigned ID.
+            </returns>
+        </member>
+        <member name="M:LabProject.Controllers.ClientController.UpdateClient(System.Int32,LabProject.Models.Client)">
+            <summary>
+            Updates an existing client.
+            </summary>
+            <param name="id">The ID of the client to update.</param>
+            <param name="client">The updated client data.</param>
+            <returns>
+            200 OK – The updated client.<br/>
+            404 Not Found – No client found with the given ID.
+            </returns>
+        </member>
+        <member name="M:LabProject.Controllers.ClientController.DeleteClient(System.Int32)">
+            <summary>
+            Deletes a client by its ID.
+            </summary>
+            <param name="id">The unique identifier of the client to delete.</param>
+            <returns>
+            200 OK – Deletion successful.<br/>
+            404 Not Found – No client found with the given ID.
+            </returns>
+        </member>
+        <member name="M:LabProject.Controllers.ProviderController.GetProviders">
+            <summary>
+            Gets all providers in the system.
+            </summary>
+            <returns>
+            200 OK – A list of all providers.
+            </returns>
+        </member>
+        <member name="M:LabProject.Controllers.ProviderController.GetProviderById(System.Int32)">
+            <summary>
+            Gets a specific provider by ID.
+            </summary>
+            <param name="id">The unique identifier of the provider.</param>
+            <returns>
+            200 OK – The provider matching the ID.<br/>
+            404 Not Found – No provider found with the given ID.
+            </returns>
+        </member>
+        <member name="M:LabProject.Controllers.ProviderController.CreateProvider(LabProject.Models.Provider)">
+            <summary>
+            Creates a new provider.
+            </summary>
+            <param name="provider">The provider data to create.</param>
+            <returns>
+            201 Created – The created provider with its assigned ID.
+            </returns>
+        </member>
+        <member name="M:LabProject.Controllers.ProviderController.UpdateProvider(System.Int32,LabProject.Models.Provider)">
+            <summary>
+            Updates an existing provider.
+            </summary>
+            <param name="id">The ID of the provider to update.</param>
+            <param name="updatedProvider">The updated provider data.</param>
+            <returns>
+            200 OK – The updated provider.<br/>
+            404 Not Found – No provider found with the given ID.
+            </returns>
+        </member>
+        <member name="M:LabProject.Controllers.ProviderController.DeleteProvider(System.Int32)">
+            <summary>
+            Deletes a provider by ID.
+            </summary>
+            <param name="id">The unique identifier of the provider to delete.</param>
+            <returns>
+            200 OK – Deletion successful.<br/>
+            404 Not Found – No provider found with the given ID.
+            </returns>
+        </member>
+        <member name="M:LabProject.Controllers.ReviewController.GetReviews">
+            <summary>
+            Gets all reviews in the system.
+            </summary>
+            <returns>
+            200 OK – A list of all reviews.
+            </returns>
+        </member>
+        <member name="M:LabProject.Controllers.ReviewController.GetReviewById(System.Int32)">
+            <summary>
+            Gets a specific review by ID.
+            </summary>
+            <param name="id">The unique identifier of the review.</param>
+            <returns>
+            200 OK – The review matching the ID.<br/>
+            404 Not Found – No review found with the given ID.
+            </returns>
+        </member>
+        <member name="M:LabProject.Controllers.ReviewController.CreateReview(LabProject.Models.Review)">
+            <summary>
+            Creates a new review.
+            </summary>
+            <param name="review">The review data to create.</param>
+            <returns>
+            201 Created – The created review with its assigned ID.
+            </returns>
+        </member>
+        <member name="M:LabProject.Controllers.ReviewController.UpdateReview(System.Int32,LabProject.Models.Review)">
+            <summary>
+            Updates a specific review by ID.
+            </summary>
+            <param name="id">The ID of the review to update.</param>
+            <param name="review">The updated review data.</param>
+            <returns>
+            200 OK – The updated review.<br/>
+            404 Not Found – No review found with the given ID.
+            </returns>
+        </member>
+        <member name="M:LabProject.Controllers.ReviewController.DeleteReview(System.Int32)">
+            <summary>
+            Deletes a review by ID.
+            </summary>
+            <param name="id">The unique identifier of the review to delete.</param>
+            <returns>
+            200 OK – Deletion successful.<br/>
+            404 Not Found – No review found with the given ID.
+            </returns>
+        </member>
+        <member name="M:LabProject.Controllers.ServiceController.GetServices">
+            <summary>
+            Gets all services in the system.
+            </summary>
+            <returns>
+            200 OK – A list of all services.
+            </returns>
+        </member>
+        <member name="M:LabProject.Controllers.ServiceController.GetServiceById(System.Int32)">
+            <summary>
+            Gets a specific service by ID.
+            </summary>
+            <param name="id">The unique identifier of the service.</param>
+            <returns>
+            200 OK – The service matching the ID.<br/>
+            404 Not Found – No service found with the given ID.
+            </returns>
+        </member>
+        <member name="M:LabProject.Controllers.ServiceController.CreateService(LabProject.Models.Service)">
+            <summary>
+            Creates a new service.
+            </summary>
+            <param name="service">The service data to create.</param>
+            <returns>
+            201 Created – The created service with assigned ID.
+            </returns>
+        </member>
+        <member name="M:LabProject.Controllers.ServiceController.UpdateService(System.Int32,LabProject.Models.Service)">
+            <summary>
+            Updates an existing service.
+            </summary>
+            <param name="id">The ID of the service to update.</param>
+            <param name="updatedService">The updated service data.</param>
+            <returns>
+            200 OK – The updated service.<br/>
+            404 Not Found – No service found with the given ID.
+            </returns>
+        </member>
+        <member name="M:LabProject.Controllers.ServiceController.DeleteService(System.Int32)">
+            <summary>
+            Deletes a service by ID.
+            </summary>
+            <param name="id">The unique identifier of the service to delete.</param>
+            <returns>
+            200 OK – Deletion successful.<br/>
+            404 Not Found – No service found with the given ID.
+            </returns>
+        </member>
+        <member name="M:LocationController.GetLocations">
+            <summary>
+            Gets all locations in the system.
+            </summary>
+            <returns>
+            200 OK – A list of all locations.
+            </returns>
+        </member>
+        <member name="M:LocationController.GetLocationById(System.Int32)">
+            <summary>
+            Retrieves a specific location by its ID.
+            </summary>
+            <param name="id">The unique identifier of the location.</param>
+            <returns>
+            200 OK – The location matching the ID.<br/>
+            404 Not Found – No location found with the given ID.
+            </returns>
+        </member>
+        <member name="M:LocationController.CreateLocation(LabProject.Models.Location)">
+            <summary>
+            Creates a new location.
+            </summary>
+            <param name="location">The location data to create.</param>
+            <returns>
+            201 Created – The  created location with its assigned ID.
+            </returns>
+        </member>
+        <member name="M:LocationController.UpdateLocation(System.Int32,LabProject.Models.Location)">
+            <summary>
+            Updates an existing location.
+            </summary>
+            <param name="id">The ID of the location to update.</param>
+            <param name="location">The updated location data.</param>
+            <returns>
+            200 OK – The updated location.<br/>
+            404 Not Found – No location found with the given ID.
+            </returns>
+        </member>
+        <member name="M:LocationController.DeleteLocation(System.Int32)">
+            <summary>
+            Deletes a location by its ID.
+            </summary>
+            <param name="id">The unique identifier of the location to delete.</param>
+            <returns>
+            200 Ok – Deletion successful.<br/>
+            404 Not Found – No location found with the given ID.
+            </returns>
+        </member>
+    </members>
+</doc>
