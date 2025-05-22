@@ -6,12 +6,13 @@ namespace LabProject.Models
     public class Provider
     {
         public int Id { get; set; }
+
         [Required]
-        public string Name { get; set; }
+        public required string Name { get; set; }
         public ProviderSpecialty Specialty { get; set; } = ProviderSpecialty.General;
         [EmailAddress]
-        public string Email { get; set; }
+        public required string Email { get; set; }
         [Phone]
-        public string Phone { get; set; }
+        public required string Phone { get; set; }
     }
 }

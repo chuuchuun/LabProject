@@ -8,23 +8,22 @@
     ".NETCoreApp,Version=v9.0": {
       "LabProject/1.0.0": {
         "dependencies": {
-          "Microsoft.AspNetCore.OpenApi": "9.0.4",
+          "Microsoft.AspNetCore.OpenApi": "9.0.5",
           "Microsoft.CodeAnalysis.Analyzers": "4.14.0",
-          "Swashbuckle.AspNetCore": "8.1.1",
-          "System.Collections.Immutable": "9.0.0"
+          "Swashbuckle.AspNetCore": "8.1.1"
         },
         "runtime": {
           "LabProject.dll": {}
         }
       },
-      "Microsoft.AspNetCore.OpenApi/9.0.4": {
+      "Microsoft.AspNetCore.OpenApi/9.0.5": {
         "dependencies": {
           "Microsoft.OpenApi": "1.6.23"
         },
         "runtime": {
           "lib/net9.0/Microsoft.AspNetCore.OpenApi.dll": {
-            "assemblyVersion": "9.0.4.0",
-            "fileVersion": "9.0.425.16403"
+            "assemblyVersion": "9.0.5.0",
+            "fileVersion": "9.0.525.22904"
           }
         }
       },
@@ -75,8 +74,7 @@
             "fileVersion": "8.1.1.1274"
           }
         }
-      },
-      "System.Collections.Immutable/9.0.0": {}
+      }
     }
   },
   "libraries": {
@@ -85,12 +83,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Microsoft.AspNetCore.OpenApi/9.0.4": {
+    "Microsoft.AspNetCore.OpenApi/9.0.5": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-GfZWPbZz1aAtEO3wGCkpeyRc0gzr/+VRHnUgY/YjqVPDlHbeKWCXw3IxKarQdo9myC2O1QBf652Mo50QqbXYRg==",
-      "path": "microsoft.aspnetcore.openapi/9.0.4",
-      "hashPath": "microsoft.aspnetcore.openapi.9.0.4.nupkg.sha512"
+      "sha512": "sha512-yZLOciYlpaOO/mHPOpgeSZTv8Lc7fOOVX40eWJJoGs/S9Ny9CymDuKKQofGE9stXGGM9EEnnuPeq0fhR8kdFfg==",
+      "path": "microsoft.aspnetcore.openapi/9.0.5",
+      "hashPath": "microsoft.aspnetcore.openapi.9.0.5.nupkg.sha512"
     },
     "Microsoft.CodeAnalysis.Analyzers/4.14.0": {
       "type": "package",
@@ -140,13 +138,6 @@
       "sha512": "sha512-GDLX/MpK4oa2nYC1N/zN2UidQTtVKLPF6gkdEmGb0RITEwpJG9Gu8olKqPYnKqVeFn44JZoCS0M2LGRKXP8B/A==",
       "path": "swashbuckle.aspnetcore.swaggerui/8.1.1",
       "hashPath": "swashbuckle.aspnetcore.swaggerui.8.1.1.nupkg.sha512"
-    },
-    "System.Collections.Immutable/9.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-QhkXUl2gNrQtvPmtBTQHb0YsUrDiDQ2QS09YbtTTiSjGcf7NBqtYbrG/BE06zcBPCKEwQGzIv13IVdXNOSub2w==",
-      "path": "system.collections.immutable/9.0.0",
-      "hashPath": "system.collections.immutable.9.0.0.nupkg.sha512"
     }
   }
 }

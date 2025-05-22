@@ -6,10 +6,10 @@ namespace LabProject.Models
     {
         public int Id { get; set; }
         [Required]
-        public string Name { get; set; }
+        public required string Name { get; set; }
         [EmailAddress]
-        public string EmailAddress { get; set; }
+        public required string EmailAddress { get; set; }
         [Phone]
-        public string Phone { get; set; }
+        public required string Phone { get; set; }
     }
 }
