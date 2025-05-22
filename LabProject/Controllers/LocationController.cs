@@ -7,11 +7,11 @@ namespace LabProject.Controllers
     [ApiController]
     public class LocationController : ControllerBase
     {
-        private static List<Location> Locations = new List<Location>
-        {
+        private static readonly List<Location> Locations =
+        [
             new Location {Id = 1, Name = "Best Beauty", Address = "Main street 12", City = "Gdansk", Phone = "123456789"},
             new Location {Id = 2, Name = "New you", Address = "City square", City = "Warsaw", Phone = "987654321"},
-        };
+        ];
 
         /// <summary>
         /// Gets all locations in the system.
@@ -51,7 +51,7 @@ namespace LabProject.Controllers
         [HttpPost]
         public ActionResult<Location> CreateLocation([FromBody] Location location)
         {
-            location.Id = Locations.Any() ? Locations.Max(l => l.Id) + 1 : 1;
+            location.Id = Locations.Count != 0 ? Locations.Max(l => l.Id) + 1 : 1;
             Locations.Add(location);
             return CreatedAtAction(nameof(GetLocationById), new { id = location.Id }, location);
         }

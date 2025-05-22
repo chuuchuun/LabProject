@@ -9,7 +9,9 @@
       "LabProject/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.OpenApi": "9.0.4",
-          "Swashbuckle.AspNetCore": "8.1.1"
+          "Microsoft.CodeAnalysis.Analyzers": "4.14.0",
+          "Swashbuckle.AspNetCore": "8.1.1",
+          "System.Collections.Immutable": "9.0.0"
         },
         "runtime": {
           "LabProject.dll": {}
@@ -26,6 +28,7 @@
           }
         }
       },
+      "Microsoft.CodeAnalysis.Analyzers/4.14.0": {},
       "Microsoft.Extensions.ApiDescription.Server/6.0.5": {},
       "Microsoft.OpenApi/1.6.23": {
         "runtime": {
@@ -72,7 +75,8 @@
             "fileVersion": "8.1.1.1274"
           }
         }
-      }
+      },
+      "System.Collections.Immutable/9.0.0": {}
     }
   },
   "libraries": {
@@ -87,6 +91,13 @@
       "sha512": "sha512-GfZWPbZz1aAtEO3wGCkpeyRc0gzr/+VRHnUgY/YjqVPDlHbeKWCXw3IxKarQdo9myC2O1QBf652Mo50QqbXYRg==",
       "path": "microsoft.aspnetcore.openapi/9.0.4",
       "hashPath": "microsoft.aspnetcore.openapi.9.0.4.nupkg.sha512"
+    },
+    "Microsoft.CodeAnalysis.Analyzers/4.14.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-fCj+MzjJxN/4iYAz7JPLONGKeTomaZNzx4UgGA0AerTrx4Ou6Rw2J5YF4V51vWW+aSQSCv1nnAkCZUw5Z9+3zw==",
+      "path": "microsoft.codeanalysis.analyzers/4.14.0",
+      "hashPath": "microsoft.codeanalysis.analyzers.4.14.0.nupkg.sha512"
     },
     "Microsoft.Extensions.ApiDescription.Server/6.0.5": {
       "type": "package",
@@ -129,6 +140,13 @@
       "sha512": "sha512-GDLX/MpK4oa2nYC1N/zN2UidQTtVKLPF6gkdEmGb0RITEwpJG9Gu8olKqPYnKqVeFn44JZoCS0M2LGRKXP8B/A==",
       "path": "swashbuckle.aspnetcore.swaggerui/8.1.1",
       "hashPath": "swashbuckle.aspnetcore.swaggerui.8.1.1.nupkg.sha512"
+    },
+    "System.Collections.Immutable/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-QhkXUl2gNrQtvPmtBTQHb0YsUrDiDQ2QS09YbtTTiSjGcf7NBqtYbrG/BE06zcBPCKEwQGzIv13IVdXNOSub2w==",
+      "path": "system.collections.immutable/9.0.0",
+      "hashPath": "system.collections.immutable.9.0.0.nupkg.sha512"
     }
   }
 }

@@ -10,11 +10,11 @@ namespace LabProject.Controllers
     [ApiController]
     public class ProviderController : ControllerBase
     {
-        private static List<Provider> Providers = new List<Provider>
-        {
+        private static readonly List<Provider> Providers =
+        [
             new Provider { Id = 1, Name = "Alice Smith", Email = "alice@example.com", Phone = "123456789", Specialty = ProviderSpecialty.HairStylist },
             new Provider { Id = 2, Name = "John Doe", Email = "john@example.com", Phone = "987654321", Specialty = ProviderSpecialty.Dentist }
-        };
+        ];
 
         /// <summary>
         /// Gets all providers in the system.
@@ -54,7 +54,7 @@ namespace LabProject.Controllers
         [HttpPost]
         public ActionResult<Provider> CreateProvider([FromBody] Provider provider)
         {
-            provider.Id = Providers.Any() ? Providers.Max(p => p.Id) + 1 : 1;
+            provider.Id = Providers.Count != 0 ? Providers.Max(p => p.Id) + 1 : 1;
             Providers.Add(provider);
             return CreatedAtAction(nameof(GetProviderById), new { id = provider.Id }, provider);
         }
