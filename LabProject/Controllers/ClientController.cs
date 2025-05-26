@@ -7,11 +7,11 @@ namespace LabProject.Controllers
     [ApiController]
     public class ClientController : ControllerBase
     {
-        private static List<Client> Clients = new List<Client>
-        {
+        private static readonly List<Client> Clients = 
+        [
             new Client {Id = 1, Name = "Mary Sue", EmailAddress = "mary@gmail.com", Phone = "123456789"},
             new Client {Id = 2, Name = "Jane Doe", EmailAddress = "jane@gmail.com", Phone = "987654321"}
-        };
+        ];
 
         /// <summary>
         /// Gets all clients in the system.
@@ -51,7 +51,7 @@ namespace LabProject.Controllers
         [HttpPost]
         public ActionResult<Client> CreateClient([FromBody] Client client)
         {
-            client.Id = Clients.Any() ? Clients.Max(c => c.Id) + 1 : 1;
+            client.Id = Clients.Count != 0 ? Clients.Max(c => c.Id) + 1 : 1;
             Clients.Add(client);
             return CreatedAtAction(nameof(GetClientById), new { id = client.Id }, client);
         }

@@ -10,8 +10,8 @@ namespace LabProject.Controllers
     [ApiController]
     public class ReviewController : ControllerBase
     {
-        private static List<Review> Reviews = new List<Review>
-        {
+        private static readonly List<Review> Reviews =
+        [
             new Review
             {
                 Id = 1,
@@ -30,7 +30,7 @@ namespace LabProject.Controllers
                 Comment = "Very good experience.",
                 DatePosted = DateTime.UtcNow.AddDays(-1)
             }
-        };
+        ];
 
         /// <summary>
         /// Gets all reviews in the system.
@@ -71,7 +71,7 @@ namespace LabProject.Controllers
         [HttpPost]
         public ActionResult<Review> CreateReview([FromBody] Review review)
         {
-            review.Id = Reviews.Any() ? Reviews.Max(r => r.Id) + 1 : 1;
+            review.Id = Reviews.Count != 0 ? Reviews.Max(r => r.Id) + 1 : 1;
             review.DatePosted = DateTime.UtcNow;
             Reviews.Add(review);
             return CreatedAtAction(nameof(GetReviewById), new { id = review.Id }, review);

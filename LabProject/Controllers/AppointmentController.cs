@@ -8,11 +8,11 @@ namespace LabProject.Controllers
     [ApiController]
     public class AppointmentController : ControllerBase
     {
-        private static List<Appointment> Appointments = new List<Appointment>
-        {
+        private static readonly List<Appointment> Appointments =
+            [
             new Appointment { Id = 1, ClientId = 1, ProviderId = 1, ServiceId = 1, LocationId = 1, DateTime = DateTime.Today, Status = AppointmentStatus.Completed },
             new Appointment { Id = 2, ClientId = 2, ProviderId = 1, ServiceId = 2, LocationId = 1, DateTime = DateTime.Today.AddDays(1) }
-        };
+            ];
 
         /// <summary>
         /// Gets all appointments in the system.
@@ -52,7 +52,7 @@ namespace LabProject.Controllers
         [HttpPost]
         public ActionResult<Appointment> CreateAppointment([FromBody] Appointment appointment)
         {
-            appointment.Id = Appointments.Any() ? Appointments.Max(a => a.Id) + 1 : 1;
+            appointment.Id = Appointments.Count != 0 ? Appointments.Max(a => a.Id) + 1 : 1;
             Appointments.Add(appointment);
             return CreatedAtAction(nameof(GetAppointmentById), new { id = appointment.Id }, appointment);
         }

@@ -8,24 +8,26 @@
     ".NETCoreApp,Version=v9.0": {
       "LabProject/1.0.0": {
         "dependencies": {
-          "Microsoft.AspNetCore.OpenApi": "9.0.4",
+          "Microsoft.AspNetCore.OpenApi": "9.0.5",
+          "Microsoft.CodeAnalysis.Analyzers": "4.14.0",
           "Swashbuckle.AspNetCore": "8.1.1"
         },
         "runtime": {
           "LabProject.dll": {}
         }
       },
-      "Microsoft.AspNetCore.OpenApi/9.0.4": {
+      "Microsoft.AspNetCore.OpenApi/9.0.5": {
         "dependencies": {
           "Microsoft.OpenApi": "1.6.23"
         },
         "runtime": {
           "lib/net9.0/Microsoft.AspNetCore.OpenApi.dll": {
-            "assemblyVersion": "9.0.4.0",
-            "fileVersion": "9.0.425.16403"
+            "assemblyVersion": "9.0.5.0",
+            "fileVersion": "9.0.525.22904"
           }
         }
       },
+      "Microsoft.CodeAnalysis.Analyzers/4.14.0": {},
       "Microsoft.Extensions.ApiDescription.Server/6.0.5": {},
       "Microsoft.OpenApi/1.6.23": {
         "runtime": {
@@ -81,12 +83,19 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Microsoft.AspNetCore.OpenApi/9.0.4": {
+    "Microsoft.AspNetCore.OpenApi/9.0.5": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-GfZWPbZz1aAtEO3wGCkpeyRc0gzr/+VRHnUgY/YjqVPDlHbeKWCXw3IxKarQdo9myC2O1QBf652Mo50QqbXYRg==",
-      "path": "microsoft.aspnetcore.openapi/9.0.4",
-      "hashPath": "microsoft.aspnetcore.openapi.9.0.4.nupkg.sha512"
+      "sha512": "sha512-yZLOciYlpaOO/mHPOpgeSZTv8Lc7fOOVX40eWJJoGs/S9Ny9CymDuKKQofGE9stXGGM9EEnnuPeq0fhR8kdFfg==",
+      "path": "microsoft.aspnetcore.openapi/9.0.5",
+      "hashPath": "microsoft.aspnetcore.openapi.9.0.5.nupkg.sha512"
+    },
+    "Microsoft.CodeAnalysis.Analyzers/4.14.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-fCj+MzjJxN/4iYAz7JPLONGKeTomaZNzx4UgGA0AerTrx4Ou6Rw2J5YF4V51vWW+aSQSCv1nnAkCZUw5Z9+3zw==",
+      "path": "microsoft.codeanalysis.analyzers/4.14.0",
+      "hashPath": "microsoft.codeanalysis.analyzers.4.14.0.nupkg.sha512"
     },
     "Microsoft.Extensions.ApiDescription.Server/6.0.5": {
       "type": "package",

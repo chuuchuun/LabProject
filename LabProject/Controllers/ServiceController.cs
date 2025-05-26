@@ -9,11 +9,11 @@ namespace LabProject.Controllers
     [ApiController]
     public class ServiceController : ControllerBase
     {
-        private static List<Service> Services = new List<Service>
-        {
+        private static readonly List<Service> Services =
+        [
             new Service { Id = 1, Name = "Haircut", Description = "Basic haircut service", DurationMinutes = 30, Price = 25.00m },
             new Service { Id = 2, Name = "Teeth Cleaning", Description = "Dental cleaning procedure", DurationMinutes = 45, Price = 75.00m }
-        };
+        ];
 
         /// <summary>
         /// Gets all services in the system.
@@ -53,7 +53,7 @@ namespace LabProject.Controllers
         [HttpPost]
         public ActionResult<Service> CreateService([FromBody] Service service)
         {
-            service.Id = Services.Any() ? Services.Max(s => s.Id) + 1 : 1;
+            service.Id = Services.Count != 0 ? Services.Max(s => s.Id) + 1 : 1;
             Services.Add(service);
             return CreatedAtAction(nameof(GetServiceById), new { id = service.Id }, service);
         }
