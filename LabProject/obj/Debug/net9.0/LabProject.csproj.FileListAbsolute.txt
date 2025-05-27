@@ -49,6 +49,12 @@ C:\Users\alla\Documents\GitHub\LabProject\LabProject\bin\Debug\net9.0\Microsoft.
 C:\Users\alla\Documents\GitHub\LabProject\LabProject\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\alla\Documents\GitHub\LabProject\LabProject\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\alla\Documents\GitHub\LabProject\LabProject\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\alla\Documents\GitHub\LabProject\LabProject\bin\Debug\net9.0\LabProject.Application.dll
+C:\Users\alla\Documents\GitHub\LabProject\LabProject\bin\Debug\net9.0\LabProject.Domain.dll
+C:\Users\alla\Documents\GitHub\LabProject\LabProject\bin\Debug\net9.0\LabProject.Infrastructure.dll
+C:\Users\alla\Documents\GitHub\LabProject\LabProject\bin\Debug\net9.0\LabProject.Application.pdb
+C:\Users\alla\Documents\GitHub\LabProject\LabProject\bin\Debug\net9.0\LabProject.Domain.pdb
+C:\Users\alla\Documents\GitHub\LabProject\LabProject\bin\Debug\net9.0\LabProject.Infrastructure.pdb
 C:\Users\alla\Documents\GitHub\LabProject\LabProject\obj\Debug\net9.0\LabProject.csproj.AssemblyReference.cache
 C:\Users\alla\Documents\GitHub\LabProject\LabProject\obj\Debug\net9.0\LabProject.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\alla\Documents\GitHub\LabProject\LabProject\obj\Debug\net9.0\LabProject.AssemblyInfoInputs.cache
@@ -67,6 +73,7 @@ C:\Users\alla\Documents\GitHub\LabProject\LabProject\obj\Debug\net9.0\staticweba
 C:\Users\alla\Documents\GitHub\LabProject\LabProject\obj\Debug\net9.0\staticwebassets\msbuild.buildMultiTargeting.LabProject.props
 C:\Users\alla\Documents\GitHub\LabProject\LabProject\obj\Debug\net9.0\staticwebassets\msbuild.buildTransitive.LabProject.props
 C:\Users\alla\Documents\GitHub\LabProject\LabProject\obj\Debug\net9.0\staticwebassets.pack.json
+C:\Users\alla\Documents\GitHub\LabProject\LabProject\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 C:\Users\alla\Documents\GitHub\LabProject\LabProject\obj\Debug\net9.0\LabProject.csproj.Up2Date
 C:\Users\alla\Documents\GitHub\LabProject\LabProject\obj\Debug\net9.0\LabProject.dll
 C:\Users\alla\Documents\GitHub\LabProject\LabProject\obj\Debug\net9.0\refint\LabProject.dll
@@ -74,4 +81,3 @@ C:\Users\alla\Documents\GitHub\LabProject\LabProject\obj\Debug\net9.0\LabProject
 C:\Users\alla\Documents\GitHub\LabProject\LabProject\obj\Debug\net9.0\LabProject.pdb
 C:\Users\alla\Documents\GitHub\LabProject\LabProject\obj\Debug\net9.0\LabProject.genruntimeconfig.cache
 C:\Users\alla\Documents\GitHub\LabProject\LabProject\obj\Debug\net9.0\ref\LabProject.dll
-C:\Users\alla\Documents\GitHub\LabProject\LabProject\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

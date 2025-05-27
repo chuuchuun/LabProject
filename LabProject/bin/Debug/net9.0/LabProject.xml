@@ -20,7 +20,7 @@
             <response code="200">Returns the appointment with the given ID.</response>
             <response code="404">No appointment found with the specified ID.</response>
         </member>
-        <member name="M:LabProject.Controllers.AppointmentController.CreateAppointment(LabProject.Models.Appointment)">
+        <member name="M:LabProject.Controllers.AppointmentController.CreateAppointment(LabProject.Domain.Entities.Appointment)">
             <summary>
             Creates a new appointment.
             </summary>
@@ -28,7 +28,7 @@
             <returns>The created appointment.</returns>
             <response code="201">The appointment was created successfully.</response>
         </member>
-        <member name="M:LabProject.Controllers.AppointmentController.UpdateAppointment(System.Int32,LabProject.Models.Appointment)">
+        <member name="M:LabProject.Controllers.AppointmentController.UpdateAppointment(System.Int32,LabProject.Domain.Entities.Appointment)">
             <summary>
             Updates an existing appointment.
             </summary>
@@ -63,7 +63,7 @@
             <response code="200">Returns the client with the given ID.</response>
             <response code="404">No client found with the specified ID.</response>
         </member>
-        <member name="M:LabProject.Controllers.ClientController.CreateClient(LabProject.Models.Client)">
+        <member name="M:LabProject.Controllers.ClientController.CreateClient(LabProject.Domain.Entities.User)">
             <summary>
             Creates a new client.
             </summary>
@@ -71,7 +71,7 @@
             <returns>The created client.</returns>
             <response code="201">The client was created successfully.</response>
         </member>
-        <member name="M:LabProject.Controllers.ClientController.UpdateClient(System.Int32,LabProject.Models.Client)">
+        <member name="M:LabProject.Controllers.ClientController.UpdateClient(System.Int32,LabProject.Domain.Entities.User)">
             <summary>
             Updates an existing client.
             </summary>
@@ -106,7 +106,7 @@
             <response code="200">Returns the location with the specified ID.</response>
             <response code="404">No location found with the specified ID.</response>
         </member>
-        <member name="M:LabProject.Controllers.LocationController.CreateLocation(LabProject.Models.Location)">
+        <member name="M:LabProject.Controllers.LocationController.CreateLocation(LabProject.Domain.Entities.Location)">
             <summary>
             Creates a new location.
             </summary>
@@ -114,7 +114,7 @@
             <returns>The created location.</returns>
             <response code="201">The location was created successfully.</response>
         </member>
-        <member name="M:LabProject.Controllers.LocationController.UpdateLocation(System.Int32,LabProject.Models.Location)">
+        <member name="M:LabProject.Controllers.LocationController.UpdateLocation(System.Int32,LabProject.Domain.Entities.Location)">
             <summary>
             Updates an existing location.
             </summary>
@@ -149,7 +149,7 @@
             <response code="200">Returns the provider with the specified ID.</response>
             <response code="404">No provider found with the specified ID.</response>
         </member>
-        <member name="M:LabProject.Controllers.ProviderController.CreateProvider(LabProject.Models.Provider)">
+        <member name="M:LabProject.Controllers.ProviderController.CreateProvider(LabProject.Domain.Entities.User)">
             <summary>
             Creates a new provider.
             </summary>
@@ -157,7 +157,7 @@
             <returns>The created provider with its assigned ID.</returns>
             <response code="201">The provider was created successfully.</response>
         </member>
-        <member name="M:LabProject.Controllers.ProviderController.UpdateProvider(System.Int32,LabProject.Models.Provider)">
+        <member name="M:LabProject.Controllers.ProviderController.UpdateProvider(System.Int32,LabProject.Domain.Entities.User)">
             <summary>
             Updates an existing provider.
             </summary>

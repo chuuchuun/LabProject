@@ -1,8 +1,8 @@
 {
   "Version": 1,
-  "Hash": "QmKctl411bSzkubO2wlzbPe32trKNb9yX34FFuevWSQ=",
-  "Source": "LabProject",
-  "BasePath": "_content/LabProject",
+  "Hash": "/Jtjdt3PziqA3n6DKsFPt6taSiLS4XSTFmKQshdcXC8=",
+  "Source": "LabProject.Presentation",
+  "BasePath": "_content/LabProject.Presentation",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],

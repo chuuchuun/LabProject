@@ -1,10 +1,10 @@
-﻿using LabProject.Models;
+﻿using LabProject.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace LabProject.Controllers
+namespace LabProject.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -16,7 +16,7 @@ namespace LabProject.Controllers
             {
                 Id = 1,
                 ClientId = 1,
-                ProviderId = 1,
+                AppointmentId = 1,
                 Rating = 5,
                 Comment = "Excellent service!",
                 DatePosted = DateTime.UtcNow
@@ -25,7 +25,7 @@ namespace LabProject.Controllers
             {
                 Id = 2,
                 ClientId = 2,
-                ProviderId = 1,
+                AppointmentId = 1,
                 Rating = 4,
                 Comment = "Very good experience.",
                 DatePosted = DateTime.UtcNow.AddDays(-1)
@@ -95,7 +95,7 @@ namespace LabProject.Controllers
             }
 
             reviewToUpdate.ClientId = review.ClientId;
-            reviewToUpdate.ProviderId = review.ProviderId;
+            reviewToUpdate.AppointmentId = review.AppointmentId;
             reviewToUpdate.Rating = review.Rating;
             reviewToUpdate.Comment = review.Comment;
             return Ok(reviewToUpdate);

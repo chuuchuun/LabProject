@@ -1,8 +1,8 @@
-﻿using LabProject.Enums;
-using LabProject.Models;
+﻿using LabProject.Domain.Entities;
+using LabProject.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LabProject.Controllers
+namespace LabProject.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

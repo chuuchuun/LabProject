@@ -1,16 +1,16 @@
-﻿using LabProject.Models;
+﻿using LabProject.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LabProject.Controllers
+namespace LabProject.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class ClientController : ControllerBase
     {
-        private static readonly List<Client> Clients = 
+        private static readonly List<User> Clients = 
         [
-            new Client {Id = 1, Name = "Mary Sue", EmailAddress = "mary@gmail.com", Phone = "123456789"},
-            new Client {Id = 2, Name = "Jane Doe", EmailAddress = "jane@gmail.com", Phone = "987654321"}
+            new User {Id = 1, Name = "Mary Sue", PasswordHash = "sfojfsfq3", Email = "mary@gmail.com", Phone = "123456789", Username ="mary"},
+            new User {Id = 2, Name = "Jane Doe", PasswordHash = "addads", Email = "jane@gmail.com", Phone = "987654321", Username ="jane"}
         ];
 
         /// <summary>
@@ -19,7 +19,7 @@ namespace LabProject.Controllers
         /// <returns>A list of all clients.</returns>
         /// <response code="200">Returns the list of all clients.</response>
         [HttpGet]
-        public ActionResult<IEnumerable<Client>> GetClients()
+        public ActionResult<IEnumerable<User>> GetClients()
         {
             return Ok(Clients);
         }
@@ -32,7 +32,7 @@ namespace LabProject.Controllers
         /// <response code="200">Returns the client with the given ID.</response>
         /// <response code="404">No client found with the specified ID.</response>
         [HttpGet("{id}")]
-        public ActionResult<Client> GetClientById([FromRoute] int id)
+        public ActionResult<User> GetClientById([FromRoute] int id)
         {
             var client = Clients.FirstOrDefault(c => c.Id == id);
             if (client is null)
@@ -49,7 +49,7 @@ namespace LabProject.Controllers
         /// <returns>The created client.</returns>
         /// <response code="201">The client was created successfully.</response>
         [HttpPost]
-        public ActionResult<Client> CreateClient([FromBody] Client client)
+        public ActionResult<User> CreateClient([FromBody] User client)
         {
             client.Id = Clients.Count != 0 ? Clients.Max(c => c.Id) + 1 : 1;
             Clients.Add(client);
@@ -65,7 +65,7 @@ namespace LabProject.Controllers
         /// <response code="200">The client was updated successfully.</response>
         /// <response code="404">No client found with the specified ID.</response>
         [HttpPut("{id}")]
-        public ActionResult UpdateClient([FromRoute] int id, [FromBody] Client client)
+        public ActionResult UpdateClient([FromRoute] int id, [FromBody] User client)
         {
             var clientToUpdate = Clients.FirstOrDefault(c => c.Id == id);
             if (clientToUpdate is null)
@@ -73,7 +73,7 @@ namespace LabProject.Controllers
                 return NotFound();
             }
             clientToUpdate.Name = client.Name;
-            clientToUpdate.EmailAddress = client.EmailAddress;
+            clientToUpdate.Email = client.Email;
             clientToUpdate.Phone = client.Phone;
             return Ok(clientToUpdate);
         }

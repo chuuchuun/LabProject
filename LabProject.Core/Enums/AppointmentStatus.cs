@@ -1,4 +1,4 @@
-﻿namespace LabProject.Enums
+﻿namespace LabProject.Domain.Enums
 {
     public enum AppointmentStatus
     {
