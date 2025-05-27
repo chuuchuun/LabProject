@@ -13,8 +13,8 @@ namespace LabProject.Presentation.Controllers
     {
         private static readonly List<User> Providers =
         [
-            new User { Id = 1, Name = "Alice Smith", Email = "alice@example.com", Phone = "123456789", ProviderSpecialties = [] },
-            new User { Id = 2, Name = "John Doe", Email = "john@example.com", Phone = "987654321", ProviderSpecialties = [] }
+            new User { Id = 1, Name = "Alice Smith", PasswordHash =" sdifojaiflj", Email = "alice@example.com", Phone = "123456789", ProviderSpecialties = [] , Username = "alice"},
+            new User { Id = 2, Name = "John Doe", PasswordHash = " sgdgsd", Email = "john@example.com", Phone = "987654321", ProviderSpecialties = [] , Username = "john"}
         ];
 
         /// <summary>
