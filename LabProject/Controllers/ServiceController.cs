@@ -1,9 +1,9 @@
-﻿using LabProject.Models;
+﻿using LabProject.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace LabProject.Controllers
+namespace LabProject.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

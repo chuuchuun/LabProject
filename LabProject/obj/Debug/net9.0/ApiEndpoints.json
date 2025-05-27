@@ -9,7 +9,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Models.Appointment, LabProject, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Domain.Entities.Appointment, LabProject.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -29,13 +29,13 @@
     "Parameters": [
       {
         "Name": "appointment",
-        "Type": "LabProject.Models.Appointment",
+        "Type": "LabProject.Domain.Entities.Appointment",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "LabProject.Models.Appointment",
+        "Type": "LabProject.Domain.Entities.Appointment",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -61,7 +61,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "LabProject.Models.Appointment",
+        "Type": "LabProject.Domain.Entities.Appointment",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -86,7 +86,7 @@
       },
       {
         "Name": "updatedAppointment",
-        "Type": "LabProject.Models.Appointment",
+        "Type": "LabProject.Domain.Entities.Appointment",
         "IsRequired": true
       }
     ],
@@ -118,7 +118,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Models.Client, LabProject, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Domain.Entities.User, LabProject.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -138,13 +138,13 @@
     "Parameters": [
       {
         "Name": "client",
-        "Type": "LabProject.Models.Client",
+        "Type": "LabProject.Domain.Entities.User",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "LabProject.Models.Client",
+        "Type": "LabProject.Domain.Entities.User",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -153,22 +153,6 @@
         "StatusCode": 200
       }
     ]
-  },
-  {
-    "ContainingType": "LabProject.Controllers.ClientController",
-    "Method": "DeleteClient",
-    "RelativePath": "api/Client",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
   },
   {
     "ContainingType": "LabProject.Controllers.ClientController",
@@ -186,7 +170,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "LabProject.Models.Client",
+        "Type": "LabProject.Domain.Entities.User",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -211,7 +195,23 @@
       },
       {
         "Name": "client",
-        "Type": "LabProject.Models.Client",
+        "Type": "LabProject.Domain.Entities.User",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "LabProject.Controllers.ClientController",
+    "Method": "DeleteClient",
+    "RelativePath": "api/Client/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
@@ -227,7 +227,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Models.Location, LabProject, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Domain.Entities.Location, LabProject.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -247,13 +247,13 @@
     "Parameters": [
       {
         "Name": "location",
-        "Type": "LabProject.Models.Location",
+        "Type": "LabProject.Domain.Entities.Location",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "LabProject.Models.Location",
+        "Type": "LabProject.Domain.Entities.Location",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -279,7 +279,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "LabProject.Models.Location",
+        "Type": "LabProject.Domain.Entities.Location",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -304,7 +304,7 @@
       },
       {
         "Name": "location",
-        "Type": "LabProject.Models.Location",
+        "Type": "LabProject.Domain.Entities.Location",
         "IsRequired": true
       }
     ],
@@ -336,7 +336,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Models.Provider, LabProject, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Domain.Interfaces.IProvider, LabProject.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -356,13 +356,13 @@
     "Parameters": [
       {
         "Name": "provider",
-        "Type": "LabProject.Models.Provider",
+        "Type": "LabProject.Domain.Entities.User",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "LabProject.Models.Provider",
+        "Type": "LabProject.Domain.Entities.User",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -388,7 +388,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "LabProject.Models.Provider",
+        "Type": "LabProject.Domain.Interfaces.IProvider",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -413,7 +413,7 @@
       },
       {
         "Name": "updatedProvider",
-        "Type": "LabProject.Models.Provider",
+        "Type": "LabProject.Domain.Entities.User",
         "IsRequired": true
       }
     ],
@@ -445,7 +445,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Models.Review, LabProject, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Domain.Entities.Review, LabProject.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -465,13 +465,13 @@
     "Parameters": [
       {
         "Name": "review",
-        "Type": "LabProject.Models.Review",
+        "Type": "LabProject.Domain.Entities.Review",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "LabProject.Models.Review",
+        "Type": "LabProject.Domain.Entities.Review",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -497,7 +497,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "LabProject.Models.Review",
+        "Type": "LabProject.Domain.Entities.Review",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -522,7 +522,7 @@
       },
       {
         "Name": "review",
-        "Type": "LabProject.Models.Review",
+        "Type": "LabProject.Domain.Entities.Review",
         "IsRequired": true
       }
     ],
@@ -545,7 +545,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "LabProject.Controllers.ServiceController",
+    "ContainingType": "LabProject.Presentation.Controllers.ServiceController",
     "Method": "GetServices",
     "RelativePath": "api/Service",
     "HttpMethod": "GET",
@@ -554,7 +554,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Models.Service, LabProject, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Domain.Entities.Service, LabProject.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -565,7 +565,7 @@
     ]
   },
   {
-    "ContainingType": "LabProject.Controllers.ServiceController",
+    "ContainingType": "LabProject.Presentation.Controllers.ServiceController",
     "Method": "CreateService",
     "RelativePath": "api/Service",
     "HttpMethod": "POST",
@@ -574,13 +574,13 @@
     "Parameters": [
       {
         "Name": "service",
-        "Type": "LabProject.Models.Service",
+        "Type": "LabProject.Domain.Entities.Service",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "LabProject.Models.Service",
+        "Type": "LabProject.Domain.Entities.Service",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -591,7 +591,7 @@
     ]
   },
   {
-    "ContainingType": "LabProject.Controllers.ServiceController",
+    "ContainingType": "LabProject.Presentation.Controllers.ServiceController",
     "Method": "GetServiceById",
     "RelativePath": "api/Service/{id}",
     "HttpMethod": "GET",
@@ -606,7 +606,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "LabProject.Models.Service",
+        "Type": "LabProject.Domain.Entities.Service",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -617,7 +617,7 @@
     ]
   },
   {
-    "ContainingType": "LabProject.Controllers.ServiceController",
+    "ContainingType": "LabProject.Presentation.Controllers.ServiceController",
     "Method": "UpdateService",
     "RelativePath": "api/Service/{id}",
     "HttpMethod": "PUT",
@@ -631,14 +631,14 @@
       },
       {
         "Name": "updatedService",
-        "Type": "LabProject.Models.Service",
+        "Type": "LabProject.Domain.Entities.Service",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "LabProject.Controllers.ServiceController",
+    "ContainingType": "LabProject.Presentation.Controllers.ServiceController",
     "Method": "DeleteService",
     "RelativePath": "api/Service/{id}",
     "HttpMethod": "DELETE",
