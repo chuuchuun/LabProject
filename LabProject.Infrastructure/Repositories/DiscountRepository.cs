@@ -1,0 +1,74 @@
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Data;
+using Dapper;
+using LabProject.Domain.Entities;
+using LabProject.Infrastructure.Interfaces;
+
+public class DiscountRepository : IRepository<Discount>
+{
+    private readonly IDbConnectionFactory _dbFactory;
+
+    public DiscountRepository(IDbConnectionFactory dbFactory)
+    {
+        _dbFactory = dbFactory;
+    }
+
+    public async Task<IEnumerable<Discount>> GetAllAsync()
+    {
+        using var connection = _dbFactory.CreateConnection();
+        const string query = "SELECT * FROM marketing.Discounts";
+        return await connection.QueryAsync<Discount>(query);
+    }
+
+    public async Task<Discount?> GetByIdAsync(long id)
+    {
+        using var connection = _dbFactory.CreateConnection();
+        const string query = "SELECT * FROM marketing.Discounts WHERE Id = @Id";
+        return await connection.QueryFirstOrDefaultAsync<Discount>(query, new { Id = id });
+    }
+
+    public async Task<long> AddAsync(Discount entity)
+    {
+        using var connection = _dbFactory.CreateConnection();
+        const string query = @"
+            INSERT INTO marketing.Discounts (ClientId, Title, Value, Description, ValidUntil)
+            VALUES (@ClientId, @Title, @Value, @Description, @ValidUntil);
+            SELECT CAST(SCOPE_IDENTITY() as bigint);";
+
+        return await connection.ExecuteScalarAsync<long>(query, entity);
+    }
+
+    public async Task<bool> UpdateAsync(long id, Discount entity)
+    {
+        using var connection = _dbFactory.CreateConnection();
+        const string query = @"
+            UPDATE marketing.Discounts
+            SET ClientId = @ClientId,
+                Title = @Title,
+                Value = @Value,
+                Description = @Description,
+                ValidUntil = @ValidUntil
+            WHERE Id = @Id;";
+
+        var rowsAffected = await connection.ExecuteAsync(query, new
+        {
+            Id = id,
+            entity.ClientId,
+            entity.Title,
+            entity.Value,
+            entity.Description,
+            entity.ValidUntil
+        });
+
+        return rowsAffected > 0;
+    }
+
+    public async Task<bool> DeleteAsync(long id)
+    {
+        using var connection = _dbFactory.CreateConnection();
+        const string query = "DELETE FROM marketing.Discounts WHERE Id = @Id";
+        var rowsAffected = await connection.ExecuteAsync(query, new { Id = id });
+        return rowsAffected > 0;
+    }
+}
