@@ -7,14 +7,9 @@ using LabProject.Infrastructure.Interfaces;
 
 namespace LabProject.Infrastructure.Repositories
 {
-    public class UserRepository : IRepository<User>
+    public class UserRepository(IDbConnectionFactory connectionFactory) : IRepository<User>
     {
-        private readonly IDbConnectionFactory _connectionFactory;
-
-        public UserRepository(IDbConnectionFactory connectionFactory)
-        {
-            _connectionFactory = connectionFactory;
-        }
+        private readonly IDbConnectionFactory _connectionFactory = connectionFactory;
 
         public async Task<IEnumerable<User>> GetAllAsync()
         {

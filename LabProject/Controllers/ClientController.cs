@@ -7,10 +7,10 @@ namespace LabProject.Presentation.Controllers
     [ApiController]
     public class ClientController : ControllerBase
     {
-        private static readonly List<User> Clients = 
+        private static readonly List<Client> Clients = 
         [
-            new User {Id = 1, Name = "Mary Sue", PasswordHash = "sfojfsfq3", Email = "mary@gmail.com", Phone = "123456789", Username ="mary"},
-            new User {Id = 2, Name = "Jane Doe", PasswordHash = "addads", Email = "jane@gmail.com", Phone = "987654321", Username ="jane"}
+            new Client {User = new User{Id = 1, Name = "Mary Sue", PasswordHash = "sfojfsfq3", Email = "mary@gmail.com", Phone = "123456789", Username ="mary"} },
+            new Client {User = new User {Id = 2, Name = "Jane Doe", PasswordHash = "addads", Email = "jane@gmail.com", Phone = "987654321", Username ="jane"} }
         ];
 
         /// <summary>
@@ -19,7 +19,7 @@ namespace LabProject.Presentation.Controllers
         /// <returns>A list of all clients.</returns>
         /// <response code="200">Returns the list of all clients.</response>
         [HttpGet]
-        public ActionResult<IEnumerable<User>> GetClients()
+        public ActionResult<IEnumerable<Client>> GetClients()
         {
             return Ok(Clients);
         }
@@ -32,9 +32,9 @@ namespace LabProject.Presentation.Controllers
         /// <response code="200">Returns the client with the given ID.</response>
         /// <response code="404">No client found with the specified ID.</response>
         [HttpGet("{id}")]
-        public ActionResult<User> GetClientById([FromRoute] int id)
+        public ActionResult<Client> GetClientById([FromRoute] int id)
         {
-            var client = Clients.FirstOrDefault(c => c.Id == id);
+            var client = Clients.FirstOrDefault(c => c.User.Id == id);
             if (client is null)
             {
                 return NotFound();
@@ -49,11 +49,11 @@ namespace LabProject.Presentation.Controllers
         /// <returns>The created client.</returns>
         /// <response code="201">The client was created successfully.</response>
         [HttpPost]
-        public ActionResult<User> CreateClient([FromBody] User client)
+        public ActionResult<Client> CreateClient([FromBody] Client client)
         {
-            client.Id = Clients.Count != 0 ? Clients.Max(c => c.Id) + 1 : 1;
+            client.User.Id = Clients.Count != 0 ? Clients.Max(c => c.User.Id) + 1 : 1;
             Clients.Add(client);
-            return CreatedAtAction(nameof(GetClientById), new { id = client.Id }, client);
+            return CreatedAtAction(nameof(GetClientById), new { id = client.User.Id }, client);
         }
 
         /// <summary>
@@ -65,16 +65,16 @@ namespace LabProject.Presentation.Controllers
         /// <response code="200">The client was updated successfully.</response>
         /// <response code="404">No client found with the specified ID.</response>
         [HttpPut("{id}")]
-        public ActionResult UpdateClient([FromRoute] int id, [FromBody] User client)
+        public ActionResult UpdateClient([FromRoute] int id, [FromBody] Client client)
         {
-            var clientToUpdate = Clients.FirstOrDefault(c => c.Id == id);
+            var clientToUpdate = Clients.FirstOrDefault(c => c.User.Id == id);
             if (clientToUpdate is null)
             {
                 return NotFound();
             }
-            clientToUpdate.Name = client.Name;
-            clientToUpdate.Email = client.Email;
-            clientToUpdate.Phone = client.Phone;
+            clientToUpdate.User.Name = client.User.Name;
+            clientToUpdate.User.Email = client.User.Email;
+            clientToUpdate.User.Phone = client.User.Phone;
             return Ok(clientToUpdate);
         }
 
@@ -88,7 +88,7 @@ namespace LabProject.Presentation.Controllers
         [HttpDelete("{id}")]
         public ActionResult DeleteClient([FromRoute] int id)
         {
-            var client = Clients.FirstOrDefault(c => c.Id == id);
+            var client = Clients.FirstOrDefault(c => c.User.Id == id);
             if (client is null)
             {
                 return NotFound();
