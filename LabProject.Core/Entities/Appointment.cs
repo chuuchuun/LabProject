@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using LabProject.Domain.Enums;
-using LabProject.Domain.Interfaces;
 
 namespace LabProject.Domain.Entities
 {

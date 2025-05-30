@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using LabProject.Domain.Entities;
 using LabProject.Domain.Enums;
 
-namespace LabProject.Infrastructure.Interfaces
+namespace LabProject.Domain.Interfaces
 {
     public interface IRepository<T> where T : class
     {

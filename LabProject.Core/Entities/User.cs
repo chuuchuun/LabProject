@@ -2,11 +2,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using LabProject.Domain.Enums;
-using LabProject.Domain.Interfaces;
 
 namespace LabProject.Domain.Entities
 {
-    public class User : IUser
+    public class User : BaseEntity
     {
         public long Id { get; set; }
 
@@ -32,6 +31,18 @@ namespace LabProject.Domain.Entities
         [Required]
         public int RoleId { get; set; }
         public Role? Role { get; set; }
-       
+
+
+        public virtual ICollection<Appointment>? AppointmentsAsProvider { get; set; }
+        public virtual ICollection<User>? FavouritesAsProvider { get; set; }
+        public virtual ICollection<Service>? ProviderServices { get; set; }
+        public virtual ICollection<Location>? ProviderLocations { get; set; }
+        public virtual ICollection<ProviderSpecialty>? ProviderSpecialties { get; set; }
+
+
+        public virtual ICollection<Appointment>? AppointmentsAsClient { get; set; }
+        public virtual ICollection<Review>? Reviews { get; set; }
+        public virtual ICollection<Discount>? Discounts { get; set; }
+        public virtual ICollection<User>? FavouritesAsClient { get; set; }
     }
 }

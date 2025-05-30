@@ -3,6 +3,9 @@ using LabProject.Infrastructure;
 using Microsoft.OpenApi.Models;
 using LabProject.Domain.Entities;
 using LabProject.Infrastructure.Repositories;
+using LabProject.Domain.Interfaces;
+using LabProject.Application.Interfaces;
+using LabProject.Application.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +34,16 @@ builder.Services.AddScoped<IRepository<Review>, ReviewRepository>();
 builder.Services.AddScoped<IRepository<Role>, RoleRepository>();
 builder.Services.AddScoped<IRepository<Service>, ServiceRepository>();
 builder.Services.AddScoped<IRepository<User>,  UserRepository>();
+
+builder.Services.AddScoped<IBaseService<Appointment>, AppointmentService>();
+builder.Services.AddScoped<IBaseService<Discount>, DiscountService>();
+builder.Services.AddScoped<IBaseService<Location>, LocationService>();
+builder.Services.AddScoped<IBaseService<Payment>, PaymentService>();
+builder.Services.AddScoped<IBaseService<PaymentDiscount>, PaymentDiscountService>();
+builder.Services.AddScoped<IBaseService<Review>, ReviewService>();
+builder.Services.AddScoped<IBaseService<Role>, RoleService>();
+builder.Services.AddScoped<IBaseService<Service>, ServiceService>();
+builder.Services.AddScoped<IBaseService<User>, UserService>();
 
 var app = builder.Build();
 

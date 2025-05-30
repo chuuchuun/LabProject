@@ -1,6 +1,5 @@
 ﻿using LabProject.Domain.Enums;
 using LabProject.Domain.Entities;
-using LabProject.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +10,10 @@ namespace LabProject.Presentation.Controllers
     [ApiController]
     public class ProviderController : ControllerBase
     {
-        private static readonly List<Provider> Providers =
+        private static readonly List<User> Providers =
         [
-            new Provider { User = new User{ Id = 1, Name = "Alice Smith", PasswordHash =" sdifojaiflj", Email = "alice@example.com", Phone = "123456789",  Username = "alice" }, ProviderServices = [], ProviderLocations = [] },
-            new Provider {User = new User { Id = 2, Name = "John Doe", PasswordHash = " sgdgsd", Email = "john@example.com", Phone = "987654321", Username = "john" }, ProviderServices =[], ProviderLocations =[]}
-        ];
+            new User { Id = 1, Name = "Alice Smith", PasswordHash =" sdifojaiflj", Email = "alice@example.com", Phone = "123456789",  Username = "alice" },
+            new User { Id = 2, Name = "John Doe", PasswordHash = " sgdgsd", Email = "john@example.com", Phone = "987654321", Username = "john" }   ];
 
         /// <summary>
         /// Gets all providers in the system.
@@ -23,7 +21,7 @@ namespace LabProject.Presentation.Controllers
         /// <returns>A list of all providers.</returns>
         /// <response code="200">Returns the list of providers.</response>
         [HttpGet]
-        public ActionResult<IEnumerable<IProvider>> GetProviders()
+        public ActionResult<IEnumerable<User>> GetProviders()
         {
             return Ok(Providers);
         }
@@ -36,9 +34,9 @@ namespace LabProject.Presentation.Controllers
         /// <response code="200">Returns the provider with the specified ID.</response>
         /// <response code="404">No provider found with the specified ID.</response>
         [HttpGet("{id}")]
-        public ActionResult<IProvider> GetProviderById([FromRoute] int id)
+        public ActionResult<User> GetProviderById([FromRoute] int id)
         {
-            var provider = Providers.FirstOrDefault(p => p.User.Id == id);
+            var provider = Providers.FirstOrDefault(p => p.Id == id);
             if (provider is null)
             {
                 return NotFound();
@@ -53,11 +51,11 @@ namespace LabProject.Presentation.Controllers
         /// <returns>The created provider with its assigned ID.</returns>
         /// <response code="201">The provider was created successfully.</response>
         [HttpPost]
-        public ActionResult<Provider> CreateProvider([FromBody] Provider provider)
+        public ActionResult<User> CreateProvider([FromBody] User provider)
         {
-            provider.User.Id = Providers.Count != 0 ? Providers.Max(p => p.User.Id) + 1 : 1;
+            provider.Id = Providers.Count != 0 ? Providers.Max(p => p.Id) + 1 : 1;
             Providers.Add(provider);
-            return CreatedAtAction(nameof(GetProviderById), new { id = provider.User.Id }, provider);
+            return CreatedAtAction(nameof(GetProviderById), new { id = provider.Id }, provider);
         }
 
         /// <summary>
@@ -69,15 +67,15 @@ namespace LabProject.Presentation.Controllers
         /// <response code="200">The provider was updated successfully.</response>
         /// <response code="404">No provider found with the specified ID.</response>
         [HttpPut("{id}")]
-        public ActionResult UpdateProvider([FromRoute] int id, [FromBody] Provider updatedProvider)
+        public ActionResult UpdateProvider([FromRoute] int id, [FromBody] User updatedProvider)
         {
-            var provider = Providers.FirstOrDefault(p => p.User.Id == id);
+            var provider = Providers.FirstOrDefault(p => p.Id == id);
             if (provider is null)
                 return NotFound();
 
-            provider.User.Name = updatedProvider.User.Name;
-            provider.User.Email = updatedProvider.User.Email;
-            provider.User.Phone = updatedProvider.User.Phone;
+            provider.Name = updatedProvider.Name;
+            provider.Email =  updatedProvider.Email;
+            provider.Phone = updatedProvider.Phone;
             provider.ProviderSpecialties = updatedProvider.ProviderSpecialties;
 
             return Ok(provider);
@@ -93,7 +91,7 @@ namespace LabProject.Presentation.Controllers
         [HttpDelete("{id}")]
         public ActionResult DeleteProvider([FromRoute] int id)
         {
-            var provider = Providers.FirstOrDefault(p => p.User.Id == id);
+            var provider = Providers.FirstOrDefault(p => p.Id == id);
             if (provider is null)
             {
                 return NotFound();
