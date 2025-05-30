@@ -1,6 +1,5 @@
 ﻿using LabProject.Domain.Enums;
 using LabProject.Domain.Entities;
-using LabProject.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +12,8 @@ namespace LabProject.Presentation.Controllers
     {
         private static readonly List<User> Providers =
         [
-            new User { Id = 1, Name = "Alice Smith", PasswordHash =" sdifojaiflj", Email = "alice@example.com", Phone = "123456789", ProviderSpecialties = [] , Username = "alice"},
-            new User { Id = 2, Name = "John Doe", PasswordHash = " sgdgsd", Email = "john@example.com", Phone = "987654321", ProviderSpecialties = [] , Username = "john"}
-        ];
+            new User { Id = 1, Name = "Alice Smith", PasswordHash =" sdifojaiflj", Email = "alice@example.com", Phone = "123456789",  Username = "alice" },
+            new User { Id = 2, Name = "John Doe", PasswordHash = " sgdgsd", Email = "john@example.com", Phone = "987654321", Username = "john" }   ];
 
         /// <summary>
         /// Gets all providers in the system.
@@ -23,7 +21,7 @@ namespace LabProject.Presentation.Controllers
         /// <returns>A list of all providers.</returns>
         /// <response code="200">Returns the list of providers.</response>
         [HttpGet]
-        public ActionResult<IEnumerable<IProvider>> GetProviders()
+        public ActionResult<IEnumerable<User>> GetProviders()
         {
             return Ok(Providers);
         }
@@ -36,7 +34,7 @@ namespace LabProject.Presentation.Controllers
         /// <response code="200">Returns the provider with the specified ID.</response>
         /// <response code="404">No provider found with the specified ID.</response>
         [HttpGet("{id}")]
-        public ActionResult<IProvider> GetProviderById([FromRoute] int id)
+        public ActionResult<User> GetProviderById([FromRoute] int id)
         {
             var provider = Providers.FirstOrDefault(p => p.Id == id);
             if (provider is null)
@@ -76,7 +74,7 @@ namespace LabProject.Presentation.Controllers
                 return NotFound();
 
             provider.Name = updatedProvider.Name;
-            provider.Email = updatedProvider.Email;
+            provider.Email =  updatedProvider.Email;
             provider.Phone = updatedProvider.Phone;
             provider.ProviderSpecialties = updatedProvider.ProviderSpecialties;
 

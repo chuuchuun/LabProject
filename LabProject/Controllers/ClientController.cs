@@ -10,7 +10,7 @@ namespace LabProject.Presentation.Controllers
         private static readonly List<User> Clients = 
         [
             new User {Id = 1, Name = "Mary Sue", PasswordHash = "sfojfsfq3", Email = "mary@gmail.com", Phone = "123456789", Username ="mary"},
-            new User {Id = 2, Name = "Jane Doe", PasswordHash = "addads", Email = "jane@gmail.com", Phone = "987654321", Username ="jane"}
+            new User { Id = 2, Name = "Jane Doe", PasswordHash = "addads", Email = "jane@gmail.com", Phone = "987654321", Username = "jane" }
         ];
 
         /// <summary>

@@ -1,6 +1,6 @@
 [
   {
-    "ContainingType": "LabProject.Controllers.AppointmentController",
+    "ContainingType": "LabProject.Presentation.Controllers.AppointmentController",
     "Method": "GetAppointments",
     "RelativePath": "api/Appointment",
     "HttpMethod": "GET",
@@ -20,7 +20,7 @@
     ]
   },
   {
-    "ContainingType": "LabProject.Controllers.AppointmentController",
+    "ContainingType": "LabProject.Presentation.Controllers.AppointmentController",
     "Method": "CreateAppointment",
     "RelativePath": "api/Appointment",
     "HttpMethod": "POST",
@@ -46,7 +46,7 @@
     ]
   },
   {
-    "ContainingType": "LabProject.Controllers.AppointmentController",
+    "ContainingType": "LabProject.Presentation.Controllers.AppointmentController",
     "Method": "GetAppointmentById",
     "RelativePath": "api/Appointment/{id}",
     "HttpMethod": "GET",
@@ -72,7 +72,7 @@
     ]
   },
   {
-    "ContainingType": "LabProject.Controllers.AppointmentController",
+    "ContainingType": "LabProject.Presentation.Controllers.AppointmentController",
     "Method": "UpdateAppointment",
     "RelativePath": "api/Appointment/{id}",
     "HttpMethod": "PUT",
@@ -93,7 +93,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "LabProject.Controllers.AppointmentController",
+    "ContainingType": "LabProject.Presentation.Controllers.AppointmentController",
     "Method": "DeleteAppointment",
     "RelativePath": "api/Appointment/{id}",
     "HttpMethod": "DELETE",
@@ -109,7 +109,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "LabProject.Controllers.ClientController",
+    "ContainingType": "LabProject.Presentation.Controllers.ClientController",
     "Method": "GetClients",
     "RelativePath": "api/Client",
     "HttpMethod": "GET",
@@ -129,7 +129,7 @@
     ]
   },
   {
-    "ContainingType": "LabProject.Controllers.ClientController",
+    "ContainingType": "LabProject.Presentation.Controllers.ClientController",
     "Method": "CreateClient",
     "RelativePath": "api/Client",
     "HttpMethod": "POST",
@@ -155,7 +155,7 @@
     ]
   },
   {
-    "ContainingType": "LabProject.Controllers.ClientController",
+    "ContainingType": "LabProject.Presentation.Controllers.ClientController",
     "Method": "GetClientById",
     "RelativePath": "api/Client/{id}",
     "HttpMethod": "GET",
@@ -181,7 +181,7 @@
     ]
   },
   {
-    "ContainingType": "LabProject.Controllers.ClientController",
+    "ContainingType": "LabProject.Presentation.Controllers.ClientController",
     "Method": "UpdateClient",
     "RelativePath": "api/Client/{id}",
     "HttpMethod": "PUT",
@@ -202,7 +202,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "LabProject.Controllers.ClientController",
+    "ContainingType": "LabProject.Presentation.Controllers.ClientController",
     "Method": "DeleteClient",
     "RelativePath": "api/Client/{id}",
     "HttpMethod": "DELETE",
@@ -218,27 +218,17 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "LabProject.Controllers.LocationController",
+    "ContainingType": "LabProject.Presentation.Controllers.LocationController",
     "Method": "GetLocations",
     "RelativePath": "api/Location",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Domain.Entities.Location, LabProject.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
-    "ContainingType": "LabProject.Controllers.LocationController",
+    "ContainingType": "LabProject.Presentation.Controllers.LocationController",
     "Method": "CreateLocation",
     "RelativePath": "api/Location",
     "HttpMethod": "POST",
@@ -264,7 +254,7 @@
     ]
   },
   {
-    "ContainingType": "LabProject.Controllers.LocationController",
+    "ContainingType": "LabProject.Presentation.Controllers.LocationController",
     "Method": "GetLocationById",
     "RelativePath": "api/Location/{id}",
     "HttpMethod": "GET",
@@ -290,7 +280,7 @@
     ]
   },
   {
-    "ContainingType": "LabProject.Controllers.LocationController",
+    "ContainingType": "LabProject.Presentation.Controllers.LocationController",
     "Method": "UpdateLocation",
     "RelativePath": "api/Location/{id}",
     "HttpMethod": "PUT",
@@ -311,7 +301,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "LabProject.Controllers.LocationController",
+    "ContainingType": "LabProject.Presentation.Controllers.LocationController",
     "Method": "DeleteLocation",
     "RelativePath": "api/Location/{id}",
     "HttpMethod": "DELETE",
@@ -327,7 +317,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "LabProject.Controllers.ProviderController",
+    "ContainingType": "LabProject.Presentation.Controllers.ProviderController",
     "Method": "GetProviders",
     "RelativePath": "api/Provider",
     "HttpMethod": "GET",
@@ -347,7 +337,7 @@
     ]
   },
   {
-    "ContainingType": "LabProject.Controllers.ProviderController",
+    "ContainingType": "LabProject.Presentation.Controllers.ProviderController",
     "Method": "CreateProvider",
     "RelativePath": "api/Provider",
     "HttpMethod": "POST",
@@ -373,7 +363,7 @@
     ]
   },
   {
-    "ContainingType": "LabProject.Controllers.ProviderController",
+    "ContainingType": "LabProject.Presentation.Controllers.ProviderController",
     "Method": "GetProviderById",
     "RelativePath": "api/Provider/{id}",
     "HttpMethod": "GET",
@@ -399,7 +389,7 @@
     ]
   },
   {
-    "ContainingType": "LabProject.Controllers.ProviderController",
+    "ContainingType": "LabProject.Presentation.Controllers.ProviderController",
     "Method": "UpdateProvider",
     "RelativePath": "api/Provider/{id}",
     "HttpMethod": "PUT",
@@ -420,7 +410,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "LabProject.Controllers.ProviderController",
+    "ContainingType": "LabProject.Presentation.Controllers.ProviderController",
     "Method": "DeleteProvider",
     "RelativePath": "api/Provider/{id}",
     "HttpMethod": "DELETE",
@@ -436,7 +426,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "LabProject.Controllers.ReviewController",
+    "ContainingType": "LabProject.Presentation.Controllers.ReviewController",
     "Method": "GetReviews",
     "RelativePath": "api/Review",
     "HttpMethod": "GET",
@@ -456,7 +446,7 @@
     ]
   },
   {
-    "ContainingType": "LabProject.Controllers.ReviewController",
+    "ContainingType": "LabProject.Presentation.Controllers.ReviewController",
     "Method": "CreateReview",
     "RelativePath": "api/Review",
     "HttpMethod": "POST",
@@ -482,7 +472,7 @@
     ]
   },
   {
-    "ContainingType": "LabProject.Controllers.ReviewController",
+    "ContainingType": "LabProject.Presentation.Controllers.ReviewController",
     "Method": "GetReviewById",
     "RelativePath": "api/Review/{id}",
     "HttpMethod": "GET",
@@ -508,7 +498,7 @@
     ]
   },
   {
-    "ContainingType": "LabProject.Controllers.ReviewController",
+    "ContainingType": "LabProject.Presentation.Controllers.ReviewController",
     "Method": "UpdateReview",
     "RelativePath": "api/Review/{id}",
     "HttpMethod": "PUT",
@@ -529,7 +519,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "LabProject.Controllers.ReviewController",
+    "ContainingType": "LabProject.Presentation.Controllers.ReviewController",
     "Method": "DeleteReview",
     "RelativePath": "api/Review/{id}",
     "HttpMethod": "DELETE",

@@ -1,4 +1,7 @@
-﻿using LabProject.Domain.Entities;
+﻿using System.Threading.Tasks;
+using LabProject.Application.Interfaces;
+using LabProject.Application.Services;
+using LabProject.Domain.Entities;
 using LabProject.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,13 +9,9 @@ namespace LabProject.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AppointmentController : ControllerBase
+    public class AppointmentController(IBaseService<Appointment> appointmentService) : ControllerBase
     {
-        private static readonly List<Appointment> Appointments =
-            [
-            new Appointment { Id = 1, ClientId = 1, ProviderId = 1, ServiceId = 1, LocationId = 1, DateTime = DateTime.Today, Status = AppointmentStatus.Completed },
-            new Appointment { Id = 2, ClientId = 2, ProviderId = 1, ServiceId = 2, LocationId = 1, DateTime = DateTime.Today.AddDays(1) }
-            ];
+        private readonly IBaseService<Appointment> _appointmentService = appointmentService;
 
         /// <summary>
         /// Gets all appointments in the system.
@@ -20,9 +19,9 @@ namespace LabProject.Presentation.Controllers
         /// <returns>A list of all appointments.</returns>
         /// <response code="200">Returns the list of all appointments.</response>
         [HttpGet]
-        public ActionResult<IEnumerable<Appointment>> GetAppointments()
+        public async Task<ActionResult<IEnumerable<Appointment>>> GetAppointments()
         {
-            return Ok(Appointments);
+            return Ok(await _appointmentService.GetAllAsync());
         }
 
         /// <summary>
@@ -32,14 +31,14 @@ namespace LabProject.Presentation.Controllers
         /// <returns>The requested appointment.</returns>
         /// <response code="200">Returns the appointment with the given ID.</response>
         /// <response code="404">No appointment found with the specified ID.</response>
+
         [HttpGet("{id}")]
-        public ActionResult<Appointment> GetAppointmentById([FromRoute] int id)
+        public async Task<ActionResult<Appointment>> GetAppointmentById([FromRoute] int id)
         {
-            var appointment = Appointments.FirstOrDefault(a => a.Id == id);
-            if (appointment is null)
-            {
+            var appointment = await _appointmentService.GetByIdAsync(id);
+            if (appointment == null)
                 return NotFound();
-            }
+
             return Ok(appointment);
         }
 
@@ -50,12 +49,21 @@ namespace LabProject.Presentation.Controllers
         /// <returns>The created appointment.</returns>
         /// <response code="201">The appointment was created successfully.</response>
         [HttpPost]
-        public ActionResult<Appointment> CreateAppointment([FromBody] Appointment appointment)
+        public async Task<ActionResult<Appointment>> CreateAppointment([FromBody] Appointment appointment)
         {
-            appointment.Id = Appointments.Count != 0 ? Appointments.Max(a => a.Id) + 1 : 1;
-            Appointments.Add(appointment);
-            return CreatedAtAction(nameof(GetAppointmentById), new { id = appointment.Id }, appointment);
+            if (appointment == null)
+                return BadRequest();
+
+            var newId = await _appointmentService.AddAsync(appointment);
+            if (newId <= 0)
+            {
+                return StatusCode(500, "Failed to create appointment");
+            }
+
+            var createdAppointment = await _appointmentService.GetByIdAsync(newId);
+            return CreatedAtAction(nameof(GetAppointmentById), new { id = newId }, createdAppointment);
         }
+
 
         /// <summary>
         /// Updates an existing appointment.
@@ -66,21 +74,21 @@ namespace LabProject.Presentation.Controllers
         /// <response code="200">The appointment was updated successfully.</response>
         /// <response code="404">No appointment found with the specified ID.</response>
         [HttpPut("{id}")]
-        public ActionResult UpdateAppointment([FromRoute] int id, [FromBody] Appointment updatedAppointment)
+        public async Task<ActionResult> UpdateAppointment([FromRoute] int id, [FromBody] Appointment updatedAppointment)
         {
-            var appointment = Appointments.FirstOrDefault(a => a.Id == id);
-            if (appointment is null)
+            if (updatedAppointment == null || id != updatedAppointment.Id)
             {
-                return NotFound();
+                return BadRequest("Appointment data is invalid or ID mismatch.");
             }
 
-            appointment.ClientId = updatedAppointment.ClientId;
-            appointment.ProviderId = updatedAppointment.ProviderId;
-            appointment.ServiceId = updatedAppointment.ServiceId;
-            appointment.LocationId = updatedAppointment.LocationId;
-            appointment.DateTime = updatedAppointment.DateTime;
-            appointment.Status = updatedAppointment.Status;
+            var success = await _appointmentService.UpdateAsync(id, updatedAppointment);
+            if (!success)
+            {
+                return NotFound($"Appointment with ID {id} not found.");
+            }
 
+            // Optionally, return the updated appointment data after update
+            var appointment = await _appointmentService.GetByIdAsync(id);
             return Ok(appointment);
         }
 
@@ -92,15 +100,13 @@ namespace LabProject.Presentation.Controllers
         /// <response code="200">The appointment was deleted successfully.</response>
         /// <response code="404">No appointment found with the specified ID.</response>
         [HttpDelete("{id}")]
-        public ActionResult DeleteAppointment([FromRoute] int id)
+        public async Task<ActionResult> DeleteAppointment([FromRoute] int id)
         {
-            var appointment = Appointments.FirstOrDefault(a => a.Id == id);
-            if (appointment is null)
+            var success = await _appointmentService.DeleteAsync(id);
+            if (!success)
             {
-                return NotFound();
+                return NotFound($"Appointment with ID {id} not found.");
             }
-
-            Appointments.Remove(appointment);
             return Ok();
         }
     }
