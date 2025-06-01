@@ -10,7 +10,7 @@ using LabProject.Infrastructure.Interfaces;
 
 namespace LabProject.Infrastructure.Repositories
 {
-    public class ServiceRepository(IDbConnectionFactory connectionFactory) : IRepository<Service>
+    public class ServiceRepository(IDbConnectionFactory connectionFactory) : IServiceRepository
     {
         private readonly IDbConnectionFactory _connectionFactory = connectionFactory;
 
@@ -122,6 +122,17 @@ namespace LabProject.Infrastructure.Repositories
             {
                 return false;
             }
+        }
+
+        public async Task<IEnumerable<Service>> GetServicesByProviderAsync(long providerId)
+        {
+            using var connection = _connectionFactory.CreateConnection();
+            const string sql = @"
+                SELECT s.* FROM services.Services s
+                JOIN services.ProviderServices ps ON s.Id = ps.ServiceId
+                WHERE ps.ProviderId = @ProviderId";
+
+            return await connection.QueryAsync<Service>(sql, new { ProviderId = providerId });
         }
     }
 }

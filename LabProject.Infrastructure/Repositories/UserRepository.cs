@@ -10,7 +10,7 @@ using LabProject.Infrastructure.Interfaces;
 
 namespace LabProject.Infrastructure.Repositories
 {
-    public class UserRepository(IDbConnectionFactory connectionFactory) : IRepository<User>
+    public class UserRepository(IDbConnectionFactory connectionFactory) : IUserRepository
     {
         private readonly IDbConnectionFactory _connectionFactory = connectionFactory;
 
@@ -128,6 +128,30 @@ namespace LabProject.Infrastructure.Repositories
             {
                 return false;
             }
+        }
+
+        public async Task<IEnumerable<User>> GetProvidersBySpecialtyAsync(long specialtyId)
+        {
+            using var connection = _connectionFactory.CreateConnection();
+            const string sql = @"
+                SELECT u.* FROM auth.Users u
+                JOIN services.ProviderSpecialties ps ON u.Id = ps.ProviderId
+                WHERE ps.SpecialtyId = @SpecialtyId
+                AND u.RoleId = 2";
+
+            return await connection.QueryAsync<User>(sql, new { SpecialtyId = specialtyId });
+        }
+
+
+        public async Task<IEnumerable<User>> GetClientFavoritesAsync(long clientId)
+        {
+            using var connection = _connectionFactory.CreateConnection();
+            const string sql = @"
+                SELECT u.* FROM auth.Users u
+                JOIN marketing.Favorites f ON u.Id = f.ProviderId
+                WHERE f.ClientId = @ClientId";
+
+            return await connection.QueryAsync<User>(sql, new { ClientId = clientId });
         }
     }
 }

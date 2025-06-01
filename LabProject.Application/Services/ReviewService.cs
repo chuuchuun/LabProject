@@ -9,9 +9,9 @@ using LabProject.Domain.Interfaces;
 
 namespace LabProject.Application.Services
 {
-    public class ReviewService(IRepository<Review> reviewRepo) : IBaseService<Review>
+    public class ReviewService(IReviewRepository reviewRepo) : IReviewService
     {
-        private readonly IRepository<Review> _reviewRepo = reviewRepo;
+        private readonly IReviewRepository _reviewRepo = reviewRepo;
 
         public async Task<long> AddAsync(Review entityModel)
         {
@@ -26,6 +26,11 @@ namespace LabProject.Application.Services
         public async Task<IEnumerable<Review>> GetAllAsync()
         {
             return await _reviewRepo.GetAllAsync();
+        }
+
+        public async Task<double> GetAverageRatingForProviderAsync(long providerId)
+        {
+            return await _reviewRepo.GetAverageRatingForProviderAsync(providerId);
         }
 
         public async Task<Review?> GetByIdAsync(long id)

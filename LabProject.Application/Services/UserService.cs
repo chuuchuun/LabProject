@@ -7,9 +7,9 @@ using LabProject.Domain.Interfaces;
 
 namespace LabProject.Application.Services
 {
-    public class UserService(IRepository<User> userRepo) : IBaseService<User>
+    public class UserService(IUserRepository userRepo) : IUserService
     {
-        private readonly IRepository<User> _userRepo = userRepo;
+        private readonly IUserRepository _userRepo = userRepo;
 
         public async Task<long> AddAsync(User entityModel)
         {
@@ -34,6 +34,11 @@ namespace LabProject.Application.Services
         public async Task<bool> UpdateAsync(long id, User entityModel)
         {
             return await _userRepo.UpdateAsync(id, entityModel);
+        }
+
+        public async Task<IEnumerable<User>> GetProvidersBySpecialtyIdAsync(long specialtyId)
+        {
+            return await _userRepo.GetProvidersBySpecialtyAsync(specialtyId);
         }
     }
 }

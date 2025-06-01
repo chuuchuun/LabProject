@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "yAu/YJsDeR4=",
+  "dgSpecHash": "22+PwdGtOkA=",
   "success": true,
   "projectFilePath": "C:\\Users\\alla\\Documents\\GitHub\\LabProject\\LabProject\\LabProject.Presentation.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\alla\\.nuget\\packages\\automapper\\14.0.0\\automapper.14.0.0.nupkg.sha512",
     "C:\\Users\\alla\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\alla\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
     "C:\\Users\\alla\\.nuget\\packages\\dapper\\2.1.66\\dapper.2.1.66.nupkg.sha512",

@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace LabProject.Infrastructure.Repositories
 {
-    public class PaymentRepository(IDbConnectionFactory connectionFactory) : IRepository<Payment>
+    public class PaymentRepository(IDbConnectionFactory connectionFactory) : IPaymentRepository
     {
         private readonly IDbConnectionFactory _connectionFactory = connectionFactory;
 
@@ -114,6 +114,23 @@ namespace LabProject.Infrastructure.Repositories
             {
                 return false;
             }
+        }
+
+        public async Task<decimal> GetTotalRevenueByProviderAsync(long providerId, DateTime startDate, DateTime endDate)
+        {
+            using var connection = _connectionFactory.CreateConnection();
+            const string sql = @"
+                SELECT SUM(p.AmountPaid) FROM appointments.Payments p
+                JOIN appointments.Appointments a ON p.AppointmentId = a.Id
+                WHERE a.ProviderId = @ProviderId
+                AND p.PaidAt BETWEEN @StartDate AND @EndDate";
+
+            return await connection.ExecuteScalarAsync<decimal>(sql, new
+            {
+                ProviderId = providerId,
+                StartDate = startDate,
+                EndDate = endDate
+            });
         }
     }
 }

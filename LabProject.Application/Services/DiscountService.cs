@@ -9,9 +9,9 @@ using LabProject.Domain.Interfaces;
 
 namespace LabProject.Application.Services
 {
-    public class DiscountService(IRepository<Discount> discountRepo) : IBaseService<Discount>
+    public class DiscountService(IDiscountRepository discountRepo) : IDiscountService
     {
-        private readonly IRepository<Discount> _discountRepo = discountRepo;
+        private readonly IDiscountRepository _discountRepo = discountRepo;
 
         public async Task<long> AddAsync(Discount entityModel)
         {
@@ -31,6 +31,11 @@ namespace LabProject.Application.Services
         public async Task<Discount?> GetByIdAsync(long id)
         {
             return await _discountRepo.GetByIdAsync(id);
+        }
+
+        public async Task<IEnumerable<Discount>> GetValidDiscountsForClientAsync(long clientId)
+        {
+            return await _discountRepo.GetValidDiscountsForClientAsync(clientId);
         }
 
         public async Task<bool> UpdateAsync(long id, Discount entityModel)

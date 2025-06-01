@@ -9,18 +9,18 @@ using System;
 
 namespace LabProject.Infrastructure.Repositories
 {
-    public class DiscountRepository(IDbConnectionFactory dbFactory) : IRepository<Discount>
+    public class DiscountRepository(IDbConnectionFactory dbFactory) : IDiscountRepository
     {
-        private readonly IDbConnectionFactory _dbFactory = dbFactory;
+        private readonly IDbConnectionFactory _connectionFactory = dbFactory;
 
         public async Task<IEnumerable<Discount>> GetAllAsync()
         {
-            using var connection = _dbFactory.CreateConnection();
-            const string query = "SELECT * FROM marketing.Discounts";
+            using var connection = _connectionFactory.CreateConnection();
+            const string sql = "SELECT * FROM marketing.Discounts";
 
             try
             {
-                return await connection.QueryAsync<Discount>(query);
+                return await connection.QueryAsync<Discount>(sql);
             }
             catch
             {
@@ -30,12 +30,12 @@ namespace LabProject.Infrastructure.Repositories
 
         public async Task<Discount?> GetByIdAsync(long id)
         {
-            using var connection = _dbFactory.CreateConnection();
-            const string query = "SELECT * FROM marketing.Discounts WHERE Id = @Id";
+            using var connection = _connectionFactory.CreateConnection();
+            const string sql = "SELECT * FROM marketing.Discounts WHERE Id = @Id";
 
             try
             {
-                return await connection.QueryFirstOrDefaultAsync<Discount>(query, new { Id = id });
+                return await connection.QueryFirstOrDefaultAsync<Discount>(sql, new { Id = id });
             }
             catch
             {
@@ -45,15 +45,15 @@ namespace LabProject.Infrastructure.Repositories
 
         public async Task<long> AddAsync(Discount entity)
         {
-            using var connection = _dbFactory.CreateConnection();
-            const string query = @"
+            using var connection = _connectionFactory.CreateConnection();
+            const string sql = @"
                 INSERT INTO marketing.Discounts (ClientId, Title, Value, Description, ValidUntil)
                 VALUES (@ClientId, @Title, @Value, @Description, @ValidUntil);
                 SELECT CAST(SCOPE_IDENTITY() as bigint);";
 
             try
             {
-                return await connection.ExecuteScalarAsync<long>(query, entity);
+                return await connection.ExecuteScalarAsync<long>(sql, entity);
             }
             catch
             {
@@ -63,7 +63,7 @@ namespace LabProject.Infrastructure.Repositories
 
         public async Task<bool> UpdateAsync(long id, Discount entity)
         {
-            using var connection = _dbFactory.CreateConnection();
+            using var connection = _connectionFactory.CreateConnection();
 
             const string checkQuery = "SELECT COUNT(1) FROM marketing.Discounts WHERE Id = @Id";
 
@@ -102,18 +102,29 @@ namespace LabProject.Infrastructure.Repositories
 
         public async Task<bool> DeleteAsync(long id)
         {
-            using var connection = _dbFactory.CreateConnection();
-            const string query = "DELETE FROM marketing.Discounts WHERE Id = @Id";
+            using var connection = _connectionFactory.CreateConnection();
+            const string sql = "DELETE FROM marketing.Discounts WHERE Id = @Id";
 
             try
             {
-                var rowsAffected = await connection.ExecuteAsync(query, new { Id = id });
+                var rowsAffected = await connection.ExecuteAsync(sql, new { Id = id });
                 return rowsAffected > 0;
             }
             catch
             {
                 return false;
             }
+        }
+
+        public async Task<IEnumerable<Discount>> GetValidDiscountsForClientAsync(long clientId)
+        {
+            using var connection = _connectionFactory.CreateConnection();
+            const string sql = @"
+                SELECT * FROM marketing.Discounts
+                WHERE ClientId = @ClientId
+                AND (ValidUntil IS NULL OR ValidUntil >= GETUTCDATE())";
+
+            return await connection.QueryAsync<Discount>(sql, new { ClientId = clientId });
         }
     }
 }

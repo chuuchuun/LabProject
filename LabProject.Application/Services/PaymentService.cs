@@ -9,9 +9,9 @@ using LabProject.Domain.Interfaces;
 
 namespace LabProject.Application.Services
 {
-    public class PaymentService(IRepository<Payment> paymentRepo) : IBaseService<Payment>
+    public class PaymentService(IPaymentRepository paymentRepo) : IPaymentService
     {
-        private readonly IRepository<Payment> _paymentRepo = paymentRepo;
+        private readonly IPaymentRepository _paymentRepo = paymentRepo;
 
         public async Task<long> AddAsync(Payment entityModel)
         {
@@ -36,6 +36,10 @@ namespace LabProject.Application.Services
         public async Task<bool> UpdateAsync(long id, Payment entityModel)
         {
             return await _paymentRepo.UpdateAsync(id, entityModel);
+        }
+        public async Task<decimal> GetTotalRevenueByProviderAsync(long providerId, DateTime startDate, DateTime endDate)
+        {
+            return await _paymentRepo.GetTotalRevenueByProviderAsync(providerId, startDate, endDate);
         }
     }
 }

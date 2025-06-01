@@ -137,7 +137,7 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "client",
+        "Name": "provider",
         "Type": "LabProject.Domain.Entities.User",
         "IsRequired": true
       }
@@ -194,7 +194,7 @@
         "IsRequired": true
       },
       {
-        "Name": "client",
+        "Name": "updatedProvider",
         "Type": "LabProject.Domain.Entities.User",
         "IsRequired": true
       }
@@ -225,7 +225,17 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Domain.Entities.Location, LabProject.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "LabProject.Presentation.Controllers.LocationController",
@@ -326,7 +336,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Domain.Interfaces.IProvider, LabProject.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Domain.Entities.User, LabProject.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -378,7 +388,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "LabProject.Domain.Interfaces.IProvider",
+        "Type": "LabProject.Domain.Entities.User",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -642,5 +652,31 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "LabProject.Presentation.Controllers.ProviderController",
+    "Method": "GetProvidersBySpecialtyId",
+    "RelativePath": "specialties/{specialtyId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "specialtyId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Domain.Entities.User, LabProject.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   }
 ]

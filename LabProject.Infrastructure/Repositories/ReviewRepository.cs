@@ -10,7 +10,7 @@ using LabProject.Infrastructure.Interfaces;
 
 namespace LabProject.Infrastructure.Repositories
 {
-    public class ReviewRepository(IDbConnectionFactory connectionFactory) : IRepository<Review>
+    public class ReviewRepository(IDbConnectionFactory connectionFactory) : IReviewRepository
     {
         private readonly IDbConnectionFactory _connectionFactory = connectionFactory;
 
@@ -120,6 +120,17 @@ namespace LabProject.Infrastructure.Repositories
             {
                 return false;
             }
+        }
+
+        public async Task<double> GetAverageRatingForProviderAsync(long providerId)
+        {
+            using var connection = _connectionFactory.CreateConnection();
+            const string sql = @"
+                SELECT AVG(CAST(Rating AS FLOAT)) FROM appointments.Reviews r
+                JOIN appointments.Appointments a ON r.AppointmentId = a.Id
+                WHERE a.ProviderId = @ProviderId";
+
+            return await connection.ExecuteScalarAsync<double>(sql, new { ProviderId = providerId });
         }
     }
 }
