@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using LabProject.Domain.Entities;
-using LabProject.Domain.Interfaces;
 
 namespace LabProject.Domain.Entities
 {

@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using LabProject.Domain.Interfaces;
 
 namespace LabProject.Domain.Entities
 {
