@@ -6,21 +6,22 @@ using System.Linq;
 using LabProject.Application.Interfaces;
 using System.Threading.Tasks;
 using LabProject.Application.Services;
+using LabProject.Application.Dtos.UserDtos;
 
 namespace LabProject.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClientController(IBaseService<User> userService) : ControllerBase
+    public class ClientController(IUserService userService) : ControllerBase
     {
-        private readonly IBaseService<User> _userService = userService;
+        private readonly IUserService _userService = userService;
         /// <summary>
         /// Gets all clients in the system.
         /// </summary>
         /// <returns>A list of all clients.</returns>
         /// <response code="200">Returns the list of clients.</response>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetClients()
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetClients()
         {
             var users = await _userService.GetAllAsync();
             return Ok(users.Where(u => u.RoleId == 3));
@@ -34,7 +35,7 @@ namespace LabProject.Presentation.Controllers
         /// <response code="200">Returns the client with the specified ID.</response>
         /// <response code="404">No client found with the specified ID.</response>
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetClientById([FromRoute] int id)
+        public async Task<ActionResult<UserDto>> GetClientById([FromRoute] int id)
         {
             var client = await _userService.GetByIdAsync(id);
             if (client is null)
@@ -50,7 +51,7 @@ namespace LabProject.Presentation.Controllers
         /// <returns>The created client with its assigned ID.</returns>
         /// <response code="201">The client was created successfully.</response>
         [HttpPost]
-        public async Task<ActionResult<User>> CreateClient([FromBody] User provider)
+        public async Task<ActionResult<UserDto>> CreateClient([FromBody] UserCreateDto provider)
         {
             if (provider is null)
                 return BadRequest();
@@ -73,9 +74,9 @@ namespace LabProject.Presentation.Controllers
         /// <response code="200">The client was updated successfully.</response>
         /// <response code="404">No client found with the specified ID.</response>
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateClient([FromRoute] int id, [FromBody] User updatedProvider)
+        public async Task<ActionResult> UpdateClient([FromRoute] int id, [FromBody] UserUpdateDto updatedProvider)
         {
-            if (updatedProvider is null || id != updatedProvider.Id)
+            if (updatedProvider is null)
             {
                 return BadRequest("Client data is invalid or ID mismatch.");
             }

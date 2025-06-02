@@ -3,19 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using LabProject.Application.Dtos.AppontmentDtos;
+using LabProject.Application.Dtos.UserDtos;
 using LabProject.Application.Interfaces;
 using LabProject.Domain.Entities;
 using LabProject.Domain.Interfaces;
 
 namespace LabProject.Application.Services
 {
-    public class AppointmentService(IRepository<Appointment> appointmentRepo) : IBaseService<Appointment>
+    public class AppointmentService(IRepository<Appointment> appointmentRepo, IMapper mapper) : IBaseService<Appointment, AppointmentDto, AppointmentCreateDto, AppointmentUpdateDto>
     {
         private readonly IRepository<Appointment> _appointmentRepo = appointmentRepo;
-
-        public async Task<long> AddAsync(Appointment entityModel)
+        private readonly IMapper _mapper = mapper;
+        public async Task<long> AddAsync(AppointmentCreateDto appointmentCreateDto)
         {
-            return await _appointmentRepo.AddAsync(entityModel);
+            var appointmentEntity = _mapper.Map<Appointment>(appointmentCreateDto);
+            appointmentEntity.CreatedAt = DateTime.UtcNow;
+            appointmentEntity.UpdatedAt = DateTime.UtcNow;
+            return await _appointmentRepo.AddAsync(appointmentEntity);
         }
 
         public async Task<bool> DeleteAsync(long id)
@@ -23,19 +29,28 @@ namespace LabProject.Application.Services
             return await _appointmentRepo.DeleteAsync(id);
         }
 
-        public async Task<IEnumerable<Appointment>> GetAllAsync()
+        public async Task<IEnumerable<AppointmentDto>> GetAllAsync()
         {
-            return await _appointmentRepo.GetAllAsync();
+            var appointments = await _appointmentRepo.GetAllAsync();
+            return _mapper.Map<IEnumerable<AppointmentDto>>(appointments);
         }
 
-        public async Task<Appointment?> GetByIdAsync(long id)
+        public async Task<AppointmentDto?> GetByIdAsync(long id)
         {
-            return await _appointmentRepo.GetByIdAsync(id);
+            var appointment = await _appointmentRepo.GetByIdAsync(id);
+            return appointment is null ? null : _mapper.Map<AppointmentDto>(appointment);
         }
 
-        public async Task<bool> UpdateAsync(long id, Appointment entityModel)
+        public async Task<bool> UpdateAsync(long id, AppointmentUpdateDto appointmentUpdateDto)
         {
-            return await _appointmentRepo.UpdateAsync(id, entityModel);
+            var existingAppointment = await _appointmentRepo.GetByIdAsync(id);
+            if (existingAppointment is null)
+                return false;
+
+            _mapper.Map(appointmentUpdateDto, existingAppointment);
+            existingAppointment.UpdatedAt = DateTime.UtcNow;
+
+            return await _appointmentRepo.UpdateAsync(id, existingAppointment);
         }
     }
 }

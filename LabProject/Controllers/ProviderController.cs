@@ -6,6 +6,7 @@ using System.Linq;
 using LabProject.Application.Interfaces;
 using System.Threading.Tasks;
 using LabProject.Application.Services;
+using LabProject.Application.Dtos.UserDtos;
 
 namespace LabProject.Presentation.Controllers
 {
@@ -20,7 +21,7 @@ namespace LabProject.Presentation.Controllers
         /// <returns>A list of all providers.</returns>
         /// <response code="200">Returns the list of providers.</response>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetProviders()
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetProviders()
         {
             var users = await _userService.GetAllAsync();
             return Ok(users.Where(u => u.RoleId == 2));
@@ -34,7 +35,7 @@ namespace LabProject.Presentation.Controllers
         /// <response code="200">Returns the provider with the specified ID.</response>
         /// <response code="404">No provider found with the specified ID.</response>
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetProviderById([FromRoute] int id)
+        public async Task<ActionResult<UserProviderDto>> GetProviderById([FromRoute] int id)
         {
             var provider = await _userService.GetByIdAsync(id);
             if (provider is null)
@@ -44,7 +45,7 @@ namespace LabProject.Presentation.Controllers
         }
 
         [HttpGet("/specialties/{specialtyId}")]
-        public async Task<ActionResult<IEnumerable<User>>> GetProvidersBySpecialtyId([FromRoute] long specialtyId)
+        public async Task<ActionResult<IEnumerable<UserProviderDto>>> GetProvidersBySpecialtyId([FromRoute] long specialtyId)
         {
             return Ok(await _userService.GetProvidersBySpecialtyIdAsync(specialtyId));
         }
@@ -55,7 +56,7 @@ namespace LabProject.Presentation.Controllers
         /// <returns>The created provider with its assigned ID.</returns>
         /// <response code="201">The provider was created successfully.</response>
         [HttpPost]
-        public async Task<ActionResult<User>> CreateProvider([FromBody] User provider)
+        public async Task<ActionResult<User>> CreateProvider([FromBody] UserCreateDto provider)
         {
             if (provider is null)
                 return BadRequest();
@@ -78,9 +79,9 @@ namespace LabProject.Presentation.Controllers
         /// <response code="200">The provider was updated successfully.</response>
         /// <response code="404">No provider found with the specified ID.</response>
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateProvider([FromRoute] int id, [FromBody] User updatedProvider)
+        public async Task<ActionResult> UpdateProvider([FromRoute] int id, [FromBody] UserUpdateDto updatedProvider)
         {
-            if (updatedProvider is null || id != updatedProvider.Id)
+            if (updatedProvider is null)
             {
                 return BadRequest("Provider data is invalid or ID mismatch.");
             }

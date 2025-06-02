@@ -1,36 +1,20 @@
-﻿using LabProject.Domain.Entities;
+﻿using LabProject.Application.Dtos.ReviewDtos;
+using LabProject.Application.Interfaces;
+using LabProject.Application.Services;
+using LabProject.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace LabProject.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ReviewController : ControllerBase
+    public class ReviewController(IReviewService reviewService) : ControllerBase
     {
-        private static readonly List<Review> Reviews =
-        [
-            new Review
-            {
-                Id = 1,
-                ClientId = 1,
-                AppointmentId = 1,
-                Rating = 5,
-                Comment = "Excellent service!",
-                DatePosted = DateTime.UtcNow
-            },
-            new Review
-            {
-                Id = 2,
-                ClientId = 2,
-                AppointmentId = 1,
-                Rating = 4,
-                Comment = "Very good experience.",
-                DatePosted = DateTime.UtcNow.AddDays(-1)
-            }
-        ];
+        private readonly IReviewService _reviewService = reviewService;
 
         /// <summary>
         /// Gets all reviews in the system.
@@ -38,9 +22,9 @@ namespace LabProject.Presentation.Controllers
         /// <returns>A list of all reviews.</returns>
         /// <response code="200">Returns all reviews.</response>
         [HttpGet]
-        public ActionResult<IEnumerable<Review>> GetReviews()
+        public async Task<ActionResult<IEnumerable<ReviewDto>>> GetReviews()
         {
-            return Ok(Reviews);
+            return Ok(await _reviewService.GetAllAsync());
         }
 
         /// <summary>
@@ -51,9 +35,9 @@ namespace LabProject.Presentation.Controllers
         /// <response code="200">Returns the review with the specified ID.</response>
         /// <response code="404">No review found with the specified ID.</response>
         [HttpGet("{id}")]
-        public ActionResult<Review> GetReviewById([FromRoute] int id)
+        public async Task<ActionResult<ReviewDto>> GetReviewById([FromRoute] int id)
         {
-            var review = Reviews.FirstOrDefault(r => r.Id == id);
+            var review = await _reviewService.GetByIdAsync(id);
             if (review is null)
             {
                 return NotFound();
@@ -69,12 +53,19 @@ namespace LabProject.Presentation.Controllers
         /// <returns>The created review with its assigned ID.</returns>
         /// <response code="201">The review was created successfully.</response>
         [HttpPost]
-        public ActionResult<Review> CreateReview([FromBody] Review review)
+        public async Task<ActionResult<ReviewDto>> CreateReview([FromBody] ReviewCreateDto review)
         {
-            review.Id = Reviews.Count != 0 ? Reviews.Max(r => r.Id) + 1 : 1;
-            review.DatePosted = DateTime.UtcNow;
-            Reviews.Add(review);
-            return CreatedAtAction(nameof(GetReviewById), new { id = review.Id }, review);
+            if(review is null)
+            {
+                return BadRequest();
+            }
+            var newId = await _reviewService.AddAsync(review);
+            if (newId <= 0)
+            {
+                return BadRequest("Failed to create review.");
+            }
+            var createdReview = await _reviewService.GetByIdAsync(newId);
+            return CreatedAtAction(nameof(GetReviewById), new { id = newId }, createdReview);
         }
 
         /// <summary>
@@ -86,19 +77,21 @@ namespace LabProject.Presentation.Controllers
         /// <response code="200">The review was updated successfully.</response>
         /// <response code="404">No review found with the specified ID.</response>
         [HttpPut("{id}")]
-        public ActionResult UpdateReview([FromRoute] int id, [FromBody] Review review)
+        public async Task<ActionResult> UpdateReview([FromRoute] int id, [FromBody] ReviewUpdateDto review)
         {
-            var reviewToUpdate = Reviews.FirstOrDefault(r => r.Id == id);
-            if (reviewToUpdate is null)
+            if(review is null)
+            {
+                return BadRequest();
+            }
+
+            var success = await _reviewService.UpdateAsync(id, review);
+            if (!success)
             {
                 return NotFound();
             }
 
-            reviewToUpdate.ClientId = review.ClientId;
-            reviewToUpdate.AppointmentId = review.AppointmentId;
-            reviewToUpdate.Rating = review.Rating;
-            reviewToUpdate.Comment = review.Comment;
-            return Ok(reviewToUpdate);
+           var updatedReview = await _reviewService.GetByIdAsync(id);
+            return Ok(updatedReview);
         }
 
         /// <summary>
@@ -109,15 +102,13 @@ namespace LabProject.Presentation.Controllers
         /// <response code="200">The review was deleted successfully.</response>
         /// <response code="404">No review found with the specified ID.</response>
         [HttpDelete("{id}")]
-        public ActionResult DeleteReview([FromRoute] int id)
+        public async Task<ActionResult> DeleteReview([FromRoute] int id)
         {
-            var review = Reviews.FirstOrDefault(r => r.Id == id);
-            if (review is null)
+            var success = await _reviewService.DeleteAsync(id);
+            if (!success)
             {
-                return NotFound();
+                return NotFound($"Review with ID {id} not found.");
             }
-
-            Reviews.Remove(review);
             return Ok();
         }
     }

@@ -1,27 +1,26 @@
-﻿using LabProject.Domain.Entities;
+﻿using System.Threading.Tasks;
+using LabProject.Application.Dtos.LocationDtos;
+using LabProject.Application.Interfaces;
+using LabProject.Application.Services;
+using LabProject.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LabProject.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LocationController : ControllerBase
+    public class LocationController(IBaseService<Location, LocationDto, LocationCreateDto, LocationUpdateDto> locationService) : ControllerBase
     {
-        private static readonly List<Location> Locations =
-        [
-            new Location {Id = 1, Name = "Best Beauty", Address = "Main street 12", City = "Gdansk", Phone = "123456789"},
-            new Location {Id = 2, Name = "New you", Address = "City square", City = "Warsaw", Phone = "987654321"},
-        ];
-
+        private readonly IBaseService<Location, LocationDto, LocationCreateDto, LocationUpdateDto> _locationService = locationService;
         /// <summary>
         /// Gets all locations in the system.
         /// </summary>
         /// <returns>A list of all locations.</returns>
         /// <response code="200">Returns the list of all locations.</response>
         [HttpGet]
-        public ActionResult<IEnumerable<Location>> GetLocations()
+        public async Task<ActionResult<IEnumerable<LocationDto>>> GetLocations()
         {
-            return Ok(Locations);
+            return Ok(await _locationService.GetAllAsync());
         }
 
         /// <summary>
@@ -32,9 +31,9 @@ namespace LabProject.Presentation.Controllers
         /// <response code="200">Returns the location with the specified ID.</response>
         /// <response code="404">No location found with the specified ID.</response>
         [HttpGet("{id}")]
-        public ActionResult<Location> GetLocationById([FromRoute] int id)
+        public async Task<ActionResult<LocationDto>> GetLocationById([FromRoute] int id)
         {
-            var location = Locations.FirstOrDefault(l => l.Id == id);
+            var location = await _locationService.GetByIdAsync(id);
             if (location is null)
             {
                 return NotFound();
@@ -49,11 +48,20 @@ namespace LabProject.Presentation.Controllers
         /// <returns>The created location.</returns>
         /// <response code="201">The location was created successfully.</response>
         [HttpPost]
-        public ActionResult<Location> CreateLocation([FromBody] Location location)
+        public async Task<ActionResult<LocationDto>> CreateLocation([FromBody] LocationCreateDto location)
         {
-            location.Id = Locations.Count != 0 ? Locations.Max(l => l.Id) + 1 : 1;
-            Locations.Add(location);
-            return CreatedAtAction(nameof(GetLocationById), new { id = location.Id }, location);
+            if(location is null)
+            {
+                return BadRequest();
+            }
+            var newId = await _locationService.AddAsync(location);
+            if(newId < 0)
+            {
+                return StatusCode(500, "Failed to create location");
+
+            }
+            var createdLocation = await _locationService.GetByIdAsync(newId);
+            return CreatedAtAction(nameof(GetLocationById), new { id = newId }, createdLocation);
         }
 
         /// <summary>
@@ -65,20 +73,22 @@ namespace LabProject.Presentation.Controllers
         /// <response code="200">The location was updated successfully.</response>
         /// <response code="404">No location found with the specified ID.</response>
         [HttpPut("{id}")]
-        public ActionResult UpdateLocation([FromRoute] int id, [FromBody] Location location)
+        public async Task<ActionResult> UpdateLocation([FromRoute] int id, [FromBody] LocationUpdateDto location)
         {
-            var locationToUpdate = Locations.FirstOrDefault(l => l.Id == id);
-            if (locationToUpdate is null)
+            if (location is null)
             {
-                return NotFound();
+                return BadRequest("Location data is invalid or ID mismatch.");
             }
 
-            locationToUpdate.Name = location.Name;
-            locationToUpdate.Address = location.Address;
-            locationToUpdate.City = location.City;
-            locationToUpdate.Phone = location.Phone;
+            var success = await _locationService.UpdateAsync(id, location);
+            if (!success)
+            {
+                return NotFound($"Location with ID {id} not found.");
+            }
 
-            return Ok(locationToUpdate);
+            // Optionally, return the updated appointment data after update
+            var updatedLocation = await _locationService.GetByIdAsync(id);
+            return Ok(updatedLocation);
         }
 
         /// <summary>
@@ -89,15 +99,13 @@ namespace LabProject.Presentation.Controllers
         /// <response code="200">The location was deleted successfully.</response>
         /// <response code="404">No location found with the specified ID.</response>
         [HttpDelete("{id}")]
-        public ActionResult DeleteLocation([FromRoute] int id)
+        public async Task<ActionResult> DeleteLocation([FromRoute] int id)
         {
-            var location = Locations.FirstOrDefault(l => l.Id == id);
-            if (location is null)
+            var success = await _locationService.DeleteAsync(id);
+            if (!success)
             {
-                return NotFound();
+                return NotFound($"Location with ID {id} not found.");
             }
-
-            Locations.Remove(location);
             return Ok();
         }
     }

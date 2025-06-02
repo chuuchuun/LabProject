@@ -10,13 +10,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace LabProject.Infrastructure
 {
-    public class SqlConnectionFactory : IDbConnectionFactory
+    public class SqlConnectionFactory(IConfiguration configuration) : IDbConnectionFactory
     {
-        private readonly IConfiguration _configuration;
-        public SqlConnectionFactory(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
+        private readonly IConfiguration _configuration = configuration;
 
         public IDbConnection CreateConnection()
         {

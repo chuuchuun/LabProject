@@ -43,17 +43,28 @@ namespace LabProject.Infrastructure.Repositories
             }
         }
 
+        private async Task<long> GetMaxIdAsync()
+        {
+            using var connection = _connectionFactory.CreateConnection();
+            const string sql = "SELECT ISNULL(MAX(Id), 0) FROM marketing.Discounts";
+            return await connection.ExecuteScalarAsync<long>(sql);
+        }
+
         public async Task<long> AddAsync(Discount entity)
         {
             using var connection = _connectionFactory.CreateConnection();
+
+            var newId = await GetMaxIdAsync() + 1;
+            entity.Id = newId;
+
             const string sql = @"
-                INSERT INTO marketing.Discounts (ClientId, Title, Value, Description, ValidUntil)
-                VALUES (@ClientId, @Title, @Value, @Description, @ValidUntil);
-                SELECT CAST(SCOPE_IDENTITY() as bigint);";
+            INSERT INTO marketing.Discounts (Id, ClientId, Title, Value, Description, ValidUntil)
+            VALUES (@Id, @ClientId, @Title, @Value, @Description, @ValidUntil);";
 
             try
             {
-                return await connection.ExecuteScalarAsync<long>(sql, entity);
+                var rows = await connection.ExecuteAsync(sql, entity);
+                return rows > 0 ? entity.Id : 0;
             }
             catch
             {

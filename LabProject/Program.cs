@@ -6,6 +6,19 @@ using LabProject.Infrastructure.Repositories;
 using LabProject.Domain.Interfaces;
 using LabProject.Application.Interfaces;
 using LabProject.Application.Services;
+using LabProject.Application.Profiles;
+using LabProject.Application.Dtos.AppontmentDtos;
+using LabProject.Application.Dtos.DiscountDtos;
+using LabProject.Application.Dtos.LocationDtos;
+using LabProject.Application.Dtos.ServiceDtos;
+using LabProject.Application.Dtos.RoleDtos;
+using LabProject.Application.Dtos.PaymentDiscountDtos;
+using LabProject.Application.Dtos.ReviewDtos;
+using LabProject.Application.Validators;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Mvc;
+using LabProject.Presentation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,27 +36,27 @@ builder.Services.AddSwaggerGen(options =>
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     options.IncludeXmlComments(xmlPath);
 });
+builder.Services.AddApplicationServiceRegistration();
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
-builder.Services.AddScoped<IDbConnectionFactory, SqlConnectionFactory>();
-builder.Services.AddScoped<IRepository<Appointment>, AppointmentRepository>();
-builder.Services.AddScoped<IDiscountRepository, DiscountRepository>();
-builder.Services.AddScoped<IRepository<Location>, LocationRepository>();
-builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
-builder.Services.AddScoped<IRepository<PaymentDiscount>, PaymentDiscountRepository>();
-builder.Services.AddScoped<IRepository<Review>, ReviewRepository>();
-builder.Services.AddScoped<IRepository<Role>, RoleRepository>();
-builder.Services.AddScoped<IRepository<Service>, ServiceRepository>();
-builder.Services.AddScoped<IUserRepository,  UserRepository>();
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<UserCreateDtoValidator>();
 
-builder.Services.AddScoped<IBaseService<Appointment>, AppointmentService>();
-builder.Services.AddScoped<IDiscountService, DiscountService>();
-builder.Services.AddScoped<IBaseService<Location>, LocationService>();
-builder.Services.AddScoped<IPaymentService, PaymentService>();
-builder.Services.AddScoped<IBaseService<PaymentDiscount>, PaymentDiscountService>();
-builder.Services.AddScoped<IBaseService<Review>, ReviewService>();
-builder.Services.AddScoped<IBaseService<Role>, RoleService>();
-builder.Services.AddScoped<IBaseService<Service>, ServiceService>();
-builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.InvalidModelStateResponseFactory = context =>
+    {
+        var errors = context.ModelState
+            .Where(x => x.Value?.Errors.Count > 0)
+            .Select(x => new
+            {
+                Field = x.Key,
+                Errors = x.Value?.Errors.Select(e => e.ErrorMessage)
+            });
+
+        return new BadRequestObjectResult(new { Errors = errors });
+    };
+});
 
 var app = builder.Build();
 

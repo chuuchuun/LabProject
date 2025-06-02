@@ -3,38 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using LabProject.Application.Dtos.PaymentDiscountDtos;
 using LabProject.Application.Interfaces;
 using LabProject.Domain.Entities;
 using LabProject.Domain.Interfaces;
 
 namespace LabProject.Application.Services
 {
-    public class PaymentDiscountService(IRepository<PaymentDiscount> paymentDiscountRepo) : IBaseService<PaymentDiscount>
+    public class PaymentDiscountService(IRepository<PaymentDiscount> paymentDiscountRepo, IMapper mapper) : IReadableService<PaymentDiscountDto>, IDeletableService
     {
         private readonly IRepository<PaymentDiscount> _paymentDiscountRepo = paymentDiscountRepo;
-        public async Task<long> AddAsync(PaymentDiscount entityModel)
-        {
-            return await _paymentDiscountRepo.AddAsync(entityModel);
-        }
-
+        private readonly IMapper _mapper = mapper;
+        
         public async Task<bool> DeleteAsync(long id)
         {
             return await _paymentDiscountRepo.DeleteAsync(id);
         }
 
-        public async Task<IEnumerable<PaymentDiscount>> GetAllAsync()
+        public async Task<IEnumerable<PaymentDiscountDto>> GetAllAsync()
         {
-            return await _paymentDiscountRepo.GetAllAsync();
+            var paymentDiscounts = await _paymentDiscountRepo.GetAllAsync();
+            return _mapper.Map<IEnumerable<PaymentDiscountDto>>(paymentDiscounts);
         }
 
-        public async Task<PaymentDiscount?> GetByIdAsync(long id)
+        public async Task<PaymentDiscountDto?> GetByIdAsync(long id)
         {
-            return await _paymentDiscountRepo.GetByIdAsync(id);
-        }
-
-        public Task<bool> UpdateAsync(long id, PaymentDiscount entityModel)
-        {
-            throw new NotImplementedException();
+            var paymentDiscounts = await _paymentDiscountRepo.GetByIdAsync(id);
+            return paymentDiscounts is null ? null : _mapper.Map<PaymentDiscountDto>(paymentDiscounts);
         }
     }
 }

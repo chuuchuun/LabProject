@@ -43,26 +43,36 @@ namespace LabProject.Infrastructure.Repositories
             }
         }
 
+        private async Task<long> GetMaxIdAsync()
+        {
+            using var connection = _dbFactory.CreateConnection();
+            const string sql = "SELECT ISNULL(MAX(Id), 0) FROM appointments.Appointments";
+            return await connection.ExecuteScalarAsync<long>(sql);
+        }
+
         public async Task<long> AddAsync(Appointment entity)
         {
             using var connection = _dbFactory.CreateConnection();
+
+            var newId = await GetMaxIdAsync() + 1;
+            entity.Id = newId;
+
             const string query = @"
-                INSERT INTO appointments.Appointments 
-                    (ClientId, ProviderId, ServiceId, LocationId, DateTime, Status)
-                VALUES 
-                    (@ClientId, @ProviderId, @ServiceId, @LocationId, @DateTime, @Status);
-                SELECT CAST(SCOPE_IDENTITY() as bigint);";
+            INSERT INTO appointments.Appointments 
+                (Id, ClientId, ProviderId, ServiceId, LocationId, DateTime, Status)
+            VALUES 
+                (@Id, @ClientId, @ProviderId, @ServiceId, @LocationId, @DateTime, @Status);";
 
             try
             {
-                return await connection.ExecuteScalarAsync<long>(query, entity);
+                var rows = await connection.ExecuteAsync(query, entity);
+                return rows > 0 ? entity.Id : 0;
             }
             catch
             {
                 return 0;
             }
         }
-
         public async Task<bool> UpdateAsync(long id, Appointment entity)
         {
             using var connection = _dbFactory.CreateConnection();

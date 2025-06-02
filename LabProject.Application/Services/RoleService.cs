@@ -1,19 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
+using LabProject.Application.Dtos.RoleDtos;
+using LabProject.Application.Dtos.UserDtos;
 using LabProject.Application.Interfaces;
 using LabProject.Domain.Entities;
 using LabProject.Domain.Interfaces;
 
 namespace LabProject.Application.Services
 {
-    public class RoleService(IRepository<Role> roleRepo) : IBaseService<Role>
+    public class RoleService(IRepository<Role> roleRepo, IMapper mapper) : IBaseService<Role, RoleDto, RoleCreateDto, RoleUpdateDto>
     {
         private readonly IRepository<Role> _roleRepo = roleRepo;
-
-        public async Task<long> AddAsync(Role entityModel)
+        private readonly IMapper _mapper = mapper;
+        public async Task<long> AddAsync(RoleCreateDto roleCreateDto)
         {
-            return await _roleRepo.AddAsync(entityModel);
+            var roleEntity = _mapper.Map<Role>(roleCreateDto);
+            roleEntity.CreatedAt = DateTime.UtcNow;
+            roleEntity.UpdatedAt = DateTime.UtcNow;
+
+            return await _roleRepo.AddAsync(roleEntity);
         }
 
         public async Task<bool> DeleteAsync(long id)
@@ -21,19 +28,28 @@ namespace LabProject.Application.Services
             return await _roleRepo.DeleteAsync(id);
         }
 
-        public async Task<IEnumerable<Role>> GetAllAsync()
+        public async Task<IEnumerable<RoleDto>> GetAllAsync()
         {
-            return await _roleRepo.GetAllAsync();
+            var roles = await _roleRepo.GetAllAsync();
+            return _mapper.Map<IEnumerable<RoleDto>>(roles);
         }
 
-        public async Task<Role?> GetByIdAsync(long id)
+        public async Task<RoleDto?> GetByIdAsync(long id)
         {
-            return await _roleRepo.GetByIdAsync(id);
+            var role = await _roleRepo.GetByIdAsync(id);
+            return role is null ? null : _mapper.Map<RoleDto>(role);
         }
 
-        public async Task<bool> UpdateAsync(long id, Role entityModel)
+        public async Task<bool> UpdateAsync(long id, RoleUpdateDto roleUpdateDto)
         {
-            return await _roleRepo.UpdateAsync(id, entityModel);
+            var existingRole = await _roleRepo.GetByIdAsync(id);
+            if (existingRole is null)
+                return false;
+
+            _mapper.Map(roleUpdateDto, existingRole);
+            existingRole.UpdatedAt = DateTime.UtcNow;
+
+            return await _roleRepo.UpdateAsync(id, existingRole);
         }
     }
 }
