@@ -5,26 +5,28 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentValidation;
 using LabProject.Application.Dtos.UserDtos;
+using LabProject.Application.Features.Users.Commands.CreateUser;
 
 namespace LabProject.Application.Validators
 {
-    public class UserCreateDtoValidator : AbstractValidator<UserCreateDto>
+    public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
     {
-        public UserCreateDtoValidator()
+        public CreateUserCommandValidator()
         {
-            RuleFor(x => x.Name)
+
+            RuleFor(x => x.Dto.Name)
                 .NotEmpty().WithMessage("Name is required")
                 .MaximumLength(100);
 
-            RuleFor(x => x.Username)
+            RuleFor(x => x.Dto.Username)
                 .NotEmpty().WithMessage("Username is required")
                 .MaximumLength(50);
 
-            RuleFor(x => x.Email)
+            RuleFor(x => x.Dto.Email)
                 .NotEmpty().WithMessage("Email is required")
                 .EmailAddress();
 
-            RuleFor(x => x.Password)
+            RuleFor(x => x.Dto.Password)
                 .NotEmpty().WithMessage("Password is required")
                 .MinimumLength(6);
         }

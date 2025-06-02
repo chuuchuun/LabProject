@@ -137,7 +137,7 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "provider",
+        "Name": "userCreateDto",
         "Type": "LabProject.Application.Dtos.UserDtos.UserCreateDto",
         "IsRequired": true
       }

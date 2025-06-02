@@ -19,6 +19,11 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using LabProject.Presentation;
+using System.Reflection;
+using LabProject.Application.Features.Users.Queries.GetAllUsers;
+using LabProject.Application.Features.Users.Queries.GetUserById;
+using LabProject.Application.Features.Users.Commands.UpdateUser;
+using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,8 +44,12 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddApplicationServiceRegistration();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
-builder.Services.AddFluentValidationAutoValidation();
-builder.Services.AddValidatorsFromAssemblyContaining<UserCreateDtoValidator>();
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(GetAllUsersQueryHandler).Assembly);
+});
+builder.Services.AddValidatorsFromAssembly(typeof(CreateUserCommandValidator).Assembly);
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
