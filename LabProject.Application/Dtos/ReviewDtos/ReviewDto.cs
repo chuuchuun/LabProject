@@ -16,8 +16,8 @@ namespace LabProject.Application.Dtos.ReviewDtos
         public int Rating { get; set; }
         public string? Comment { get; set; }
         public DateTime DatePosted { get; set; }
-        public UserBasicDto Client { get; set; }
-        public AppointmentBasicDto Appointment { get; set; }
+        required public UserBasicDto Client { get; set; }
+        required public AppointmentBasicDto Appointment { get; set; }
     }
 
 }

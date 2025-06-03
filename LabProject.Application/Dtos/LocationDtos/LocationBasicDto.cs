@@ -9,7 +9,7 @@ namespace LabProject.Application.Dtos.LocationDtos
     public class LocationBasicDto
     {
         public long Id { get; set; }
-        public string Name { get; set; }
-        public string City { get; set; }
+        required public string Name { get; set; }
+        required public string City { get; set; }
     }
 }

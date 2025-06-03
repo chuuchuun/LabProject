@@ -9,7 +9,7 @@ namespace LabProject.Application.Dtos.DiscountDtos
     public class DiscountBasicDto
     {
         public long Id { get; set; }
-        public string Title { get; set; }
+        required public string Title { get; set; }
         public decimal Value { get; set; }
     }
 }

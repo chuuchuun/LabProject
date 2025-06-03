@@ -8,8 +8,10 @@ using LabProject.Application.Dtos.UserDtos;
 using LabProject.Domain.Interfaces;
 using MediatR;
 
-namespace LabProject.Application.Features.Users.Queries.GetProvidersBySpecialtyId
+namespace LabProject.Application.Features.Users.Queries
 {
+    public record GetProviderBySpecialtyId(long Id) : IRequest<IEnumerable<UserProviderDto?>>;
+
     public class GetProviderBySpecialtyIdQueryHandler(IUserRepository userRepo, IMapper mapper)
           : IRequestHandler<GetProviderBySpecialtyId, IEnumerable<UserProviderDto?>>
     {

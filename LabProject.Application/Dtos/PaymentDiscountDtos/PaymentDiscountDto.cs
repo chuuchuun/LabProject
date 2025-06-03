@@ -12,6 +12,6 @@ namespace LabProject.Application.Dtos.PaymentDiscountDtos
         public long DiscountId { get; set; }
         public long PaymentId { get; set; }
         public decimal? PayedValue { get; set; }
-        public DiscountBasicDto Discount { get; set; }
+        required public DiscountBasicDto Discount { get; set; }
     }
 }

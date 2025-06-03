@@ -13,9 +13,9 @@ namespace LabProject.Application.Dtos.AppontmentDtos
     {
         public long Id { get; set; }
         public DateTime DateTime { get; set; }
-        public string Status { get; set; }
-        public UserBasicDto Provider { get; set; }
-        public ServiceBasicDto Service { get; set; }
-        public LocationBasicDto Location { get; set; }
+        required public string Status { get; set; }
+        required public UserBasicDto Provider { get; set; }
+        required public ServiceBasicDto Service { get; set; }
+        required public LocationBasicDto Location { get; set; }
     }
 }

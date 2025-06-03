@@ -8,12 +8,8 @@ using System.Threading.Tasks;
 using LabProject.Application.Services;
 using LabProject.Application.Dtos.UserDtos;
 using MediatR;
-using LabProject.Application.Features.Users.Queries.GetAllUsers;
-using LabProject.Application.Features.Users.Queries.GetUserById;
-using LabProject.Application.Features.Users.Queries.GetProvidersBySpecialtyId;
-using LabProject.Application.Features.Users.Commands.CreateUser;
-using LabProject.Application.Features.Users.Commands.UpdateUser;
-using LabProject.Application.Features.Users.Commands.DeleteUser;
+using LabProject.Application.Features.Users.Queries;
+using LabProject.Application.Features.Users.Commands;
 
 namespace LabProject.Presentation.Controllers
 {

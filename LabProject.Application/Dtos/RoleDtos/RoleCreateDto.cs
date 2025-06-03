@@ -10,6 +10,6 @@ namespace LabProject.Application.Dtos.RoleDtos
     public class RoleCreateDto
     {
         [Required, MaxLength(50)]
-        public string Name { get; set; }
+        required public string Name { get; set; }
     }
 }

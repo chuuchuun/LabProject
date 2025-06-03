@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using LabProject.Application.Features.Users.Commands.UpdateUser;
+using LabProject.Application.Features.Users.Commands;
 using LabProject.Domain.Interfaces;
 using MediatR;
 
-namespace LabProject.Application.Features.Users.Commands.DeleteUser
+namespace LabProject.Application.Features.Users.Commands
 {
+    public record DeleteUserCommand(long Id) : IRequest<bool>;
+
     public class DeleteUserHandler(IUserRepository userRepo) : IRequestHandler<DeleteUserCommand, bool>
     {
         private readonly IUserRepository _userRepo = userRepo;

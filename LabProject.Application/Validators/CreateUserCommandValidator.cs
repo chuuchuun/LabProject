@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentValidation;
 using LabProject.Application.Dtos.UserDtos;
-using LabProject.Application.Features.Users.Commands.CreateUser;
+using LabProject.Application.Features.Users.Commands;
 
 namespace LabProject.Application.Validators
 {

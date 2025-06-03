@@ -10,11 +10,11 @@ namespace LabProject.Application.Dtos.UserDtos
     public class UserDto : BaseDto
     {
         public long Id { get; set; }
-        public string Name { get; set; }
-        public string Username { get; set; }
-        public string Phone { get; set; }
-        public string Email { get; set; }
+        required public string Name { get; set; }
+        required public string Username { get; set; }
+        required public string Phone { get; set; }
+        required public string Email { get; set; }
         public int RoleId { get; set; }
-        public RoleDto Role { get; set; }
+        required public RoleDto Role { get; set; }
     }
 }

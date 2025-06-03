@@ -19,12 +19,9 @@ namespace LabProject.Application.Dtos.AppontmentDtos
         public DateTime DateTime { get; set; }
         public string Status { get; set; } = "Scheduled";
 
-        // Navigation properties as DTOs
         public UserBasicDto? Client { get; set; }
         public UserBasicDto? Provider { get; set; }
         public ServiceBasicDto? Service { get; set; }
         public LocationBasicDto? Location { get; set; }
     }
-
-
 }

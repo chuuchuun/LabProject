@@ -10,8 +10,10 @@ using LabProject.Domain.Interfaces;
 using MediatR;
 using BCrypt.Net;
 
-namespace LabProject.Application.Features.Users.Commands.CreateUser
+namespace LabProject.Application.Features.Users.Commands
 {
+    public record CreateUserCommand(UserCreateDto Dto) : IRequest<long>;
+
     public class CreateUserHandler(IUserRepository userRepo, IMapper mapper) : IRequestHandler<CreateUserCommand, long>
     {
         private readonly IUserRepository _userRepo = userRepo;
@@ -19,15 +21,17 @@ namespace LabProject.Application.Features.Users.Commands.CreateUser
 
         public async Task<long> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            var user = _mapper.Map<User>(request.Dto);
+            var passwordHash = string.Empty;
             if (!string.IsNullOrEmpty(request.Dto.Password))
             {
-                user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Dto.Password);
+                passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Dto.Password);
             }
             else
             {
                 throw new ArgumentException("Password cannot be null or empty");
             }
+            var user = _mapper.Map<User>(request.Dto);
+            user.PasswordHash = passwordHash;
             user.CreatedAt = DateTime.UtcNow;
             user.UpdatedAt = DateTime.UtcNow;
 

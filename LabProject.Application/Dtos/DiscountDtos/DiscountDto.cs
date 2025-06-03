@@ -11,7 +11,7 @@ namespace LabProject.Application.Dtos.DiscountDtos
     {
         public long Id { get; set; }
         public long ClientId { get; set; }
-        public string Title { get; set; }
+        required public string Title { get; set; }
         public decimal Value { get; set; }
         public string? Description { get; set; }
         public DateTime? ValidUntil { get; set; }

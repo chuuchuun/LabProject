@@ -5,12 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using LabProject.Application.Dtos.UserDtos;
-using LabProject.Application.Features.Users.Commands.CreateUser;
+using LabProject.Application.Features.Users.Commands;
 using LabProject.Domain.Interfaces;
 using MediatR;
 
-namespace LabProject.Application.Features.Users.Commands.UpdateUser
+namespace LabProject.Application.Features.Users.Commands
 {
+    public record UpdateUserCommand(long Id, UserUpdateDto Dto) : IRequest<bool>;
+
     public class UpdateUserHandler(IUserRepository userRepo, IMapper mapper) : IRequestHandler<UpdateUserCommand, bool>
     {
         private readonly IUserRepository _userRepo = userRepo;

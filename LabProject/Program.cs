@@ -20,10 +20,10 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using LabProject.Presentation;
 using System.Reflection;
-using LabProject.Application.Features.Users.Queries.GetAllUsers;
-using LabProject.Application.Features.Users.Queries.GetUserById;
-using LabProject.Application.Features.Users.Commands.UpdateUser;
+using LabProject.Application.Features.Users;
+using LabProject.Application.Features.Users.Commands;
 using MediatR;
+using LabProject.Application.Features.Users.Queries;
 
 var builder = WebApplication.CreateBuilder(args);
 

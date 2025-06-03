@@ -10,15 +10,15 @@ namespace LabProject.Application.Dtos.LocationDtos
     public class LocationCreateDto
     {
         [Required, MaxLength(100)]
-        public string Name { get; set; }
+        required public string Name { get; set; }
 
         [Required, MaxLength(255)]
-        public string Address { get; set; }
+        required public string Address { get; set; }
 
         [Required, MaxLength(100)]
-        public string City { get; set; }
+        required public string City { get; set; }
 
         [Required, Phone]
-        public string Phone { get; set; }
+        required public string Phone { get; set; }
     }
 }

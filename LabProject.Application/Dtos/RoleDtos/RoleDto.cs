@@ -9,7 +9,7 @@ namespace LabProject.Application.Dtos.RoleDtos
     public class RoleDto : BaseDto
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        required public string Name { get; set; }
     }
 
 }

@@ -10,6 +10,6 @@ namespace LabProject.Application.Dtos.AppontmentDtos
     {
         public long Id { get; set; }
         public DateTime DateTime { get; set; }
-        public string Status { get; set; }
+        required public string Status { get; set; }
     }
 }

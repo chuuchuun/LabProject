@@ -13,7 +13,7 @@ namespace LabProject.Application.Dtos.DiscountDtos
         public long ClientId { get; set; }
 
         [Required, MaxLength(100)]
-        public string Title { get; set; }
+        required public string Title { get; set; }
 
         [Required]
         public decimal Value { get; set; }

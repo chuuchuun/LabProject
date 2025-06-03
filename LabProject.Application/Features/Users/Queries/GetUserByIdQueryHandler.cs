@@ -8,8 +8,10 @@ using LabProject.Application.Dtos.UserDtos;
 using LabProject.Domain.Interfaces;
 using MediatR;
 
-namespace LabProject.Application.Features.Users.Queries.GetUserById
+namespace LabProject.Application.Features.Users.Queries
 {
+    public record GetUserByIdQuery(long Id) : IRequest<UserDto?>;
+
     public class GetUserByIdQueryHandler(IUserRepository userRepo, IMapper mapper)
           : IRequestHandler<GetUserByIdQuery, UserDto?>
     {
