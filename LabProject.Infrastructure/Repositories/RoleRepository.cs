@@ -41,17 +41,27 @@ namespace LabProject.Infrastructure.Repositories
                 return null;
             }
         }
-
+        private async Task<int> GetMaxIdAsync()
+        {
+            using var connection = _connectionFactory.CreateConnection();
+            const string sql = "SELECT ISNULL(MAX(Id), 0) FROM auth.Roles";
+            return await connection.ExecuteScalarAsync<int>(sql);
+        }
         public async Task<long> AddAsync(Role entity)
         {
             using IDbConnection db = _connectionFactory.CreateConnection();
+
+            var newId = await GetMaxIdAsync() + 1;
+            entity.Id = newId;
+
             const string sql = @"
-                INSERT INTO auth.Roles (Name)
-                VALUES (@Name);
+                INSERT INTO auth.Roles (Id, Name)
+                VALUES (@Id, @Name);
                 SELECT CAST(SCOPE_IDENTITY() as bigint);";
             try
             {
-                return await db.ExecuteScalarAsync<long>(sql, new { entity.Name });
+                var rows = await db.ExecuteAsync(sql, entity);
+                return rows > 0 ? entity.Id : 0;
             }
             catch
             {

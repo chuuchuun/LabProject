@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using LabProject.Application.Dtos.AppontmentDtos;
 using LabProject.Application.Interfaces;
 using LabProject.Application.Services;
 using LabProject.Domain.Entities;
@@ -9,9 +10,9 @@ namespace LabProject.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AppointmentController(IBaseService<Appointment> appointmentService) : ControllerBase
+    public class AppointmentController(IBaseService<Appointment, AppointmentDto, AppointmentCreateDto, AppointmentUpdateDto> appointmentService) : ControllerBase
     {
-        private readonly IBaseService<Appointment> _appointmentService = appointmentService;
+        private readonly IBaseService<Appointment, AppointmentDto, AppointmentCreateDto, AppointmentUpdateDto> _appointmentService = appointmentService;
 
         /// <summary>
         /// Gets all appointments in the system.
@@ -19,7 +20,7 @@ namespace LabProject.Presentation.Controllers
         /// <returns>A list of all appointments.</returns>
         /// <response code="200">Returns the list of all appointments.</response>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Appointment>>> GetAppointments()
+        public async Task<ActionResult<IEnumerable<AppointmentDto>>> GetAppointments()
         {
             return Ok(await _appointmentService.GetAllAsync());
         }
@@ -33,10 +34,10 @@ namespace LabProject.Presentation.Controllers
         /// <response code="404">No appointment found with the specified ID.</response>
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Appointment>> GetAppointmentById([FromRoute] int id)
+        public async Task<ActionResult<AppointmentDto>> GetAppointmentById([FromRoute] int id)
         {
             var appointment = await _appointmentService.GetByIdAsync(id);
-            if (appointment == null)
+            if (appointment is null)
                 return NotFound();
 
             return Ok(appointment);
@@ -49,9 +50,9 @@ namespace LabProject.Presentation.Controllers
         /// <returns>The created appointment.</returns>
         /// <response code="201">The appointment was created successfully.</response>
         [HttpPost]
-        public async Task<ActionResult<Appointment>> CreateAppointment([FromBody] Appointment appointment)
+        public async Task<ActionResult<AppointmentDto>> CreateAppointment([FromBody] AppointmentCreateDto appointment)
         {
-            if (appointment == null)
+            if (appointment is null)
                 return BadRequest();
 
             var newId = await _appointmentService.AddAsync(appointment);
@@ -74,9 +75,9 @@ namespace LabProject.Presentation.Controllers
         /// <response code="200">The appointment was updated successfully.</response>
         /// <response code="404">No appointment found with the specified ID.</response>
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateAppointment([FromRoute] int id, [FromBody] Appointment updatedAppointment)
+        public async Task<ActionResult> UpdateAppointment([FromRoute] int id, [FromBody] AppointmentUpdateDto updatedAppointment)
         {
-            if (updatedAppointment == null || id != updatedAppointment.Id)
+            if (updatedAppointment is null)
             {
                 return BadRequest("Appointment data is invalid or ID mismatch.");
             }
@@ -87,7 +88,6 @@ namespace LabProject.Presentation.Controllers
                 return NotFound($"Appointment with ID {id} not found.");
             }
 
-            // Optionally, return the updated appointment data after update
             var appointment = await _appointmentService.GetByIdAsync(id);
             return Ok(appointment);
         }

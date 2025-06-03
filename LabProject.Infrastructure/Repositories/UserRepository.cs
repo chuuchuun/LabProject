@@ -43,19 +43,30 @@ namespace LabProject.Infrastructure.Repositories
                 return null;
             }
         }
+        public async Task<long> GetMaxIdAsync()
+        {
+            using IDbConnection db = _connectionFactory.CreateConnection();
+            const string sql = "SELECT ISNULL(MAX(Id), 0) FROM auth.Users";
+
+            return await db.ExecuteScalarAsync<long>(sql);
+        }
 
         public async Task<long> AddAsync(User entity)
         {
             using IDbConnection db = _connectionFactory.CreateConnection();
+
+            var newId = await GetMaxIdAsync() + 1;
+            entity.Id = newId;
+
             const string sql = @"
-                INSERT INTO auth.Users (Name, Username, Phone, Email, PasswordHash, RoleId)
-                VALUES (@Name, @Username, @Phone, @Email, @PasswordHash, @RoleId);
-                SELECT CAST(SCOPE_IDENTITY() AS bigint);";
+            INSERT INTO auth.Users (Id, Name, Username, Phone, Email, PasswordHash, RoleId)
+            VALUES (@Id, @Name, @Username, @Phone, @Email, @PasswordHash, @RoleId);";
 
             try
             {
-                return await db.ExecuteScalarAsync<long>(sql, new
+                int rows = await db.ExecuteAsync(sql, new
                 {
+                    entity.Id,
                     entity.Name,
                     entity.Username,
                     entity.Phone,
@@ -63,9 +74,12 @@ namespace LabProject.Infrastructure.Repositories
                     entity.PasswordHash,
                     entity.RoleId
                 });
+
+                return rows > 0 ? entity.Id : 0;
             }
-            catch
+            catch(Exception e)
             {
+                throw(e);
                 return 0;
             }
         }

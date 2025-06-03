@@ -9,7 +9,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Domain.Entities.Appointment, LabProject.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Application.Dtos.AppontmentDtos.AppointmentDto, LabProject.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -29,13 +29,13 @@
     "Parameters": [
       {
         "Name": "appointment",
-        "Type": "LabProject.Domain.Entities.Appointment",
+        "Type": "LabProject.Application.Dtos.AppontmentDtos.AppointmentCreateDto",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "LabProject.Domain.Entities.Appointment",
+        "Type": "LabProject.Application.Dtos.AppontmentDtos.AppointmentDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -61,7 +61,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "LabProject.Domain.Entities.Appointment",
+        "Type": "LabProject.Application.Dtos.AppontmentDtos.AppointmentDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -86,7 +86,7 @@
       },
       {
         "Name": "updatedAppointment",
-        "Type": "LabProject.Domain.Entities.Appointment",
+        "Type": "LabProject.Application.Dtos.AppontmentDtos.AppointmentUpdateDto",
         "IsRequired": true
       }
     ],
@@ -118,7 +118,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Domain.Entities.User, LabProject.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Application.Dtos.UserDtos.UserDto, LabProject.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -137,14 +137,14 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "provider",
-        "Type": "LabProject.Domain.Entities.User",
+        "Name": "userCreateDto",
+        "Type": "LabProject.Application.Dtos.UserDtos.UserCreateDto",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "LabProject.Domain.Entities.User",
+        "Type": "LabProject.Application.Dtos.UserDtos.UserDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -170,7 +170,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "LabProject.Domain.Entities.User",
+        "Type": "LabProject.Application.Dtos.UserDtos.UserDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -195,7 +195,7 @@
       },
       {
         "Name": "updatedProvider",
-        "Type": "LabProject.Domain.Entities.User",
+        "Type": "LabProject.Application.Dtos.UserDtos.UserUpdateDto",
         "IsRequired": true
       }
     ],
@@ -227,7 +227,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Domain.Entities.Location, LabProject.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Application.Dtos.LocationDtos.LocationDto, LabProject.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -247,13 +247,13 @@
     "Parameters": [
       {
         "Name": "location",
-        "Type": "LabProject.Domain.Entities.Location",
+        "Type": "LabProject.Application.Dtos.LocationDtos.LocationCreateDto",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "LabProject.Domain.Entities.Location",
+        "Type": "LabProject.Application.Dtos.LocationDtos.LocationDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -279,7 +279,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "LabProject.Domain.Entities.Location",
+        "Type": "LabProject.Application.Dtos.LocationDtos.LocationDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -304,7 +304,7 @@
       },
       {
         "Name": "location",
-        "Type": "LabProject.Domain.Entities.Location",
+        "Type": "LabProject.Application.Dtos.LocationDtos.LocationUpdateDto",
         "IsRequired": true
       }
     ],
@@ -336,7 +336,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Domain.Entities.User, LabProject.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Application.Dtos.UserDtos.UserDto, LabProject.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -356,7 +356,7 @@
     "Parameters": [
       {
         "Name": "provider",
-        "Type": "LabProject.Domain.Entities.User",
+        "Type": "LabProject.Application.Dtos.UserDtos.UserCreateDto",
         "IsRequired": true
       }
     ],
@@ -388,7 +388,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "LabProject.Domain.Entities.User",
+        "Type": "LabProject.Application.Dtos.UserDtos.UserProviderDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -413,7 +413,7 @@
       },
       {
         "Name": "updatedProvider",
-        "Type": "LabProject.Domain.Entities.User",
+        "Type": "LabProject.Application.Dtos.UserDtos.UserUpdateDto",
         "IsRequired": true
       }
     ],
@@ -445,7 +445,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Domain.Entities.Review, LabProject.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Application.Dtos.ReviewDtos.ReviewDto, LabProject.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -465,13 +465,13 @@
     "Parameters": [
       {
         "Name": "review",
-        "Type": "LabProject.Domain.Entities.Review",
+        "Type": "LabProject.Application.Dtos.ReviewDtos.ReviewCreateDto",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "LabProject.Domain.Entities.Review",
+        "Type": "LabProject.Application.Dtos.ReviewDtos.ReviewDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -497,7 +497,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "LabProject.Domain.Entities.Review",
+        "Type": "LabProject.Application.Dtos.ReviewDtos.ReviewDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -522,7 +522,7 @@
       },
       {
         "Name": "review",
-        "Type": "LabProject.Domain.Entities.Review",
+        "Type": "LabProject.Application.Dtos.ReviewDtos.ReviewUpdateDto",
         "IsRequired": true
       }
     ],
@@ -554,7 +554,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Domain.Entities.Service, LabProject.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Application.Dtos.ServiceDtos.ServiceDto, LabProject.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -574,13 +574,13 @@
     "Parameters": [
       {
         "Name": "service",
-        "Type": "LabProject.Domain.Entities.Service",
+        "Type": "LabProject.Application.Dtos.ServiceDtos.ServiceCreateDto",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "LabProject.Domain.Entities.Service",
+        "Type": "LabProject.Application.Dtos.ServiceDtos.ServiceDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -606,7 +606,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "LabProject.Domain.Entities.Service",
+        "Type": "LabProject.Application.Dtos.ServiceDtos.ServiceDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -631,7 +631,7 @@
       },
       {
         "Name": "updatedService",
-        "Type": "LabProject.Domain.Entities.Service",
+        "Type": "LabProject.Application.Dtos.ServiceDtos.ServiceUpdateDto",
         "IsRequired": true
       }
     ],
@@ -669,7 +669,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Domain.Entities.User, LabProject.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Application.Dtos.UserDtos.UserProviderDto, LabProject.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",

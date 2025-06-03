@@ -7,6 +7,7 @@ using LabProject.Domain.Interfaces;
 using LabProject.Infrastructure.Interfaces;
 using System;
 using System.Linq;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace LabProject.Infrastructure.Repositories
 {
@@ -43,23 +44,27 @@ namespace LabProject.Infrastructure.Repositories
                 return null;
             }
         }
-
+        private async Task<long> GetMaxIdAsync()
+        {
+            using var connection = _connectionFactory.CreateConnection();
+            const string sql = "SELECT ISNULL(MAX(Id), 0) FROM appointments.Payments";
+            return await connection.ExecuteScalarAsync<long>(sql);
+        }
         public async Task<long> AddAsync(Payment entity)
         {
             using IDbConnection db = _connectionFactory.CreateConnection();
+            var newId = await GetMaxIdAsync() + 1;
+            entity.Id = newId;
             const string sql = @"
-                INSERT INTO appointments.Payments (AppointmentId, AmountPaid, PaidAt)
-                VALUES (@AppointmentId, @AmountPaid, @PaidAt);
-                SELECT CAST(SCOPE_IDENTITY() as bigint);";
+                INSERT INTO appointments.Payments (Id, AppointmentId, AmountPaid, PaidAt)
+                VALUES (@Id, @AppointmentId, @AmountPaid, @PaidAt);
+                SELECT CAST(SCOPE_IDENTITY() as bigint);"
+            ;
 
             try
             {
-                return await db.ExecuteScalarAsync<long>(sql, new
-                {
-                    entity.AppointmentId,
-                    entity.AmountPaid,
-                    entity.PaidAt
-                });
+                var rows = await db.ExecuteAsync(sql, entity);
+                return rows > 0 ? entity.Id : 0;
             }
             catch
             {

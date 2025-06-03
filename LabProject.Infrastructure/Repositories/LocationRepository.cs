@@ -42,18 +42,28 @@ namespace LabProject.Infrastructure.Repositories
                 return null;
             }
         }
-
+        private async Task<long> GetMaxIdAsync()
+        {
+            using var connection = _dbFactory.CreateConnection();
+            const string sql = "SELECT ISNULL(MAX(Id), 0) FROM locations.Locations";
+            return await connection.ExecuteScalarAsync<long>(sql);
+        }
         public async Task<long> AddAsync(Location entity)
         {
             using var connection = _dbFactory.CreateConnection();
+
+            var newId = await GetMaxIdAsync() + 1;
+            entity.Id = newId;
+
             const string query = @"
-                INSERT INTO locations.Locations (Name, Address, City, Phone)
-                VALUES (@Name, @Address, @City, @Phone);
+                INSERT INTO locations.Locations (Id, Name, Address, City, Phone)
+                VALUES (@Id, @Name, @Address, @City, @Phone);
                 SELECT CAST(SCOPE_IDENTITY() as bigint);";
 
             try
             {
-                return await connection.ExecuteScalarAsync<long>(query, entity);
+                var rows = await connection.ExecuteAsync(query, entity);
+                return rows > 0 ? entity.Id : 0;
             }
             catch
             {

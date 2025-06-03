@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LabProject.Application.Dtos.DiscountDtos;
 using LabProject.Domain.Entities;
 
 namespace LabProject.Application.Interfaces
 {
-    public interface IDiscountService : IBaseService<Discount>
+    public interface IDiscountService : ICreatableService<DiscountCreateDto>,IReadableService<DiscountDto>, IUpdatableService<DiscountUpdateDto>, IDeletableService
     {
-        public Task<IEnumerable<Discount>> GetValidDiscountsForClientAsync(long clientId);
+        public Task<IEnumerable<DiscountDto>> GetValidDiscountsForClientAsync(long clientId);
     }
 }

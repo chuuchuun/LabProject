@@ -6,23 +6,27 @@ using System.Linq;
 using LabProject.Application.Interfaces;
 using System.Threading.Tasks;
 using LabProject.Application.Services;
+using LabProject.Application.Dtos.UserDtos;
+using MediatR;
+using LabProject.Application.Features.Users.Commands;
+using LabProject.Application.Features.Users.Queries;
 
 namespace LabProject.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClientController(IBaseService<User> userService) : ControllerBase
+    public class ClientController(IMediator mediator) : ControllerBase
     {
-        private readonly IBaseService<User> _userService = userService;
+        private readonly IMediator _mediator = mediator;
         /// <summary>
         /// Gets all clients in the system.
         /// </summary>
         /// <returns>A list of all clients.</returns>
         /// <response code="200">Returns the list of clients.</response>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetClients()
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetClients()
         {
-            var users = await _userService.GetAllAsync();
+            var users = await _mediator.Send(new GetAllUsersQuery());
             return Ok(users.Where(u => u.RoleId == 3));
         }
 
@@ -34,9 +38,9 @@ namespace LabProject.Presentation.Controllers
         /// <response code="200">Returns the client with the specified ID.</response>
         /// <response code="404">No client found with the specified ID.</response>
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetClientById([FromRoute] int id)
+        public async Task<ActionResult<UserDto>> GetClientById([FromRoute] int id)
         {
-            var client = await _userService.GetByIdAsync(id);
+            var client = await _mediator.Send(new GetUserByIdQuery(id));
             if (client is null)
                 return NotFound();
 
@@ -46,22 +50,22 @@ namespace LabProject.Presentation.Controllers
         /// <summary>
         /// Creates a new client.
         /// </summary>
-        /// <param name="provider">The client data to create.</param>
+        /// <param name="userCreateDto">The client data to create.</param>
         /// <returns>The created client with its assigned ID.</returns>
         /// <response code="201">The client was created successfully.</response>
         [HttpPost]
-        public async Task<ActionResult<User>> CreateClient([FromBody] User provider)
+        public async Task<ActionResult<UserDto>> CreateClient([FromBody] UserCreateDto userCreateDto)
         {
-            if (provider is null)
+            if (userCreateDto is null)
                 return BadRequest();
 
-            var newId = await _userService.AddAsync(provider);
+            var newId = await _mediator.Send(new CreateUserCommand(userCreateDto));
             if (newId <= 0)
             {
                 return StatusCode(500, "Failed to create client");
             }
 
-            var createdClient = await _userService.GetByIdAsync(newId);
+            var createdClient = await _mediator.Send(new GetUserByIdQuery(newId));
             return CreatedAtAction(nameof(GetClientById), new { id = newId }, createdClient);
         }
         /// <summary>
@@ -73,21 +77,21 @@ namespace LabProject.Presentation.Controllers
         /// <response code="200">The client was updated successfully.</response>
         /// <response code="404">No client found with the specified ID.</response>
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateClient([FromRoute] int id, [FromBody] User updatedProvider)
+        public async Task<ActionResult> UpdateClient([FromRoute] int id, [FromBody] UserUpdateDto updatedProvider)
         {
-            if (updatedProvider is null || id != updatedProvider.Id)
+            if (updatedProvider is null)
             {
                 return BadRequest("Client data is invalid or ID mismatch.");
             }
 
-            var success = await _userService.UpdateAsync(id, updatedProvider);
+            var success = await _mediator.Send(new UpdateUserCommand(id, updatedProvider));
             if (!success)
             {
                 return NotFound($"Client with ID {id} not found.");
             }
 
             // Optionally, return the updated appointment data after update
-            var provider = await _userService.GetByIdAsync(id);
+            var provider = await _mediator.Send(new GetUserByIdQuery(id));
             return Ok(provider);
         }
 
@@ -101,7 +105,7 @@ namespace LabProject.Presentation.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteClient([FromRoute] int id)
         {
-            var success = await _userService.DeleteAsync(id);
+            var success = await _mediator.Send(new DeleteUserCommand(id));
             if (!success)
             {
                 return NotFound($"Client with ID {id} not found.");
