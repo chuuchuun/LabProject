@@ -24,5 +24,4 @@ namespace LabProject.Application.Dtos.AppontmentDtos
         [Required]
         public DateTime DateTime { get; set; }
     }
-
 }
