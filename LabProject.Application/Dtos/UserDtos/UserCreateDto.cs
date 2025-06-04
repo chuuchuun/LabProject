@@ -25,6 +25,6 @@ namespace LabProject.Application.Dtos.UserDtos
         required public string Password { get; set; }
 
         [Required]
-        public int RoleId { get; set; }
+        required public string RoleName { get; set; }
     }
 }

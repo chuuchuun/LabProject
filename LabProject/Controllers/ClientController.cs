@@ -10,6 +10,7 @@ using LabProject.Application.Dtos.UserDtos;
 using MediatR;
 using LabProject.Application.Features.Users.Commands;
 using LabProject.Application.Features.Users.Queries;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LabProject.Presentation.Controllers
 {
@@ -23,11 +24,39 @@ namespace LabProject.Presentation.Controllers
         /// </summary>
         /// <returns>A list of all clients.</returns>
         /// <response code="200">Returns the list of clients.</response>
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserDto>>> GetClients()
         {
             var users = await _mediator.Send(new GetAllUsersQuery());
-            return Ok(users.Where(u => u.RoleId == 3));
+            return Ok(users.Where(u => u.RoleName == "Client"));
+        }
+
+        /// <summary>
+        /// Gets currently logged in client.
+        /// </summary>
+        /// <returns>The currently logged in client.</returns>
+        /// <response code="200">Returns the currently logged in client.</response>
+        /// <response code="401">No client ID was found in access token.</response>
+        /// <response code="403">No corresponding client found with the specified ID.</response>
+        [Authorize(Roles = "Client")]
+        [HttpGet("me")]
+        public async Task<ActionResult<UserDto>> GetMe()
+        {
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+            if (string.IsNullOrEmpty(userIdClaim) || !long.TryParse(userIdClaim, out var userId))
+            {
+                return Unauthorized("User ID not found in token.");
+            }
+
+            var user = await _mediator.Send(new GetUserByIdQuery(userId));
+            if (user == null || user.RoleName != "Client")
+            {
+                return Forbid("Access denied. Only clients can access this endpoint.");
+            }
+
+            return Ok(user);
         }
 
         /// <summary>
@@ -37,6 +66,7 @@ namespace LabProject.Presentation.Controllers
         /// <returns>The client matching the ID.</returns>
         /// <response code="200">Returns the client with the specified ID.</response>
         /// <response code="404">No client found with the specified ID.</response>
+        [Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
         public async Task<ActionResult<UserDto>> GetClientById([FromRoute] int id)
         {
@@ -53,6 +83,7 @@ namespace LabProject.Presentation.Controllers
         /// <param name="userCreateDto">The client data to create.</param>
         /// <returns>The created client with its assigned ID.</returns>
         /// <response code="201">The client was created successfully.</response>
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<UserDto>> CreateClient([FromBody] UserCreateDto userCreateDto)
         {
@@ -76,6 +107,7 @@ namespace LabProject.Presentation.Controllers
         /// <returns>The updated client.</returns>
         /// <response code="200">The client was updated successfully.</response>
         /// <response code="404">No client found with the specified ID.</response>
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateClient([FromRoute] int id, [FromBody] UserUpdateDto updatedProvider)
         {
@@ -89,12 +121,25 @@ namespace LabProject.Presentation.Controllers
             {
                 return NotFound($"Client with ID {id} not found.");
             }
-
-            // Optionally, return the updated appointment data after update
             var provider = await _mediator.Send(new GetUserByIdQuery(id));
             return Ok(provider);
         }
 
+        [Authorize(Roles = "Client")]
+        [HttpPut("me")]
+        public async Task<ActionResult<UserDto>> UpdateMe([FromBody] UserUpdateDto userUpdateDto)
+        {
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+            if (string.IsNullOrEmpty(userIdClaim) || !long.TryParse(userIdClaim, out var userId))
+            {
+                return Unauthorized("User ID not found in token.");
+            }
+            await _mediator.Send(new UpdateUserCommand(userId, userUpdateDto));
+            var updated = await _mediator.Send(new GetUserByIdQuery(userId));
+
+            return Ok(updated);
+        }
         /// <summary>
         /// Deletes a client by ID.
         /// </summary>

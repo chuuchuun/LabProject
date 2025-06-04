@@ -14,7 +14,7 @@ namespace LabProject.Application.Dtos.UserDtos
         required public string Username { get; set; }
         required public string Phone { get; set; }
         required public string Email { get; set; }
-        public int RoleId { get; set; }
+        required public string RoleName { get; set; }
         required public RoleDto Role { get; set; }
     }
 }
