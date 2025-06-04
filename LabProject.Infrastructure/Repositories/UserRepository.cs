@@ -93,9 +93,8 @@ namespace LabProject.Infrastructure.Repositories
 
                 return rows > 0 ? entity.Id : 0;
             }
-            catch(Exception e)
+            catch
             {
-                throw(e);
                 return 0;
             }
         }
