@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LabProject.Application.Dtos.ReviewDtos
 {
-    public class ReviewUpdateDto
+    public record ReviewUpdateDto
     {
         [Range(1, 5)]
         public int? Rating { get; set; }

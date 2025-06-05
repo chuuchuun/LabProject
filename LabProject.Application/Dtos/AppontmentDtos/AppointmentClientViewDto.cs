@@ -9,7 +9,7 @@ using LabProject.Application.Dtos.UserDtos;
 
 namespace LabProject.Application.Dtos.AppontmentDtos
 {
-    public class AppointmentClientViewDto
+    public record AppointmentClientViewDto
     {
         public long Id { get; set; }
         public DateTime DateTime { get; set; }

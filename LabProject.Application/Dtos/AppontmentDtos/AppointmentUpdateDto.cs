@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LabProject.Application.Dtos.AppontmentDtos
 {
-    public class AppointmentUpdateDto
+    public record AppointmentUpdateDto
     {
         public DateTime? DateTime { get; set; }
         public long? LocationId { get; set; }

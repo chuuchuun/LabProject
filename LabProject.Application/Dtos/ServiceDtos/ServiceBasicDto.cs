@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LabProject.Application.Dtos.ServiceDtos
 {
-    public class ServiceBasicDto
+    public record ServiceBasicDto
     {
         public long Id { get; set; }
         required public string Name { get; set; }

@@ -9,14 +9,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using BCrypt.Net;
+using LabProject.Application.Interfaces;
 
 namespace LabProject.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController(IMediator mediator) : ControllerBase
+    public class AuthController(IUserService userService) : ControllerBase
     {
-        private readonly IMediator _mediator = mediator;
+        private readonly IUserService _userService = userService;
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register([FromBody] UserCreateDto userDto)
         {
@@ -26,7 +27,7 @@ namespace LabProject.Presentation.Controllers
                 return BadRequest("Invalid role specified");
             }
 
-            var result = await _mediator.Send(new CreateUserCommand(
+            var result = await _userService.AddAsync(
                 new UserCreateDto
                 {
                     Name = userDto.Name,
@@ -35,7 +36,7 @@ namespace LabProject.Presentation.Controllers
                     Email = userDto.Email,
                     Password = userDto.Password,
                     RoleName = userDto.RoleName
-                }));
+                });
 
             return Ok(result);
         }
@@ -44,7 +45,7 @@ namespace LabProject.Presentation.Controllers
         {
             try
             {
-                var token = await _mediator.Send(new LoginUserCommand(loginDto.Username, loginDto.Password));
+                var token = await _userService.LoginUser(loginDto);
                 return Ok(new { token });
             }
             catch (UnauthorizedAccessException)

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LabProject.Application.Dtos.ServiceDtos
 {
-    public class ServiceCreateDto
+    public record ServiceCreateDto
     {
         [Required, MaxLength(100)]
         required public string Name { get; set; }

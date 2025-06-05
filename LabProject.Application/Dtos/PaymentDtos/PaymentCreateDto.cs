@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LabProject.Application.Dtos.PaymentDtos
 {
-    public class PaymentCreateDto
+    public record PaymentCreateDto
     {
         [Required]
         public long AppointmentId { get; set; }

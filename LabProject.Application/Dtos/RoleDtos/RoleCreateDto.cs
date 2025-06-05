@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LabProject.Application.Dtos.RoleDtos
 {
-    public class RoleCreateDto
+    public record RoleCreateDto
     {
         [Required, MaxLength(50)]
         required public string Name { get; set; }

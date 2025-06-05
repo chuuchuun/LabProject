@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LabProject.Application.Dtos.TokenDtos
 {
-    public class TokenDto
+    public record TokenDto
     {
         required public string AccessToken { get; set; }
         required public string RefreshToken { get; set; }
