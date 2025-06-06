@@ -8,21 +8,28 @@ using LabProject.Application.Dtos.ReviewDtos;
 using LabProject.Application.Dtos.UserDtos;
 using LabProject.Application.Interfaces;
 using LabProject.Domain.Entities;
+using LabProject.Domain.Hubs;
 using LabProject.Domain.Interfaces;
+using Microsoft.AspNetCore.SignalR;
 
 namespace LabProject.Application.Services
 {
-    public class ReviewService(IReviewRepository reviewRepo, IMapper mapper) : IReviewService
+    public class ReviewService(IReviewRepository reviewRepo, IMapper mapper, IHubContext<ReviewHub> hubContext) : IReviewService
     {
         private readonly IReviewRepository _reviewRepo = reviewRepo;
         private readonly IMapper _mapper = mapper;
+        private readonly IHubContext<ReviewHub> _hubContext = hubContext;
+
         public async Task<long> AddAsync(ReviewCreateDto reviewCreateDto)
         {
             var reviewEntity = _mapper.Map<Review>(reviewCreateDto);
             reviewEntity.CreatedAt = DateTime.UtcNow;
             reviewEntity.UpdatedAt = DateTime.UtcNow;
 
-            return await _reviewRepo.AddAsync(reviewEntity);
+            var id = await _reviewRepo.AddAsync(reviewEntity);
+            var message = $"New review added by user {reviewCreateDto.ClientId} for appointment {reviewCreateDto.AppointmentId}";
+            await _hubContext.Clients.All.SendAsync("ReceiveReviewNotification", message);
+            return id;
         }
 
         public async Task<bool> DeleteAsync(long id)

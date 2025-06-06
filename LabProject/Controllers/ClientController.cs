@@ -13,6 +13,7 @@ using LabProject.Application.Features.Users.Queries;
 
 namespace LabProject.Presentation.Controllers
 {
+    [ApiVersion("1.0")]
     [Route("api/[controller]")]
     [ApiController]
     public class ClientController(IMediator mediator) : ControllerBase
