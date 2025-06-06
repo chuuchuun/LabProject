@@ -32,17 +32,33 @@ namespace LabProject.Infrastructure.Repositories
         public async Task<User?> GetByIdAsync(long id)
         {
             using IDbConnection db = _connectionFactory.CreateConnection();
-            const string sql = "SELECT * FROM auth.Users WHERE Id = @Id";
+
+            const string sql = @"
+        SELECT u.*, r.*
+        FROM auth.Users u
+        INNER JOIN auth.Roles r ON u.RoleId = r.Id
+        WHERE u.Id = @Id";
 
             try
             {
-                return await db.QuerySingleOrDefaultAsync<User>(sql, new { Id = id });
+                var result = await db.QueryAsync<User, Role, User>(
+                    sql,
+                    (user, role) =>
+                    {
+                        user.Role = role;
+                        return user;
+                    },
+                    new { Id = id },
+                    splitOn: "Id"
+                );
+                return result.SingleOrDefault();
             }
             catch
             {
                 return null;
             }
         }
+
         public async Task<long> GetMaxIdAsync()
         {
             using IDbConnection db = _connectionFactory.CreateConnection();
@@ -77,9 +93,8 @@ namespace LabProject.Infrastructure.Repositories
 
                 return rows > 0 ? entity.Id : 0;
             }
-            catch(Exception e)
+            catch
             {
-                throw(e);
                 return 0;
             }
         }
@@ -156,6 +171,15 @@ namespace LabProject.Infrastructure.Repositories
             return await connection.QueryAsync<User>(sql, new { SpecialtyId = specialtyId });
         }
 
+        public async Task<User?> GetUserByUsernameAsync(string username)
+        {
+            using var connection = _connectionFactory.CreateConnection();
+            const string sql = @"
+                SELECT u.* FROM auth.Users u
+                WHERE u.Username = @Username";
+
+            return await connection.QuerySingleOrDefaultAsync<User>(sql, new { Username = username });
+        }
 
         public async Task<IEnumerable<User>> GetClientFavoritesAsync(long clientId)
         {

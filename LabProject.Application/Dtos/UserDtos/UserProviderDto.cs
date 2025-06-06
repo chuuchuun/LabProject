@@ -8,7 +8,7 @@ using LabProject.Application.Dtos.ServiceDtos;
 
 namespace LabProject.Application.Dtos.UserDtos
 {
-    public class UserProviderDto : UserBasicDto
+    public record UserProviderDto : UserBasicDto
     {
         public List<ServiceBasicDto> Services { get; set; } = [];
         public List<LocationBasicDto> Locations { get; set; } = [];

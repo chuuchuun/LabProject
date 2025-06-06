@@ -10,9 +10,9 @@ using LabProject.Domain.Interfaces;
 
 namespace LabProject.Application.Services
 {
-    public class RoleService(IRepository<Role> roleRepo, IMapper mapper) : IBaseService<Role, RoleDto, RoleCreateDto, RoleUpdateDto>
+    public class RoleService(IRoleRepository roleRepo, IMapper mapper) : IBaseService<Role, RoleDto, RoleCreateDto, RoleUpdateDto>
     {
-        private readonly IRepository<Role> _roleRepo = roleRepo;
+        private readonly IRoleRepository _roleRepo = roleRepo;
         private readonly IMapper _mapper = mapper;
         public async Task<long> AddAsync(RoleCreateDto roleCreateDto)
         {

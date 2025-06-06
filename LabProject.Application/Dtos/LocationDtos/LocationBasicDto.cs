@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LabProject.Application.Dtos.LocationDtos
 {
-    public class LocationBasicDto
+    public record LocationBasicDto
     {
         public long Id { get; set; }
         required public string Name { get; set; }

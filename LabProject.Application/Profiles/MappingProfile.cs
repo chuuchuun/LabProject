@@ -104,14 +104,18 @@ namespace LabProject.Application.Profiles
 
         private void CreateUserMappings()
         {
-            CreateMap<User, UserDto>().ReverseMap();     
+            CreateMap<User, UserDto>()
+                .ForMember(dest => dest.RoleName, opt => opt.MapFrom(src => src.Role!.Name))
+                .ReverseMap()
+                .ForMember(dest => dest.Role, opt => opt.Ignore());
 
             CreateMap<User, UserBasicDto>().ReverseMap();
 
             CreateMap<User, UserCreateDto>()
                 .ForMember(dest => dest.Password, opt => opt.Ignore())
                 .ReverseMap()
-                .ForMember(dest => dest.PasswordHash, opt => opt.Ignore());
+                .ForMember(dest => dest.PasswordHash, opt => opt.Ignore())
+                .ForMember(dest => dest.Role, opt => opt.Ignore());
 
             CreateMap<User, UserUpdateDto>()
                 .ReverseMap()

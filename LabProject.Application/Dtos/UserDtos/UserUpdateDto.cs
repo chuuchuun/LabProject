@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LabProject.Application.Dtos.UserDtos
 {
-    public class UserUpdateDto
+    public record UserUpdateDto
     {
         [MaxLength(100)]
         public string? Name { get; set; }

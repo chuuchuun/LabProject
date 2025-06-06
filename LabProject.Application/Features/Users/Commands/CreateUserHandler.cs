@@ -14,14 +14,15 @@ namespace LabProject.Application.Features.Users.Commands
 {
     public record CreateUserCommand(UserCreateDto Dto) : IRequest<long>;
 
-    public class CreateUserHandler(IUserRepository userRepo, IMapper mapper) : IRequestHandler<CreateUserCommand, long>
+    public class CreateUserHandler(IUserRepository userRepo, IMapper mapper, IRoleRepository roleRepo) : IRequestHandler<CreateUserCommand, long>
     {
         private readonly IUserRepository _userRepo = userRepo;
+        private readonly IRoleRepository _roleRepo = roleRepo;
         private readonly IMapper _mapper = mapper;
 
         public async Task<long> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            var passwordHash = string.Empty;
+            string? passwordHash;
             if (!string.IsNullOrEmpty(request.Dto.Password))
             {
                 passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Dto.Password);
@@ -30,8 +31,11 @@ namespace LabProject.Application.Features.Users.Commands
             {
                 throw new ArgumentException("Password cannot be null or empty");
             }
+            var role = await _roleRepo.GetRoleByNameAsync(request.Dto.RoleName);
             var user = _mapper.Map<User>(request.Dto);
             user.PasswordHash = passwordHash;
+            user.Role = role;
+            user.RoleId = role?.Id ?? throw new ArgumentException("Role not found");
             user.CreatedAt = DateTime.UtcNow;
             user.UpdatedAt = DateTime.UtcNow;
 

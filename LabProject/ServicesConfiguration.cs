@@ -25,7 +25,7 @@ namespace LabProject.Presentation
             services.AddScoped<IPaymentRepository, PaymentRepository>();
             services.AddScoped<IRepository<PaymentDiscount>, PaymentDiscountRepository>();
             services.AddScoped<IReviewRepository, ReviewRepository>();
-            services.AddScoped<IRepository<Role>, RoleRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IServiceRepository, ServiceRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             

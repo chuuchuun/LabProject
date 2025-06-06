@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace LabProject.Application.Dtos.UserDtos
 {
-    public record UserBasicDto
+    public record UserLoginDto
     {
-        public long Id { get; set; }
-        required public string Name { get; set; }
+        required public string Username { get; set; }
+        required public string Password { get; set; }
     }
 }

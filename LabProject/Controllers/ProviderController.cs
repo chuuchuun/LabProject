@@ -27,7 +27,7 @@ namespace LabProject.Presentation.Controllers
         public async Task<ActionResult<IEnumerable<UserDto>>> GetProviders()
         {
             var users = await _mediator.Send(new GetAllUsersQuery());
-            return Ok(users.Where(u => u.RoleId == 2));
+            return Ok(users.Where(u => u.RoleName == "Provider"));
         }
 
         /// <summary>

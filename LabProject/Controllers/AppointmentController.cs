@@ -1,19 +1,21 @@
 ﻿using System.Threading.Tasks;
 using LabProject.Application.Dtos.AppontmentDtos;
+using LabProject.Application.Features.Appointments.Commands;
 using LabProject.Application.Interfaces;
 using LabProject.Application.Services;
 using LabProject.Domain.Entities;
 using LabProject.Domain.Enums;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LabProject.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AppointmentController(IBaseService<Appointment, AppointmentDto, AppointmentCreateDto, AppointmentUpdateDto> appointmentService) : ControllerBase
+    public class AppointmentController(IBaseService<Appointment, AppointmentDto, AppointmentCreateDto, AppointmentUpdateDto> appointmentService, IMediator mediator) : ControllerBase
     {
         private readonly IBaseService<Appointment, AppointmentDto, AppointmentCreateDto, AppointmentUpdateDto> _appointmentService = appointmentService;
-
+        private readonly IMediator _mediator = mediator;
         /// <summary>
         /// Gets all appointments in the system.
         /// </summary>
@@ -55,7 +57,7 @@ namespace LabProject.Presentation.Controllers
             if (appointment is null)
                 return BadRequest();
 
-            var newId = await _appointmentService.AddAsync(appointment);
+            var newId = await _mediator.Send(new CreateAppointmentCommand(appointment));
             if (newId <= 0)
             {
                 return StatusCode(500, "Failed to create appointment");

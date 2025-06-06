@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LabProject.Application.Dtos.LocationDtos
 {
-    public class LocationCreateDto
+    public record LocationCreateDto
     {
         [Required, MaxLength(100)]
         required public string Name { get; set; }

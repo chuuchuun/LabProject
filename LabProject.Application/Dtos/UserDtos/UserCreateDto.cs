@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LabProject.Application.Dtos.UserDtos
 {
-    public class UserCreateDto
+    public record UserCreateDto
     {
         [Required, MaxLength(100)]
         required public string Name { get; set; }
@@ -25,6 +25,6 @@ namespace LabProject.Application.Dtos.UserDtos
         required public string Password { get; set; }
 
         [Required]
-        public int RoleId { get; set; }
+        required public string RoleName { get; set; }
     }
 }

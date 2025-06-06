@@ -10,7 +10,7 @@ using LabProject.Infrastructure.Interfaces;
 
 namespace LabProject.Infrastructure.Repositories
 {
-    public class RoleRepository(IDbConnectionFactory connectionFactory) : IRepository<Role>
+    public class RoleRepository(IDbConnectionFactory connectionFactory) : IRoleRepository
     {
         private readonly IDbConnectionFactory _connectionFactory = connectionFactory;
 
@@ -108,6 +108,20 @@ namespace LabProject.Infrastructure.Repositories
             catch
             {
                 return false;
+            }
+        }
+
+        public async Task<Role?> GetRoleByNameAsync(string roleName)
+        {
+            using IDbConnection db = _connectionFactory.CreateConnection();
+            const string sql = "SELECT * FROM auth.Roles WHERE Name = @Name";
+            try
+            {
+                return await db.QuerySingleOrDefaultAsync<Role>(sql, new { Name = roleName });
+            }
+            catch
+            {
+                return null;
             }
         }
     }

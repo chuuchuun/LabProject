@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace LabProject.Application.Dtos.DiscountDtos
 {
 
-    public class DiscountUpdateDto
+    public record DiscountUpdateDto
     {
         [MaxLength(100)]
         public string? Title { get; set; }
