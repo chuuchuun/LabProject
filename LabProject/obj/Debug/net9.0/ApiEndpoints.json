@@ -6,7 +6,13 @@
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "Api-Version-1",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Application.Dtos.AppontmentDtos.AppointmentDto, LabProject.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
@@ -31,6 +37,11 @@
         "Name": "appointment",
         "Type": "LabProject.Application.Dtos.AppontmentDtos.AppointmentCreateDto",
         "IsRequired": true
+      },
+      {
+        "Name": "Api-Version-1",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
@@ -57,6 +68,11 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
+      },
+      {
+        "Name": "Api-Version-1",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
@@ -88,6 +104,11 @@
         "Name": "updatedAppointment",
         "Type": "LabProject.Application.Dtos.AppontmentDtos.AppointmentUpdateDto",
         "IsRequired": true
+      },
+      {
+        "Name": "Api-Version-1",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -104,6 +125,11 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
+      },
+      {
+        "Name": "Api-Version-1",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -115,7 +141,13 @@
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "Api-Version-1",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Application.Dtos.UserDtos.UserDto, LabProject.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
@@ -140,6 +172,11 @@
         "Name": "userCreateDto",
         "Type": "LabProject.Application.Dtos.UserDtos.UserCreateDto",
         "IsRequired": true
+      },
+      {
+        "Name": "Api-Version-1",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
@@ -166,6 +203,11 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
+      },
+      {
+        "Name": "Api-Version-1",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
@@ -197,6 +239,11 @@
         "Name": "updatedProvider",
         "Type": "LabProject.Application.Dtos.UserDtos.UserUpdateDto",
         "IsRequired": true
+      },
+      {
+        "Name": "Api-Version-1",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -213,6 +260,11 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
+      },
+      {
+        "Name": "Api-Version-1",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -224,7 +276,13 @@
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "Api-Version-1",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Application.Dtos.LocationDtos.LocationDto, LabProject.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
@@ -249,6 +307,11 @@
         "Name": "location",
         "Type": "LabProject.Application.Dtos.LocationDtos.LocationCreateDto",
         "IsRequired": true
+      },
+      {
+        "Name": "Api-Version-1",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
@@ -275,6 +338,11 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
+      },
+      {
+        "Name": "Api-Version-1",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
@@ -306,6 +374,11 @@
         "Name": "location",
         "Type": "LabProject.Application.Dtos.LocationDtos.LocationUpdateDto",
         "IsRequired": true
+      },
+      {
+        "Name": "Api-Version-1",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -322,6 +395,11 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
+      },
+      {
+        "Name": "Api-Version-1",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -333,7 +411,13 @@
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "Api-Version-1",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Application.Dtos.UserDtos.UserDto, LabProject.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
@@ -358,6 +442,11 @@
         "Name": "provider",
         "Type": "LabProject.Application.Dtos.UserDtos.UserCreateDto",
         "IsRequired": true
+      },
+      {
+        "Name": "Api-Version-1",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
@@ -384,6 +473,11 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
+      },
+      {
+        "Name": "Api-Version-1",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
@@ -415,6 +509,11 @@
         "Name": "updatedProvider",
         "Type": "LabProject.Application.Dtos.UserDtos.UserUpdateDto",
         "IsRequired": true
+      },
+      {
+        "Name": "Api-Version-1",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -431,6 +530,11 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
+      },
+      {
+        "Name": "Api-Version-1",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -442,7 +546,13 @@
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "Api-Version-1",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Application.Dtos.ReviewDtos.ReviewDto, LabProject.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
@@ -467,6 +577,11 @@
         "Name": "review",
         "Type": "LabProject.Application.Dtos.ReviewDtos.ReviewCreateDto",
         "IsRequired": true
+      },
+      {
+        "Name": "Api-Version-1",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
@@ -493,6 +608,11 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
+      },
+      {
+        "Name": "Api-Version-1",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
@@ -524,6 +644,11 @@
         "Name": "review",
         "Type": "LabProject.Application.Dtos.ReviewDtos.ReviewUpdateDto",
         "IsRequired": true
+      },
+      {
+        "Name": "Api-Version-1",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -540,6 +665,11 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
+      },
+      {
+        "Name": "Api-Version-1",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -551,7 +681,13 @@
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "Api-Version-1",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.IEnumerable\u00601[[LabProject.Application.Dtos.ServiceDtos.ServiceDto, LabProject.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
@@ -576,6 +712,11 @@
         "Name": "service",
         "Type": "LabProject.Application.Dtos.ServiceDtos.ServiceCreateDto",
         "IsRequired": true
+      },
+      {
+        "Name": "Api-Version-1",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
@@ -602,6 +743,11 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
+      },
+      {
+        "Name": "Api-Version-1",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
@@ -633,6 +779,11 @@
         "Name": "updatedService",
         "Type": "LabProject.Application.Dtos.ServiceDtos.ServiceUpdateDto",
         "IsRequired": true
+      },
+      {
+        "Name": "Api-Version-1",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -649,6 +800,11 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
+      },
+      {
+        "Name": "Api-Version-1",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -665,6 +821,11 @@
         "Name": "specialtyId",
         "Type": "System.Int64",
         "IsRequired": true
+      },
+      {
+        "Name": "Api-Version-1",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
