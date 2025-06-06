@@ -10,6 +10,7 @@ using LabProject.Domain.Interfaces;
 using LabProject.Infrastructure.Interfaces;
 using LabProject.Infrastructure.Repositories;
 using LabProject.Infrastructure;
+using LabProject.Application.Services.LabProject.Application.Services;
 
 namespace LabProject.Presentation
 {
@@ -38,6 +39,7 @@ namespace LabProject.Presentation
             services.AddScoped<IBaseService<Role, RoleDto, RoleCreateDto, RoleUpdateDto>, RoleService>();
             services.AddScoped<IServiceService, ServiceService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddHttpClient<IWebhookService, WebhookService>();
 
             return services;
         }

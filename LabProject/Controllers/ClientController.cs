@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace LabProject.Presentation.Controllers
 {
+    [ApiVersion("1.0")]
     [Route("api/[controller]")]
     [ApiController]
     public class ClientController(IMediator mediator) : ControllerBase
