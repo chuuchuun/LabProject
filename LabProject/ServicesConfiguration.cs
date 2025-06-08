@@ -39,6 +39,7 @@ namespace LabProject.Presentation
             services.AddScoped<IServiceService, ServiceService>();
             services.AddScoped<IUserService, UserService>();
 
+            
             return services;
         }
     }

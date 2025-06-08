@@ -12,7 +12,7 @@ using LabProject.Domain.Interfaces;
 using Moq;
 using Xunit;
 
-namespace LabProject.Tests.UnitTests
+namespace LabProject.Tests.UnitTests.UserHandlers
 {
     public class UpdateUserHandlerTests
     {

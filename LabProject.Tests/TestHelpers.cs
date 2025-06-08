@@ -18,7 +18,8 @@ namespace LabProject.Tests
                 Name = "Test", 
                 Password = "123", 
                 Phone = "111-111-1111", 
-                Username = "test"
+                Username = "test",
+                RoleName = "Client"
             };
         public static User BasicUser() =>
            new ()
@@ -30,6 +31,16 @@ namespace LabProject.Tests
                Phone = "111-111-1111",
                Username = "test"
            };
+        public static User BasicUserWithId(long id) =>
+         new()
+         {
+             Id = id,
+             Name = $"Test{id}",
+             Email = $"test{id}@example.com",
+             PasswordHash = $"{id}23",
+             Phone = $"{id}{id}2-222-2222",
+             Username = $"test{id}"
+         };
         public static UserCreateDto BasicUserCreateDtoWithNoPassword() =>
             new()
             {
@@ -37,7 +48,8 @@ namespace LabProject.Tests
                 Name = "Test",
                 Password = "",
                 Phone = "111-111-1111",
-                Username = "test"
+                Username = "test",
+                RoleName = "Client"
             };
         public static UserUpdateDto BasicUserUpdateDto() =>
             new()

@@ -12,13 +12,13 @@ using LabProject.Domain.Interfaces;
 using Moq;
 using Xunit;
 
-namespace LabProject.Tests.UnitTests
+namespace LabProject.Tests.UnitTests.UserHandlers
 {
     public class CreateUserHandlerTest
     {
         private readonly Mock<IUserRepository> _userRepoMock = new();
         private readonly Mock<IMapper> _mapperMock = new();
-
+        private readonly Mock<IRoleRepository> _roleRepoMock = new();
         [Fact]
         public async Task Handle_ValidDto_ReturnsNewUserId()
         {
@@ -27,7 +27,7 @@ namespace LabProject.Tests.UnitTests
             var user = TestHelpers.BasicUser();
             _mapperMock.Setup(m => m.Map<User>(dto)).Returns(user);
             _userRepoMock.Setup(r => r.AddAsync(It.IsAny<User>())).ReturnsAsync(123L);
-            var handler = new CreateUserHandler(_userRepoMock.Object, _mapperMock.Object);
+            var handler = new CreateUserHandler(_userRepoMock.Object, _mapperMock.Object, _roleRepoMock.Object);
 
             var result = await handler.Handle(command, CancellationToken.None);
 
@@ -45,7 +45,7 @@ namespace LabProject.Tests.UnitTests
         {
             var dto = TestHelpers.BasicUserCreateDtoWithNoPassword();
             var command = new CreateUserCommand(dto);
-            var handler = new CreateUserHandler(_userRepoMock.Object, _mapperMock.Object);
+            var handler = new CreateUserHandler(_userRepoMock.Object, _mapperMock.Object, _roleRepoMock.Object);
 
             Func<Task> act = async () => await handler.Handle(command, CancellationToken.None);
 

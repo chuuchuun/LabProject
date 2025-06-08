@@ -1,0 +1,50 @@
+2025-06-08 10:23:07.600 +02:00 [INF] Starting up the application
+2025-06-08 10:23:07.780 +02:00 [INF] User profile is available. Using 'C:\Users\alla\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-06-08 10:23:07.930 +02:00 [INF] Now listening on: https://localhost:7108
+2025-06-08 10:23:07.935 +02:00 [INF] Now listening on: http://localhost:5052
+2025-06-08 10:23:08.017 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-06-08 10:23:08.019 +02:00 [INF] Hosting environment: Development
+2025-06-08 10:23:08.032 +02:00 [INF] Content root path: C:\Users\alla\Documents\GitHub\LabProject\LabProject
+2025-06-08 10:23:08.480 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7108/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-08 10:23:08.498 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7108/_vs/browserLink - null null
+2025-06-08 10:23:08.512 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7108/_framework/aspnetcore-browser-refresh.js - 200 16531 application/javascript; charset=utf-8 35.3373ms
+2025-06-08 10:23:08.558 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7108/_vs/browserLink - 200 null text/javascript; charset=UTF-8 59.8106ms
+2025-06-08 10:23:08.587 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7108/swagger/v1/swagger.json - null null
+2025-06-08 10:23:08.687 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7108/swagger/v1/swagger.json - 404 0 null 99.1389ms
+2025-06-08 10:23:08.701 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7108/swagger/v1/swagger.json, Response status code: 404
+2025-06-08 10:23:43.297 +02:00 [INF] Starting up the application
+2025-06-08 10:23:43.443 +02:00 [INF] User profile is available. Using 'C:\Users\alla\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-06-08 10:23:43.590 +02:00 [INF] Now listening on: https://localhost:7108
+2025-06-08 10:23:43.597 +02:00 [INF] Now listening on: http://localhost:5052
+2025-06-08 10:23:43.657 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-06-08 10:23:43.661 +02:00 [INF] Hosting environment: Development
+2025-06-08 10:23:43.672 +02:00 [INF] Content root path: C:\Users\alla\Documents\GitHub\LabProject\LabProject
+2025-06-08 10:23:44.611 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7108/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-08 10:23:44.632 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7108/_framework/aspnetcore-browser-refresh.js - 200 16531 application/javascript; charset=utf-8 24.8ms
+2025-06-08 10:23:44.642 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7108/_vs/browserLink - null null
+2025-06-08 10:23:44.701 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7108/_vs/browserLink - 200 null text/javascript; charset=UTF-8 59.105ms
+2025-06-08 10:23:44.733 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7108/swagger/v1/swagger.json - null null
+2025-06-08 10:23:44.806 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7108/swagger/v1/swagger.json - 404 0 null 72.6405ms
+2025-06-08 10:23:44.820 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7108/swagger/v1/swagger.json, Response status code: 404
+2025-06-08 10:25:09.342 +02:00 [INF] Starting up the application
+2025-06-08 10:25:09.510 +02:00 [INF] User profile is available. Using 'C:\Users\alla\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-06-08 10:25:09.731 +02:00 [INF] Now listening on: https://localhost:7108
+2025-06-08 10:25:09.735 +02:00 [INF] Now listening on: http://localhost:5052
+2025-06-08 10:25:09.807 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-06-08 10:25:09.810 +02:00 [INF] Hosting environment: Development
+2025-06-08 10:25:09.819 +02:00 [INF] Content root path: C:\Users\alla\Documents\GitHub\LabProject\LabProject
+2025-06-08 10:25:10.194 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7108/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-08 10:25:10.212 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7108/_framework/aspnetcore-browser-refresh.js - 200 16531 application/javascript; charset=utf-8 21.7574ms
+2025-06-08 10:25:10.228 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7108/_vs/browserLink - null null
+2025-06-08 10:25:10.277 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7108/_vs/browserLink - 200 null text/javascript; charset=UTF-8 49.5979ms
+2025-06-08 10:25:10.304 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7108/swagger/v1/swagger.json - null null
+2025-06-08 10:25:10.349 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7108/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 44.9977ms
+2025-06-08 10:25:23.038 +02:00 [INF] Request starting HTTP/2 POST https://localhost:7108/api/Auth/login - application/json 54
+2025-06-08 10:25:23.091 +02:00 [INF] Executing endpoint 'LabProject.Presentation.Controllers.AuthController.Login (LabProject.Presentation)'
+2025-06-08 10:25:23.120 +02:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(LabProject.Application.Dtos.UserDtos.UserLoginDto) on controller LabProject.Presentation.Controllers.AuthController (LabProject.Presentation).
+2025-06-08 10:25:23.235 +02:00 [INF] User login attempt: clientex
+2025-06-08 10:25:24.020 +02:00 [INF] User logged in successfully: clientex
+2025-06-08 10:25:24.033 +02:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-06-08 10:25:24.048 +02:00 [INF] Executed action LabProject.Presentation.Controllers.AuthController.Login (LabProject.Presentation) in 910.9227ms
+2025-06-08 10:25:24.055 +02:00 [INF] Executed endpoint 'LabProject.Presentation.Controllers.AuthController.Login (LabProject.Presentation)'
+2025-06-08 10:25:24.065 +02:00 [INF] Request finished HTTP/2 POST https://localhost:7108/api/Auth/login - 200 null application/json; charset=utf-8 1027.4926ms
