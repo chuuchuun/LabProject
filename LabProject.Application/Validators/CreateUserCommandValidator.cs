@@ -13,7 +13,6 @@ namespace LabProject.Application.Validators
     {
         public CreateUserCommandValidator()
         {
-
             RuleFor(x => x.Dto.Name)
                 .NotEmpty().WithMessage("Name is required")
                 .MaximumLength(100);
@@ -24,11 +23,19 @@ namespace LabProject.Application.Validators
 
             RuleFor(x => x.Dto.Email)
                 .NotEmpty().WithMessage("Email is required")
+                .MaximumLength(100)
                 .EmailAddress();
 
             RuleFor(x => x.Dto.Password)
                 .NotEmpty().WithMessage("Password is required")
                 .MinimumLength(6);
+            RuleFor(x => x.Dto.Phone)
+                .NotEmpty().WithMessage("Phone is required")
+                .Matches(@"^\d{3}-\d{3}-\d{4}$").WithMessage("Phone must be in the format XXX-XXX-XXXX");
+            RuleFor(x => x.Dto.RoleName)
+                .NotEmpty().WithMessage("Role is required")
+                .Must(role => new[] { "Admin", "Client", "Provider" }.Contains(role))
+                .WithMessage("Role must be either Admin, Client, or Provider");
         }
     }
 }

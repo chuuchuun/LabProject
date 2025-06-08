@@ -12,9 +12,12 @@ namespace LabProject.Application.Validators
     {
         public CreateLocationCommandValidator()
         {
+            RuleFor(x => x.Dto.Name)
+                .NotEmpty().WithMessage("Name is required")
+                .MaximumLength(100);
             RuleFor(x => x.Dto.Address)
                 .NotEmpty().WithMessage("Address is required")
-                .MaximumLength(200);
+                .MaximumLength(255);
             RuleFor(x => x.Dto.City)
                 .NotEmpty().WithMessage("City is required")
                 .MaximumLength(100);
