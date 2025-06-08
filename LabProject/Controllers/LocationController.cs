@@ -1,17 +1,20 @@
 ﻿using System.Threading.Tasks;
 using LabProject.Application.Dtos.LocationDtos;
+using LabProject.Application.Features.Locations.Commands;
 using LabProject.Application.Interfaces;
 using LabProject.Application.Services;
 using LabProject.Domain.Entities;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LabProject.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LocationController(IBaseService<Location, LocationDto, LocationCreateDto, LocationUpdateDto> locationService) : ControllerBase
+    public class LocationController(IBaseService<Location, LocationDto, LocationCreateDto, LocationUpdateDto> locationService, IMediator mediator) : ControllerBase
     {
         private readonly IBaseService<Location, LocationDto, LocationCreateDto, LocationUpdateDto> _locationService = locationService;
+        private readonly IMediator _mediator = mediator;
         /// <summary>
         /// Gets all locations in the system.
         /// </summary>
@@ -54,8 +57,8 @@ namespace LabProject.Presentation.Controllers
             {
                 return BadRequest();
             }
-            var newId = await _locationService.AddAsync(location);
-            if(newId < 0)
+            var newId = await _mediator.Send(new CreateLocationCommand(location));
+            if (newId < 0)
             {
                 return StatusCode(500, "Failed to create location");
 

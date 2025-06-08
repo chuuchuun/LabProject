@@ -18,7 +18,6 @@ namespace LabProject.Application.Dtos.LocationDtos
         [Required, MaxLength(100)]
         required public string City { get; set; }
 
-        [Required, Phone]
         required public string Phone { get; set; }
     }
 }

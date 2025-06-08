@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <Folder Include="Features\Appointments\Queries\" />
+    <Folder Include="Features\Locations\Queries\" />
   </ItemGroup>
 
 </Project>
