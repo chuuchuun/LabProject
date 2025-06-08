@@ -11,55 +11,58 @@ using LabProject.Domain.Interfaces;
 using FluentAssertions;
 using LabProject.Tests;
 
-public class GetAllUsersHandlerTest 
+namespace LabProject.Tests.UnitTests.UserHandlers
 {
-    private readonly Mock<IUserRepository> _userRepoMock;
-    private readonly IMapper _mapper;
-    private readonly GetAllUsersQueryHandler _handler;
-
-    public GetAllUsersHandlerTest()
+    public class GetAllUsersHandlerTest
     {
-        _userRepoMock = new Mock<IUserRepository>();
+        private readonly Mock<IUserRepository> _userRepoMock;
+        private readonly IMapper _mapper;
+        private readonly GetAllUsersQueryHandler _handler;
 
-        var config = new MapperConfiguration(cfg =>
+        public GetAllUsersHandlerTest()
         {
-            cfg.CreateMap<User, UserDto>();
-        });
-        _mapper = config.CreateMapper();
+            _userRepoMock = new Mock<IUserRepository>();
 
-        _handler = new GetAllUsersQueryHandler(_userRepoMock.Object, _mapper);
-    }
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<User, UserDto>();
+            });
+            _mapper = config.CreateMapper();
 
-    [Fact]
-    public async Task Handle_ShouldReturnMappedUserDtos_WhenUsersExist()
-    {
-        var users = new List<User>
+            _handler = new GetAllUsersQueryHandler(_userRepoMock.Object, _mapper);
+        }
+
+        [Fact]
+        public async Task Handle_ShouldReturnMappedUserDtos_WhenUsersExist()
+        {
+            var users = new List<User>
         {
             TestHelpers.BasicUser(),
             TestHelpers.BasicUserWithId(2)
         };
-        _userRepoMock.Setup(repo => repo.GetAllAsync())
-                     .ReturnsAsync(users);
-        var query = new GetAllUsersQuery();
+            _userRepoMock.Setup(repo => repo.GetAllAsync())
+                         .ReturnsAsync(users);
+            var query = new GetAllUsersQuery();
 
-        var result = await _handler.Handle(query, CancellationToken.None);
+            var result = await _handler.Handle(query, CancellationToken.None);
 
-        result.Should().NotBeNull();
-        result.Should().HaveCount(2);
-        result.Should().Contain(u => u.Email == "test@example.com");
-    }
+            result.Should().NotBeNull();
+            result.Should().HaveCount(2);
+            result.Should().Contain(u => u.Email == "test@example.com");
+        }
 
-    [Fact]
-    public async Task Handle_ShouldReturnEmptyList_WhenNoUsersExist()
-    {
-        _userRepoMock.Setup(repo => repo.GetAllAsync())
-                     .ReturnsAsync(new List<User>());
-        var query = new GetAllUsersQuery();
+        [Fact]
+        public async Task Handle_ShouldReturnEmptyList_WhenNoUsersExist()
+        {
+            _userRepoMock.Setup(repo => repo.GetAllAsync())
+                         .ReturnsAsync(new List<User>());
+            var query = new GetAllUsersQuery();
 
-        
-        var result = await _handler.Handle(query, CancellationToken.None);
 
-        result.Should().NotBeNull();
-        result.Should().BeEmpty();
+            var result = await _handler.Handle(query, CancellationToken.None);
+
+            result.Should().NotBeNull();
+            result.Should().BeEmpty();
+        }
     }
 }

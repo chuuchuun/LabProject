@@ -51,7 +51,7 @@ namespace LabProject.Tests.UnitTests.UserHandlers
 
             result.Should().NotBeNull().And.HaveCount(2);
             result.Should().AllBeAssignableTo<UserProviderDto>();
-            result.Should().Contain(r => r!.Name == "Anna");
+            result.Should().Contain(r => r!.Name == "Test1");
         }
 
         [Fact]
