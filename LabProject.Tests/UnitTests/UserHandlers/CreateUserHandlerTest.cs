@@ -14,7 +14,7 @@ using Xunit;
 
 namespace LabProject.Tests.UnitTests.UserHandlers
 {
-    public class CreateUserHandlerTest
+    public class CreateLocationHandlerTest
     {
         private readonly Mock<IUserRepository> _userRepoMock = new();
         private readonly Mock<IMapper> _mapperMock = new();
@@ -22,7 +22,7 @@ namespace LabProject.Tests.UnitTests.UserHandlers
         [Fact]
         public async Task Handle_ValidDto_ReturnsNewUserId()
         {
-            var dto = TestHelpers.BasicUserCreateDto();
+            var dto = TestHelpers.CorrectUserCreateDto();
             var command = new CreateUserCommand(dto);
             var user = TestHelpers.BasicUser();
             _mapperMock.Setup(m => m.Map<User>(dto)).Returns(user);
@@ -43,7 +43,7 @@ namespace LabProject.Tests.UnitTests.UserHandlers
         [Fact]
         public async Task Handle_EmptyPassword_ThrowsArgumentException()
         {
-            var dto = TestHelpers.BasicUserCreateDtoWithNoPassword();
+            var dto = TestHelpers.IncorrectUserCreateDtoWithNoPassword();
             var command = new CreateUserCommand(dto);
             var handler = new CreateUserHandler(_userRepoMock.Object, _mapperMock.Object, _roleRepoMock.Object);
 

@@ -35,7 +35,6 @@ namespace LabProject.Presentation
             services.AddScoped<IReadableService<PaymentDiscountDto>, PaymentDiscountService>();
             services.AddScoped<IReviewService, ReviewService>();
             services.AddScoped<IBaseService<Role, RoleDto, RoleCreateDto, RoleUpdateDto>, RoleService>();
-            services.AddScoped<IServiceService, ServiceService>();
             services.AddScoped<IUserService, UserService>();
 
             

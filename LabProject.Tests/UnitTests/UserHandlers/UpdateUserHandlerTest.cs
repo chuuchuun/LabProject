@@ -23,7 +23,7 @@ namespace LabProject.Tests.UnitTests.UserHandlers
         public async Task Handle_UserExists_UpdatesAndReturnsTrue()
         {
             var userId = 1;
-            var dto = TestHelpers.BasicUserUpdateDto();
+            var dto = TestHelpers.CorrectUserUpdateDto();
             var existingUser = TestHelpers.BasicUser();
             _userRepoMock.Setup(r => r.GetByIdAsync(userId)).ReturnsAsync(existingUser);
             _userRepoMock.Setup(r => r.UpdateAsync(userId, It.IsAny<User>())).ReturnsAsync(true);
@@ -42,7 +42,7 @@ namespace LabProject.Tests.UnitTests.UserHandlers
         public async Task Handle_UserNotFound_ReturnsFalse()
         {
             var userId = 999;
-            var dto = TestHelpers.BasicUserUpdateDto();
+            var dto = TestHelpers.CorrectUserUpdateDto();
 
             _userRepoMock.Setup(r => r.GetByIdAsync(userId)).ReturnsAsync((User)null);
 
