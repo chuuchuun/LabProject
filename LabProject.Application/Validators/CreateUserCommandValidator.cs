@@ -11,6 +11,7 @@ namespace LabProject.Application.Validators
 {
     public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
     {
+        static readonly string[] roles = ["Admin", "Client", "Provider"];
         public CreateUserCommandValidator()
         {
             RuleFor(x => x.Dto.Name)
@@ -34,7 +35,10 @@ namespace LabProject.Application.Validators
                 .Matches(@"^\d{3}-\d{3}-\d{4}$").WithMessage("Phone must be in the format XXX-XXX-XXXX");
             RuleFor(x => x.Dto.RoleName)
                 .NotEmpty().WithMessage("Role is required")
-                .Must(role => new[] { "Admin", "Client", "Provider" }.Contains(role))
+                .Must(role =>
+                {
+                    return roles.Contains(role);
+                })
                 .WithMessage("Role must be either Admin, Client, or Provider");
         }
     }

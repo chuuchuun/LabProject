@@ -44,7 +44,7 @@ namespace LabProject.Tests.UnitTests.UserHandlers
             var userId = 999;
             var dto = TestHelpers.CorrectUserUpdateDto();
 
-            _userRepoMock.Setup(r => r.GetByIdAsync(userId)).ReturnsAsync((User)null);
+            _userRepoMock.Setup(r => r.GetByIdAsync(userId)).ReturnsAsync((User?)null);
 
             var handler = new UpdateUserHandler(_userRepoMock.Object, _mapperMock.Object);
 

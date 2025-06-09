@@ -59,7 +59,7 @@ namespace LabProject.Tests.UnitTests.UserHandlers
         {
             long specialtyId = 99;
             _userRepoMock.Setup(repo => repo.GetProvidersBySpecialtyAsync(specialtyId))
-                         .ReturnsAsync(new List<User>());
+                         .ReturnsAsync([]);
             var query = new GetProviderBySpecialtyId(specialtyId);
 
             var result = await _handler.Handle(query, CancellationToken.None);

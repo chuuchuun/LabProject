@@ -19,7 +19,7 @@ namespace LabProject.Presentation
         {
 
             services.AddScoped<IDbConnectionFactory, SqlConnectionFactory>();
-            services.AddScoped<IRepository<Appointment>, AppointmentRepository>();
+            services.AddScoped<IAppointmentRepository, AppointmentRepository>();
             services.AddScoped<IDiscountRepository, DiscountRepository>();
             services.AddScoped<IRepository<Location>, LocationRepository>();
             services.AddScoped<IPaymentRepository, PaymentRepository>();

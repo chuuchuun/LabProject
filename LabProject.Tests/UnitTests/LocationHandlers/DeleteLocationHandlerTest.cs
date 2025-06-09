@@ -6,7 +6,7 @@ using LabProject.Domain.Interfaces;
 using Moq;
 using Xunit;
 
-namespace LabProject.Application.Features.Locations.Commands
+namespace LabProject.Tests.UnitTests.LocationHandlers
 {
     public class DeleteLocationHandlerTests
     {

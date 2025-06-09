@@ -55,7 +55,7 @@ namespace LabProject.Tests.UnitTests.UserHandlers
         public async Task Handle_ShouldReturnEmptyList_WhenNoUsersExist()
         {
             _userRepoMock.Setup(repo => repo.GetAllAsync())
-                         .ReturnsAsync(new List<User>());
+                         .ReturnsAsync([]);
             var query = new GetAllUsersQuery();
 
 
