@@ -11,7 +11,7 @@ namespace LabProject.Domain.Entities
 
         [Required]
         [MaxLength(100)]
-        required public string Name { get; set; }
+        public string Name { get; set; } = null!;
 
         [Required]
         [MaxLength(100)]
