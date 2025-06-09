@@ -1,10 +1,6 @@
 ﻿using LabProject.Application.Dtos.ServiceDtos;
-using LabProject.Application.Features.Services;
-using LabProject.Application.Features.Services.Commands;
-using LabProject.Application.Features.Services.Queries;
 using LabProject.Application.Interfaces;
 using LabProject.Domain.Entities;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +10,9 @@ namespace LabProject.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ServiceController(IMediator mediator): ControllerBase
+    public class ServiceController(IServiceService serviceService): ControllerBase
     {
-        private readonly IMediator _mediator = mediator;
+        private readonly IServiceService _serviceService = serviceService;
         /// <summary>
         /// Gets all services in the system.
         /// </summary>
@@ -25,7 +21,7 @@ namespace LabProject.Presentation.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ServiceDto>>> GetServices()
         {
-            return Ok(await _mediator.Send(new GetAllServicesQuery()));
+            return Ok(await _serviceService.GetAllAsync());
         }
 
         /// <summary>
@@ -36,9 +32,9 @@ namespace LabProject.Presentation.Controllers
         /// <response code="200">OK – The service matching the ID.</response>
         /// <response code="404">Not Found – No service found with the given ID.</response>
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceDto>> GetServiceById([FromRoute] int id)
+        public ActionResult<ServiceDto> GetServiceById([FromRoute] int id)
         {
-            var service = await _mediator.Send(new GetServiceByIdQuery(id));
+            var service = _serviceService.GetByIdAsync(id);
             if (service is null)
             {
                 return NotFound();
@@ -59,12 +55,12 @@ namespace LabProject.Presentation.Controllers
             {
                 return BadRequest("Service data cannot be null.");
             }
-            var newId = await _mediator.Send(new CreateServiceCommand(service));
+            var newId = await _serviceService.AddAsync(service);
             if (newId <= 0)
             {
                 return BadRequest("Failed to create service.");
             }
-            var createdService = await _mediator.Send(new GetServiceByIdQuery(newId));
+            var createdService = await _serviceService.GetByIdAsync(newId);
             return CreatedAtAction(nameof(GetServiceById), new { id = newId}, createdService);
         }
 
@@ -83,12 +79,12 @@ namespace LabProject.Presentation.Controllers
             {
                 return BadRequest("Updated service data cannot be null.");
             }
-            var success = await _mediator.Send(new UpdateServiceCommand(id, updatedService));
+            var success = await _serviceService.UpdateAsync(id, updatedService);
             if (!success)
             {
                 return NotFound("Service not found or update failed.");
             }
-            var service = await _mediator.Send(new GetServiceByIdQuery(id));
+            var service = await _serviceService.GetByIdAsync(id);
             return Ok(service);
         }
 
@@ -102,7 +98,7 @@ namespace LabProject.Presentation.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteService([FromRoute] int id)
         {
-            var success = await _mediator.Send(new DeleteServiceCommand(id));
+            var success = await _serviceService.DeleteAsync(id);
             if (!success)
             {
                 return NotFound();

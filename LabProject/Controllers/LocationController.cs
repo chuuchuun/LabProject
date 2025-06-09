@@ -1,20 +1,17 @@
 ﻿using System.Threading.Tasks;
 using LabProject.Application.Dtos.LocationDtos;
-using LabProject.Application.Features.Locations.Commands;
-using LabProject.Application.Features.Locations.Queries;
 using LabProject.Application.Interfaces;
 using LabProject.Application.Services;
 using LabProject.Domain.Entities;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LabProject.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LocationController(IMediator mediator) : ControllerBase
+    public class LocationController(IBaseService<Location, LocationDto, LocationCreateDto, LocationUpdateDto> locationService) : ControllerBase
     {
-        private readonly IMediator _mediator = mediator;
+        private readonly IBaseService<Location, LocationDto, LocationCreateDto, LocationUpdateDto> _locationService = locationService;
         /// <summary>
         /// Gets all locations in the system.
         /// </summary>
@@ -23,7 +20,7 @@ namespace LabProject.Presentation.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<LocationDto>>> GetLocations()
         {
-            return Ok(await _mediator.Send(new GetAllLocationsQuery()));
+            return Ok(await _locationService.GetAllAsync());
         }
 
         /// <summary>
@@ -36,7 +33,7 @@ namespace LabProject.Presentation.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<LocationDto>> GetLocationById([FromRoute] int id)
         {
-            var location = await _mediator.Send(new GetLocationByIdQuery(id));
+            var location = await _locationService.GetByIdAsync(id);
             if (location is null)
             {
                 return NotFound();
@@ -57,13 +54,13 @@ namespace LabProject.Presentation.Controllers
             {
                 return BadRequest();
             }
-            var newId = await _mediator.Send(new CreateLocationCommand(location));
-            if (newId < 0)
+            var newId = await _locationService.AddAsync(location);
+            if(newId < 0)
             {
                 return StatusCode(500, "Failed to create location");
 
             }
-            var createdLocation = await _mediator.Send(new GetLocationByIdQuery(newId));
+            var createdLocation = await _locationService.GetByIdAsync(newId);
             return CreatedAtAction(nameof(GetLocationById), new { id = newId }, createdLocation);
         }
 
@@ -83,13 +80,14 @@ namespace LabProject.Presentation.Controllers
                 return BadRequest("Location data is invalid or ID mismatch.");
             }
 
-            var success = await _mediator.Send(new UpdateLocationCommand(id, location));
+            var success = await _locationService.UpdateAsync(id, location);
             if (!success)
             {
                 return NotFound($"Location with ID {id} not found.");
             }
 
-            var updatedLocation = await _mediator.Send(new GetLocationByIdQuery(id));
+            // Optionally, return the updated appointment data after update
+            var updatedLocation = await _locationService.GetByIdAsync(id);
             return Ok(updatedLocation);
         }
 
@@ -103,7 +101,7 @@ namespace LabProject.Presentation.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteLocation([FromRoute] int id)
         {
-            var success = await _mediator.Send(new DeleteLocationCommand(id));
+            var success = await _locationService.DeleteAsync(id);
             if (!success)
             {
                 return NotFound($"Location with ID {id} not found.");

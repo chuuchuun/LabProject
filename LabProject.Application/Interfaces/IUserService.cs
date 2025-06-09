@@ -8,8 +8,9 @@ using LabProject.Domain.Entities;
 
 namespace LabProject.Application.Interfaces
 {
-    public interface IUserService : ICreatableService<UserCreateDto>
+    public interface IUserService : IBaseService<User, UserDto,UserCreateDto, UserUpdateDto>
     {
+        Task<IEnumerable<UserProviderDto>> GetProvidersBySpecialtyIdAsync(long specialtyId);
         Task<string> LoginUser(UserLoginDto userLoginDto);
     }
 }

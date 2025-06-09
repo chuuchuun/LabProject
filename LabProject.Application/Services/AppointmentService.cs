@@ -12,16 +12,19 @@ using LabProject.Domain.Interfaces;
 
 namespace LabProject.Application.Services
 {
-    public class AppointmentService(IRepository<Appointment> appointmentRepo, IMapper mapper) : IBaseService<Appointment, AppointmentDto, AppointmentCreateDto, AppointmentUpdateDto>
+    public class AppointmentService(IRepository<Appointment> appointmentRepo, IMapper mapper, IWebhookService webhookService) : IBaseService<Appointment, AppointmentDto, AppointmentCreateDto, AppointmentUpdateDto>
     {
         private readonly IRepository<Appointment> _appointmentRepo = appointmentRepo;
         private readonly IMapper _mapper = mapper;
+        private readonly IWebhookService _webhookService = webhookService;
         public async Task<long> AddAsync(AppointmentCreateDto appointmentCreateDto)
         {
             var appointmentEntity = _mapper.Map<Appointment>(appointmentCreateDto);
             appointmentEntity.CreatedAt = DateTime.UtcNow;
             appointmentEntity.UpdatedAt = DateTime.UtcNow;
-            return await _appointmentRepo.AddAsync(appointmentEntity);
+            var appointmentId = await _appointmentRepo.AddAsync(appointmentEntity);
+            await _webhookService.NotifyAppointmentCreatedAsync(appointmentEntity);
+            return appointmentId;
         }
 
         public async Task<bool> DeleteAsync(long id)
