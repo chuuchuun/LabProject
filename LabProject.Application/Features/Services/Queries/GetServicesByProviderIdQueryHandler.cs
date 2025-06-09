@@ -20,7 +20,7 @@ namespace LabProject.Application.Features.Services.Queries
             long providerId = request.ProviderId;
             if (providerId <= 0)
             {
-                throw new ArgumentException("Provider ID must be greater than zero.", nameof(providerId));
+                throw new ArgumentException("Provider ID must be greater than zero.", nameof(request));
             }
             {
                 var services = await _serviceRepo.GetServicesByProviderAsync(providerId);
