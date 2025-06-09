@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using LabProject.Application.Dtos.AppontmentDtos;
-using LabProject.Application.Features.Appointments.Commands;
+using LabProject.Application.Features;
 using LabProject.Application.Interfaces;
 using LabProject.Application.Services;
 using LabProject.Domain.Entities;
@@ -57,7 +57,7 @@ namespace LabProject.Presentation.Controllers
             if (appointment is null)
                 return BadRequest();
 
-            var newId = await _mediator.Send(new CreateAppointmentCommand(appointment));
+            var newId = await _appointmentService.AddAsync(appointment);
             if (newId <= 0)
             {
                 return StatusCode(500, "Failed to create appointment");

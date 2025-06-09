@@ -22,24 +22,17 @@ namespace LabProject.Application.Features.Users.Commands
 
         public async Task<long> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            string? passwordHash;
-            if (!string.IsNullOrEmpty(request.Dto.Password))
+            var passwordHash = !string.IsNullOrEmpty(request.Dto.Password) ?
+                BCrypt.Net.BCrypt.HashPassword(request.Dto.Password) : null;
+            if (passwordHash is not null)
             {
-                passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Dto.Password);
+                var user = _mapper.Map<User>(request.Dto);
+                user.PasswordHash = passwordHash;
+                user.CreatedAt = DateTime.UtcNow;
+                user.UpdatedAt = DateTime.UtcNow;
+                return await _userRepo.AddAsync(user);
             }
-            else
-            {
-                throw new ArgumentException("Password cannot be null or empty");
-            }
-            var role = await _roleRepo.GetRoleByNameAsync(request.Dto.RoleName);
-            var user = _mapper.Map<User>(request.Dto);
-            user.PasswordHash = passwordHash;
-            user.Role = role;
-            user.RoleId = role?.Id ?? throw new ArgumentException("Role not found");
-            user.CreatedAt = DateTime.UtcNow;
-            user.UpdatedAt = DateTime.UtcNow;
-
-            return await _userRepo.AddAsync(user);
+            throw new ArgumentException("Password cannot be null or empty");
         }
     }
 }

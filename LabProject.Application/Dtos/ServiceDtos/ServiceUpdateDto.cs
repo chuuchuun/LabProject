@@ -9,15 +9,9 @@ namespace LabProject.Application.Dtos.ServiceDtos
 {
     public record ServiceUpdateDto
     {
-        [MaxLength(100)]
         public string? Name { get; set; }
-
-        [MaxLength(1000)]
         public string? Description { get; set; }
-
-        [Range(0, 180)]
         public int? DurationMinutes { get; set; }
-
         public decimal? Price { get; set; }
     }
 }

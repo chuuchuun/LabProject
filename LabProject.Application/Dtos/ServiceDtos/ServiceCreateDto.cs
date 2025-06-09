@@ -9,16 +9,9 @@ namespace LabProject.Application.Dtos.ServiceDtos
 {
     public record ServiceCreateDto
     {
-        [Required, MaxLength(100)]
         required public string Name { get; set; }
-
-        [MaxLength(1000)]
         public string? Description { get; set; }
-
-        [Range(0, 180)]
         public int DurationMinutes { get; set; }
-
-        [Required]
         public decimal Price { get; set; }
     }
 }

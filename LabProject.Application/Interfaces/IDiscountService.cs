@@ -8,7 +8,7 @@ using LabProject.Domain.Entities;
 
 namespace LabProject.Application.Interfaces
 {
-    public interface IDiscountService : ICreatableService<DiscountCreateDto>,IReadableService<DiscountDto>, IUpdatableService<DiscountUpdateDto>, IDeletableService
+    public interface IDiscountService : IBaseService<Discount, DiscountDto, DiscountCreateDto, DiscountUpdateDto>
     {
         public Task<IEnumerable<DiscountDto>> GetValidDiscountsForClientAsync(long clientId);
     }
