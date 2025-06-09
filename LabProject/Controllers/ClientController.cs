@@ -11,6 +11,7 @@ using MediatR;
 using LabProject.Application.Features.Users.Commands;
 using LabProject.Application.Features.Users.Queries;
 using Microsoft.AspNetCore.Authorization;
+using LabProject.Application.Features.Appointments.Queries;
 
 namespace LabProject.Presentation.Controllers
 {
@@ -156,6 +157,17 @@ namespace LabProject.Presentation.Controllers
                 return NotFound($"Client with ID {id} not found.");
             }
             return Ok();
+        }
+
+        [HttpGet("appointments/{id}")]
+        public async Task<ActionResult> GetAppointmentsForClient([FromRoute] long id)
+        {
+            var appointments = await _mediator.Send(new GetAppointmentsForUserQuery(id));
+            if (appointments is null || !appointments.Any())
+            {
+                return NotFound($"No appointments were found for client with ID {id}.");
+            }
+            return Ok(appointments);
         }
     }
 }

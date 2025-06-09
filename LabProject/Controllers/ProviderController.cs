@@ -10,12 +10,13 @@ using LabProject.Application.Dtos.UserDtos;
 using MediatR;
 using LabProject.Application.Features.Users.Queries;
 using LabProject.Application.Features.Users.Commands;
+using LabProject.Application.Features.Appointments.Queries;
 
 namespace LabProject.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProviderController(IMediator mediator): ControllerBase
+    public class ProviderController(IMediator mediator) : ControllerBase
     {
         private readonly IMediator _mediator = mediator;
         /// <summary>
@@ -71,7 +72,7 @@ namespace LabProject.Presentation.Controllers
             }
 
             var createdAppointment = await _mediator.Send(new GetUserByIdQuery(newId));
-            return CreatedAtAction(nameof(GetProviderById), new { id = newId}, createdAppointment);
+            return CreatedAtAction(nameof(GetProviderById), new { id = newId }, createdAppointment);
         }
         /// <summary>
         /// Updates an existing provider.
@@ -116,6 +117,17 @@ namespace LabProject.Presentation.Controllers
                 return NotFound($"Provider with ID {id} not found.");
             }
             return Ok();
+        }
+
+        [HttpGet("appointments/{id}")]
+        public async Task<ActionResult> GetProviderAppointments([FromRoute] int id)
+        {
+            var appointments = await _mediator.Send(new GetUpcomingAppointmentsForProviderQuery(id));
+            if (appointments is null || !appointments.Any())
+            {
+                return NotFound($"No appointments found for provider with ID {id}.");
+            }
+            return Ok(appointments);
         }
     }
 }

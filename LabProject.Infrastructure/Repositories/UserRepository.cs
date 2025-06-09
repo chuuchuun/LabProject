@@ -191,5 +191,7 @@ namespace LabProject.Infrastructure.Repositories
 
             return await connection.QueryAsync<User>(sql, new { ClientId = clientId });
         }
+
+
     }
 }

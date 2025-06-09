@@ -19,7 +19,7 @@ namespace LabProject.Application.Features.Locations.Commands
         private readonly IMapper _mapper = mapper;
         public async Task<bool> Handle(UpdateLocationCommand request, CancellationToken cancellationToken)
         {
-            var location = await repository.GetByIdAsync(request.Id);
+            var location = await _repository.GetByIdAsync(request.Id);
             if (location is null) return false;
     
             _mapper.Map(request.Dto, location);

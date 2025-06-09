@@ -12,9 +12,9 @@ using LabProject.Domain.Interfaces;
 
 namespace LabProject.Application.Services
 {
-    public class AppointmentService(IRepository<Appointment> appointmentRepo, IMapper mapper) : IBaseService<Appointment, AppointmentDto, AppointmentCreateDto, AppointmentUpdateDto>
+    public class AppointmentService(IAppointmentRepository appointmentRepo, IMapper mapper) : IBaseService<Appointment, AppointmentDto, AppointmentCreateDto, AppointmentUpdateDto>
     {
-        private readonly IRepository<Appointment> _appointmentRepo = appointmentRepo;
+        private readonly IAppointmentRepository _appointmentRepo = appointmentRepo;
         private readonly IMapper _mapper = mapper;
         public async Task<long> AddAsync(AppointmentCreateDto appointmentCreateDto)
         {

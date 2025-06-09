@@ -6,10 +6,12 @@ using LabProject.Infrastructure.Interfaces;
 using System.Data;
 using LabProject.Domain.Interfaces;
 using System;
+using LabProject.Application.Dtos.AppontmentDtos;
+using Microsoft.Data.SqlClient;
 
 namespace LabProject.Infrastructure.Repositories
 {
-    public class AppointmentRepository(IDbConnectionFactory dbFactory) : IRepository<Appointment>
+    public class AppointmentRepository(IDbConnectionFactory dbFactory) : IAppointmentRepository
     {
         private readonly IDbConnectionFactory _dbFactory = dbFactory;
 
@@ -86,14 +88,14 @@ namespace LabProject.Infrastructure.Repositories
                     return false;
 
                 const string query = @"
-                    UPDATE appointments.Appointments
-                    SET ClientId = @ClientId,
-                        ProviderId = @ProviderId,
-                        ServiceId = @ServiceId,
-                        LocationId = @LocationId,
-                        DateTime = @DateTime,
-                        Status = @Status
-                    WHERE Id = @Id";
+            UPDATE appointments.Appointments
+            SET ClientId = @ClientId,
+                ProviderId = @ProviderId,
+                ServiceId = @ServiceId,
+                LocationId = @LocationId,
+                DateTime = @DateTime,
+                Status = @Status
+            WHERE Id = @Id";
 
                 var rowsAffected = await connection.ExecuteAsync(query, new
                 {
@@ -114,6 +116,7 @@ namespace LabProject.Infrastructure.Repositories
             }
         }
 
+
         public async Task<bool> DeleteAsync(long id)
         {
             using var connection = _dbFactory.CreateConnection();
@@ -127,6 +130,50 @@ namespace LabProject.Infrastructure.Repositories
             catch
             {
                 return false;
+            }
+        }
+
+        public async Task<IEnumerable<Appointment>> GetAppointmentsByClientIdAsync(long clientId)
+        {
+
+            using var connection = _dbFactory.CreateConnection();
+            const string query = "appointments.GetClientAppointments";
+
+            try
+            {
+                var appointments = await connection.QueryAsync<Appointment>(
+                       query,
+                        new { ClientId = clientId },
+                        commandType: CommandType.StoredProcedure);
+
+                return [.. appointments];
+
+            }
+            catch
+            {
+                return [];
+            }
+        }
+
+        public async Task<IEnumerable<Appointment>> GetUpcomingAppointmentsForProviderAsync(long providerId)
+        {
+
+            using var connection = _dbFactory.CreateConnection();
+            const string query = "appointments.GetUpcomingAppointmentsForProvider";
+
+            try
+            {
+                var appointments = await connection.QueryAsync<Appointment>(
+                       query,
+                        new { ProviderId = providerId },
+                        commandType: CommandType.StoredProcedure);
+
+                return [.. appointments];
+
+            }
+            catch
+            {
+                return [];
             }
         }
     }
