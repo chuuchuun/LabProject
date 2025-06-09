@@ -39,42 +39,6 @@ namespace LabProject.Application.Services
             return await _userRepo.AddAsync(userEntity);
         }
 
-        public async Task<bool> DeleteAsync(long id)
-        {
-            return await _userRepo.DeleteAsync(id);
-        }
-
-        public async Task<IEnumerable<UserDto>> GetAllAsync()
-        {
-            var users = await _userRepo.GetAllAsync();
-            return _mapper.Map<IEnumerable<UserDto>>(users);
-        }
-
-        public async Task<UserDto?> GetByIdAsync(long id)
-        {
-            var user = await _userRepo.GetByIdAsync(id);
-            return user is null ? null : _mapper.Map<UserDto>(user);
-        }
-
-
-        public async Task<bool> UpdateAsync(long id, UserUpdateDto userUpdateDto)
-        {
-            var existingUser = await _userRepo.GetByIdAsync(id);
-            if (existingUser is null)
-                return false;
-
-            _mapper.Map(userUpdateDto, existingUser);
-            existingUser.UpdatedAt = DateTime.UtcNow;
-
-            return await _userRepo.UpdateAsync(id, existingUser);
-        }
-
-        public async Task<IEnumerable<UserProviderDto>> GetProvidersBySpecialtyIdAsync(long specialtyId)
-        {
-            var providers = await _userRepo.GetProvidersBySpecialtyAsync(specialtyId);
-            return _mapper.Map<IEnumerable<UserProviderDto>>(providers);
-        }
-
         public async Task<string> LoginUser(UserLoginDto userLoginDto)
         {
             var user = await _userRepo.GetUserByUsernameAsync(userLoginDto.Username);

@@ -24,8 +24,4 @@
     <ProjectReference Include="..\LabProject.Core\LabProject.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Appointments\Queries\" />
-  </ItemGroup>
-
 </Project>
